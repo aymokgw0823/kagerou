@@ -12,7 +12,7 @@
  *   - 分類は src/lib/content/taxonomy.ts の値だけを使い、frontmatter は zod（schema.ts）で検証してから書き出す。
  *   - すべて isDummy: true。
  */
-import { existsSync, mkdirSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { blogFrontmatter, type BlogFrontmatter } from "../src/lib/content/schema";
 import {

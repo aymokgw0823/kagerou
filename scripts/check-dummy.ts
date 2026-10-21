@@ -31,7 +31,7 @@ export type Report = {
 
 const SCAN_DIRS = ["src", "content"];
 const EXT = new Set([".ts", ".tsx", ".md", ".mdx", ".json", ".yml", ".yaml"]);
-const IGNORE_DIRS = new Set(["node_modules", ".next", "__tests__"]);
+const IGNORE_DIRS = new Set(["node_modules", ".next", "__tests__", "generated"]);
 /** company.ts は文字列検索ではなく値を直接走査する（PLACEHOLDER 定数経由の値を漏らさないため） */
 const RUNTIME_SCANNED = new Set(["src/config/company.ts"]);
 const PLACEHOLDER_RE = /【[^】]*】/;

@@ -44,6 +44,16 @@ npm run dev
 - 検索インデックス `public/search-index.json` は `predev` / `prebuild` で自動生成される（手動は `npm run build:search-index`）。
 - 取得ロジックは `src/lib/content/`（リポジトリパターン）。ヘッドレスCMSへ移行する場合はこの層だけを差し替える。
 
+## データベース・フォーム（Phase 4）
+
+- Prisma 7 ＋ SQLite（開発）。初回は `npx prisma migrate dev` で `dev.db` を作成し、クライアントを生成する（`postinstall` でも `prisma generate` が走る）。
+- 本番で PostgreSQL を使う場合：`prisma/schema.prisma` の `provider` を `"postgresql"` に変更し、`DATABASE_URL` に接続文字列を設定して `npx prisma migrate deploy`。`src/lib/db.ts` が URL からアダプター（pg / better-sqlite3）を自動選択する。
+- お問い合わせ・ご相談予約・採用エントリーはサーバーアクションで受け付け、`Lead` / `Booking` / `Entry` テーブルに保存する。
+- メールは `src/lib/mail.ts`。`RESEND_API_KEY` 未設定ならコンソールに出力（開発）、設定すると Resend で送信。
+- スパム対策：honeypot（`website` 欄）＋ IP 単位のレート制限（`src/lib/rate-limit.ts`、既定はメモリ）。Cloudflare Turnstile は `TURNSTILE_SECRET_KEY` を設定すると有効。
+- 履歴書は `uploads/`（git 管理外）に保存。Vercel 等では `src/lib/storage.ts` を Blob ストレージ実装に差し替える。
+- 外部の日程調整サービスを使う場合は `NEXT_PUBLIC_BOOKING_EMBED_URL` を設定すると予約ページが埋め込みに切り替わる。
+
 ## 写真の差し替え
 
 1. 撮影指示書 `docs/shot-list.md` に沿って撮影する

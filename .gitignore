@@ -51,3 +51,8 @@ next-env.d.ts
 
 # generated search index
 /public/search-index.json
+
+# prisma generated client
+/src/generated/
+# uploaded files (local storage)
+/uploads/
