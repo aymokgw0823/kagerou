@@ -5,7 +5,7 @@
  * - ベース：白（paper）＋ ほぼ黒（ink）。
  * - コーポレートのアクセントは緑 1 色（--color-accent）。ボタン・リンクの機能色として青（--color-link）を別に持つ。
  * - 5 事業のアクセントは同じ色相系に揃える。
- * - ダークモードは html[data-theme="dark"]、未指定時は prefers-color-scheme に従う。
+ * - テーマはライトのみ（ダークモードは提供しない）。
  */
 
 :root {
@@ -47,7 +47,8 @@
   --color-success: #046a38;
 
   /* ── Typography ── */
-  --font-sans: var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  --font-sans:
+    var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
   --font-display: var(--font-open-sans), var(--font-noto-sans-jp), sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
@@ -74,68 +75,6 @@
   --radius-pill: 999px; /* ボタン */
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px -12px rgba(0, 0, 0, 0.18);
   --header-h: 4rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --color-paper: #0b0b0b;
-    --color-paper-2: #161616;
-    --color-paper-3: #222222;
-    --color-tint: #13201a;
-    --color-ink: #f2f2f2;
-    --color-ink-2: #b4b6b8;
-    --color-ink-3: #8c8f92;
-    --color-line: #333333;
-    --color-line-strong: #f2f2f2;
-    --color-accent: #9ad038;
-    --color-accent-deep: #7fc24a;
-    --color-accent-ink: #0b0b0b;
-    --color-accent-soft: #1d2a10;
-    --color-link: #4fb3e3;
-    --color-link-hover: #7fc8ec;
-    --color-link-ink: #0b0b0b;
-    --color-biz-digital: #4fb3e3;
-    --color-biz-social: #e89a3c;
-    --color-biz-consulting: #5fbf7f;
-    --color-biz-build: #7f93d8;
-    --color-biz-dining: #4fbfc9;
-    --color-notice: #e0b14a;
-    --color-notice-soft: #3a2f12;
-    --color-danger: #e07a73;
-    --color-success: #5fbf7f;
-    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
-  }
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --color-paper: #0b0b0b;
-  --color-paper-2: #161616;
-  --color-paper-3: #222222;
-  --color-tint: #13201a;
-  --color-ink: #f2f2f2;
-  --color-ink-2: #b4b6b8;
-  --color-ink-3: #8c8f92;
-  --color-line: #333333;
-  --color-line-strong: #f2f2f2;
-  --color-accent: #9ad038;
-  --color-accent-deep: #7fc24a;
-  --color-accent-ink: #0b0b0b;
-  --color-accent-soft: #1d2a10;
-  --color-link: #4fb3e3;
-  --color-link-hover: #7fc8ec;
-  --color-link-ink: #0b0b0b;
-  --color-biz-digital: #4fb3e3;
-  --color-biz-social: #e89a3c;
-  --color-biz-consulting: #5fbf7f;
-  --color-biz-build: #7f93d8;
-  --color-biz-dining: #4fbfc9;
-  --color-notice: #e0b14a;
-  --color-notice-soft: #3a2f12;
-  --color-danger: #e07a73;
-  --color-success: #5fbf7f;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
 }
 
 @media (prefers-reduced-motion: reduce) {

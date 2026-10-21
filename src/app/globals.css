@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 @theme inline {
   --color-paper: var(--color-paper);
   --color-paper-2: var(--color-paper-2);

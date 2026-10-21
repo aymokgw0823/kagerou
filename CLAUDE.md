@@ -11,7 +11,7 @@
   - `LayoutProps<'/path'>` / `PageProps<'/path'>` はグローバル型ヘルパー（import 不要）。`params` / `searchParams` は Promise。
   - 画像は `next/image`。SVG を直接 `next/image` に渡さない（ダミー画像は sharp で PNG 化する）。
 - **Tailwind CSS 4**（`@import "tailwindcss"` + `@theme`）。デザイントークンは `src/styles/tokens.css` の CSS 変数が正。Tailwind の色クラスはその変数を参照する。
-- **ダークモード**は `html[data-theme="dark"]` と `prefers-color-scheme` の併用。`src/components/theme/` 参照。
+- **テーマはライトのみ**（2026-10-21 ユーザー指示でダークモードを廃止。要件定義 7 の「ダークモード：対応する」より優先）。
 - **アニメーション**は `motion`（旧 framer-motion）。`useReducedMotion` を必ず尊重。
 - **Prisma** は安定版 7.x を使う（8 は RC のため）。Phase 4 で導入。
 - **ダミーデータ**は必ず `isDummy: true` を持たせる。`npm run check:dummy` で残存を検出する（`prebuild` でも自動実行・警告）。

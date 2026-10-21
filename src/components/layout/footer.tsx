@@ -3,7 +3,6 @@ import { company } from "@/config/company";
 import { footerNav, policyNav, site } from "@/config/site";
 import type { Locale } from "@/config/i18n";
 import { Placeholder } from "@/components/ui/placeholder";
-import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Arrow } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { CopyrightYear } from "./copyright-year";
@@ -96,12 +95,9 @@ export function Footer({ locale = "ja" }: { locale?: Locale }) {
               <span className="mx-2">｜</span>
               <Placeholder value={company.address.full} />
             </p>
-            <div className="flex items-center gap-5">
-              <ThemeToggle />
-              <p className="font-display">
-                © <CopyrightYear /> <Placeholder value={company.nameEn} />
-              </p>
-            </div>
+            <p className="font-display">
+              © <CopyrightYear /> <Placeholder value={company.nameEn} />
+            </p>
           </div>
         </div>
       </div>
