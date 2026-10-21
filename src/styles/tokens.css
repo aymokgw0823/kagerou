@@ -48,7 +48,7 @@
 
   /* ── Typography ── */
   --font-sans-stack:
-    var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+    "Noto Sans JP Variable", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
   --font-display-stack: "Open Sans Variable", "Noto Sans JP Variable", sans-serif;
   --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
