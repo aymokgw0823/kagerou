@@ -1,8 +1,10 @@
 /*
  * デザイントークン（唯一の正）
- * - ベース：オフホワイト（paper）＋ 墨色（ink）。真っ黒・真っ白は使わない。
- * - コーポレートのアクセントは 1 色（--color-accent：朱を落とした赤）。
- * - 5 事業のアクセントは彩度を抑えて統一感を保つ。
+ * 参考方向：大手総合ファーム系コーポレートサイト（白地＋黒＋鮮やかな緑のアクセント、黒いヘッダー／フッター、
+ * 全幅の写真ヒーロー、色帯のセクションラベル、左罫線つきの白カード、青い丸形ボタン）。
+ * - ベース：白（paper）＋ ほぼ黒（ink）。
+ * - コーポレートのアクセントは緑 1 色（--color-accent）。ボタン・リンクの機能色として青（--color-link）を別に持つ。
+ * - 5 事業のアクセントは同じ色相系に揃える。
  * - ダークモードは html[data-theme="dark"]、未指定時は prefers-color-scheme に従う。
  */
 
@@ -10,112 +12,130 @@
   color-scheme: light;
 
   /* ── Base ── */
-  --color-paper: #f5f3ee; /* 背景：生成り寄りのオフホワイト */
-  --color-paper-2: #ece9e1; /* 一段落とした面 */
-  --color-paper-3: #e2ded4; /* 罫線・区切り面 */
-  --color-ink: #1f1e1b; /* 墨色：本文・見出し */
-  --color-ink-2: #4a4843; /* 補助テキスト */
-  --color-ink-3: #85817a; /* キャプション・メタ情報 */
-  --color-line: #d4d0c6; /* 罫線 */
-  --color-line-strong: #1f1e1b;
+  --color-paper: #ffffff;
+  --color-paper-2: #f2f2f2; /* カード背景エリア・一段落とした面 */
+  --color-paper-3: #e6e6e6;
+  --color-tint: #e3ede9; /* 緑がかった薄い面（コールアウト） */
+  --color-ink: #0b0b0b; /* 見出し・本文（真っ黒よりわずかに浮かせる） */
+  --color-ink-2: #53565a; /* 補助テキスト */
+  --color-ink-3: #75787b; /* キャプション・メタ情報 */
+  --color-line: #d0d0ce;
+  --color-line-strong: #0b0b0b;
 
-  /* ── Corporate accent（1色のみ） ── */
-  --color-accent: #b1452c; /* 朱を落とした赤 */
-  --color-accent-ink: #ffffff; /* アクセント上の文字 */
-  --color-accent-soft: #f1ddd5;
+  /* ── Corporate accent（緑・1色） ── */
+  --color-accent: #86bc25;
+  --color-accent-deep: #046a38; /* 緑の濃色（文字として使う場合） */
+  --color-accent-ink: #0b0b0b; /* アクセント面の上の文字（AA 確保のため黒） */
+  --color-accent-soft: #eef6dc;
 
-  /* ── Business accents（彩度を抑える） ── */
-  --color-biz-digital: #2f4a6b; /* 藍 */
-  --color-biz-social: #7b4a62; /* 蘇芳 */
-  --color-biz-consulting: #4e6a52; /* 松葉 */
-  --color-biz-build: #8f5a3a; /* 煉瓦 */
-  --color-biz-dining: #a07a2e; /* 琥珀 */
+  /* ── Interactive（青）── */
+  --color-link: #0076a8;
+  --color-link-hover: #005a80;
+  --color-link-ink: #ffffff;
 
-  /* ── Status（控えめ） ── */
-  --color-notice: #9a6b00; /* 【要差し替え】・DUMMY の注意色 */
-  --color-notice-soft: #fbf0d0;
-  --color-danger: #a1382c;
-  --color-success: #3f6b47;
+  /* ── Business accents ── */
+  --color-biz-digital: #0076a8; /* 青 */
+  --color-biz-social: #c86f00; /* 橙（彩度控えめ） */
+  --color-biz-consulting: #046a38; /* 深緑 */
+  --color-biz-build: #012169; /* 紺 */
+  --color-biz-dining: #0d8390; /* ティール */
+
+  /* ── Status ── */
+  --color-notice: #8a5a00; /* 【要差し替え】・DUMMY の注意色 */
+  --color-notice-soft: #fff3d6;
+  --color-danger: #b3261e;
+  --color-success: #046a38;
 
   /* ── Typography ── */
-  --font-sans:
-    var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
-  --font-display: var(--font-instrument-serif), "Times New Roman", Georgia, serif;
+  --font-sans: var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  --font-display: var(--font-open-sans), var(--font-noto-sans-jp), sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --text-body: 1rem; /* 16px */
-  --leading-body: 1.85;
-  --tracking-heading: 0.02em;
-  --tracking-wide: 0.12em;
+  --text-body: 1rem;
+  --leading-body: 1.8;
+  --tracking-heading: 0.01em;
+  --tracking-wide: 0.08em;
 
   /* ── Spacing & grid ── */
-  --section-y: clamp(6rem, 12vw, 10rem); /* PC で 160px 基準 */
-  --section-y-sm: clamp(4rem, 8vw, 6rem);
-  --gutter: clamp(1rem, 4vw, 3rem);
-  --container-max: 88rem; /* 1408px */
-  --container-narrow: 48rem;
-  --container-text: 42rem;
+  --section-y: clamp(4rem, 8vw, 7rem);
+  --section-y-sm: clamp(2.5rem, 5vw, 4rem);
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --container-max: 80rem; /* 1280px */
+  --container-narrow: 52rem;
+  --container-text: 44rem;
 
   /* ── Motion ── */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-base: 0.8s;
-  --duration-fast: 0.4s;
+  --duration-base: 0.7s;
+  --duration-fast: 0.3s;
 
-  /* ── Misc ── */
-  --radius: 2px; /* 角丸はほぼ使わない */
-  --header-h: 4.5rem;
+  /* ── Shape ── */
+  --radius: 4px; /* カード */
+  --radius-pill: 999px; /* ボタン */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px -12px rgba(0, 0, 0, 0.18);
+  --header-h: 4rem;
 }
 
-/* ダークモード：OS 設定に従う（明示指定がない場合） */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --color-paper: #171614;
-    --color-paper-2: #1f1e1b;
-    --color-paper-3: #2a2825;
-    --color-ink: #ebe8e0;
-    --color-ink-2: #b9b5ab;
-    --color-ink-3: #827e75;
-    --color-line: #343230;
-    --color-line-strong: #ebe8e0;
-    --color-accent: #d4694f;
-    --color-accent-ink: #171614;
-    --color-accent-soft: #3a241e;
-    --color-biz-digital: #7f9bc0;
-    --color-biz-social: #b98aa3;
-    --color-biz-consulting: #8fae94;
-    --color-biz-build: #c28f6b;
-    --color-biz-dining: #c9a85a;
+    --color-paper: #0b0b0b;
+    --color-paper-2: #161616;
+    --color-paper-3: #222222;
+    --color-tint: #13201a;
+    --color-ink: #f2f2f2;
+    --color-ink-2: #b4b6b8;
+    --color-ink-3: #8c8f92;
+    --color-line: #333333;
+    --color-line-strong: #f2f2f2;
+    --color-accent: #9ad038;
+    --color-accent-deep: #7fc24a;
+    --color-accent-ink: #0b0b0b;
+    --color-accent-soft: #1d2a10;
+    --color-link: #4fb3e3;
+    --color-link-hover: #7fc8ec;
+    --color-link-ink: #0b0b0b;
+    --color-biz-digital: #4fb3e3;
+    --color-biz-social: #e89a3c;
+    --color-biz-consulting: #5fbf7f;
+    --color-biz-build: #7f93d8;
+    --color-biz-dining: #4fbfc9;
     --color-notice: #e0b14a;
     --color-notice-soft: #3a2f12;
-    --color-danger: #d26a5e;
-    --color-success: #7fb088;
+    --color-danger: #e07a73;
+    --color-success: #5fbf7f;
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
   }
 }
 
-/* ダークモード：明示指定 */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --color-paper: #171614;
-  --color-paper-2: #1f1e1b;
-  --color-paper-3: #2a2825;
-  --color-ink: #ebe8e0;
-  --color-ink-2: #b9b5ab;
-  --color-ink-3: #827e75;
-  --color-line: #343230;
-  --color-line-strong: #ebe8e0;
-  --color-accent: #d4694f;
-  --color-accent-ink: #171614;
-  --color-accent-soft: #3a241e;
-  --color-biz-digital: #7f9bc0;
-  --color-biz-social: #b98aa3;
-  --color-biz-consulting: #8fae94;
-  --color-biz-build: #c28f6b;
-  --color-biz-dining: #c9a85a;
+  --color-paper: #0b0b0b;
+  --color-paper-2: #161616;
+  --color-paper-3: #222222;
+  --color-tint: #13201a;
+  --color-ink: #f2f2f2;
+  --color-ink-2: #b4b6b8;
+  --color-ink-3: #8c8f92;
+  --color-line: #333333;
+  --color-line-strong: #f2f2f2;
+  --color-accent: #9ad038;
+  --color-accent-deep: #7fc24a;
+  --color-accent-ink: #0b0b0b;
+  --color-accent-soft: #1d2a10;
+  --color-link: #4fb3e3;
+  --color-link-hover: #7fc8ec;
+  --color-link-ink: #0b0b0b;
+  --color-biz-digital: #4fb3e3;
+  --color-biz-social: #e89a3c;
+  --color-biz-consulting: #5fbf7f;
+  --color-biz-build: #7f93d8;
+  --color-biz-dining: #4fbfc9;
   --color-notice: #e0b14a;
   --color-notice-soft: #3a2f12;
-  --color-danger: #d26a5e;
-  --color-success: #7fb088;
+  --color-danger: #e07a73;
+  --color-success: #5fbf7f;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
 }
 
 @media (prefers-reduced-motion: reduce) {

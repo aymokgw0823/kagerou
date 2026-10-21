@@ -47,19 +47,19 @@ function applyTheme(theme: Theme) {
   listeners.forEach((cb) => cb());
 }
 
-/** テーマ切り替え（ライト／自動／ダーク）。フッターに置く */
+/** テーマ切り替え（ライト／自動／ダーク） */
 export function ThemeToggle({ className }: { className?: string }) {
-  // SSR では "system"、クライアントでは localStorage の値を購読する（effect 内 setState を避ける）
   const theme = useSyncExternalStore(subscribe, readTheme, getServerSnapshot);
-
   return (
-    <fieldset className={cn("border-line inline-flex items-center gap-px border", className)}>
+    <fieldset
+      className={cn("rounded-pill border-line inline-flex items-center overflow-hidden border", className)}
+    >
       <legend className="sr-only">表示テーマ</legend>
       {options.map((o) => (
         <label
           key={o.value}
           className={cn(
-            "ease-brand cursor-pointer px-3 py-1.5 text-xs tracking-wider transition-colors duration-300",
+            "cursor-pointer px-3 py-1 text-xs font-bold transition-colors duration-300",
             theme === o.value ? "bg-ink text-paper" : "text-ink-2 hover:text-ink",
           )}
         >

@@ -2,25 +2,28 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "outline" | "solid" | "text";
+type Variant = "primary" | "outline" | "outline-light" | "text";
 type Size = "md" | "lg";
 
 const variants: Record<Variant, string> = {
-  outline:
-    "btn-base border-line-strong text-ink hover:bg-ink hover:text-paper dark:hover:bg-ink dark:hover:text-paper",
-  solid: "btn-base border-ink bg-ink text-paper hover:bg-accent hover:border-accent hover:text-accent-ink",
-  text: "inline-flex items-center gap-2 text-ink link-underline",
+  /** 青い丸形ボタン（主要CTA） */
+  primary: "btn-base bg-link text-link-ink hover:bg-link-hover",
+  /** 黒い罫線の丸形ボタン */
+  outline: "btn-base border-ink text-ink hover:bg-ink hover:text-paper",
+  /** 暗い背景の上で使う白罫線の丸形ボタン */
+  "outline-light": "btn-base border-white text-white hover:bg-white hover:text-black",
+  /** 太字のテキストリンク */
+  text: "link-arrow",
 };
 
 const sizes: Record<Size, string> = {
   md: "",
-  lg: "min-h-14 px-8 text-base",
+  lg: "min-h-12 px-8 text-[0.9375rem]",
 };
 
 type BaseProps = {
   variant?: Variant;
   size?: Size;
-  /** 末尾の矢印を出す */
   arrow?: boolean;
   children: ReactNode;
   className?: string;
@@ -34,11 +37,11 @@ export function Arrow({ className }: { className?: string }) {
       className={cn("h-[1em] w-[1em] shrink-0", className)}
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M4 12h15M13 6l6 6-6 6" />
+      <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   );
 }
@@ -46,19 +49,18 @@ export function Arrow({ className }: { className?: string }) {
 type LinkButtonProps = BaseProps & Omit<ComponentProps<typeof Link>, "children" | "className">;
 
 export function LinkButton({
-  variant = "outline",
+  variant = "primary",
   size = "md",
-  arrow = true,
+  arrow,
   children,
   className,
   ...rest
 }: LinkButtonProps) {
+  const showArrow = arrow ?? variant === "text";
   return (
     <Link className={cn(variants[variant], variant !== "text" && sizes[size], className)} {...rest}>
       <span>{children}</span>
-      {arrow && (
-        <Arrow className="ease-brand transition-transform duration-300 group-hover:translate-x-0.5" />
-      )}
+      {showArrow && <Arrow />}
     </Link>
   );
 }
@@ -66,7 +68,7 @@ export function LinkButton({
 type ButtonProps = BaseProps & Omit<ComponentProps<"button">, "children" | "className">;
 
 export function Button({
-  variant = "outline",
+  variant = "primary",
   size = "md",
   arrow = false,
   children,

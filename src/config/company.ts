@@ -79,9 +79,27 @@ export const company = {
   representative: PLACEHOLDER,
   /** 役員一覧 */
   officers: [
-    { name: PLACEHOLDER, title: "代表取締役", isDummy: true },
-    { name: PLACEHOLDER, title: "取締役", isDummy: true },
-    { name: PLACEHOLDER, title: "取締役", isDummy: true },
+    {
+      name: PLACEHOLDER,
+      title: "代表取締役",
+      bio: "Web制作会社でディレクターとして勤務した後、飲食店の立ち上げと運営に携わる。現場で得た「つくる・伝える・育てる」の経験をもとに当社を設立。",
+      photoId: "ceo-portrait",
+      isDummy: true,
+    },
+    {
+      name: PLACEHOLDER,
+      title: "取締役（建設事業管掌）",
+      bio: "総合建設会社で施工管理を担当。店舗・住宅のリフォームから新築まで幅広い現場を経験し、当社の建設事業を統括。",
+      photoId: "officer-01",
+      isDummy: true,
+    },
+    {
+      name: PLACEHOLDER,
+      title: "取締役（デジタル・マーケティング管掌）",
+      bio: "広告代理店でSNSマーケティングに従事した後、独立してWeb開発とSNS運用の支援を行う。当社ではWeb開発・SNS運用代行・経営コンサルティングを統括。",
+      photoId: "officer-02",
+      isDummy: true,
+    },
   ] satisfies Officer[],
   /** 本社所在地 */
   address: {

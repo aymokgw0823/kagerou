@@ -1,0 +1,553 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { businesses, businessBrandName, getBusiness, pillars, type BusinessId } from "@/config/businesses";
+import { company } from "@/config/company";
+import { getAiToolsForBusiness } from "@/config/ai-tools";
+import { getBusinessDetail } from "@/content/business";
+import type { BusinessExtra } from "@/content/business/types";
+import { getWorks } from "@/lib/content/works";
+import { getLatestPosts } from "@/lib/content/blog";
+import { Hero } from "@/components/ui/hero";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { Section, SectionBar, SectionHeading } from "@/components/ui/section";
+import { LinkButton } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Photo } from "@/components/ui/photo";
+import { Placeholder } from "@/components/ui/placeholder";
+import { DummyBadge } from "@/components/ui/dummy-badge";
+import { Faq } from "@/components/ui/faq";
+import { CtaBlock } from "@/components/ui/cta-block";
+import { BeforeAfter } from "@/components/business/before-after";
+
+const ids = businesses.map((b) => b.id);
+function isBusinessId(v: string): v is BusinessId {
+  return (ids as string[]).includes(v);
+}
+
+export function generateStaticParams() {
+  return ids.map((id) => ({ id }));
+}
+
+export async function generateMetadata({ params }: PageProps<"/business/[id]">): Promise<Metadata> {
+  const { id } = await params;
+  if (!isBusinessId(id)) return {};
+  const b = getBusiness(id);
+  const d = getBusinessDetail(id);
+  return { title: `${b.nameJa}｜${d.hero.headline}`, description: d.hero.lead };
+}
+
+/** 事業固有セクション */
+function ExtraSection({ extra }: { extra: BusinessExtra }) {
+  switch (extra.kind) {
+    case "digital":
+      return (
+        <>
+          <SectionBar label="このサイト自体が事例です" color="biz" colorVar="--color-biz-digital" />
+          <Section surface="tint">
+            <div className="container-max">
+              <SectionHeading title={extra.thisSite.title} lead={extra.thisSite.description} align="left" />
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <div className="card p-8">
+                  <h3 className="text-lg font-bold">使用技術</h3>
+                  <dl className="mt-4 space-y-3 text-sm">
+                    {extra.thisSite.techStack.map((t) => (
+                      <div key={t.label} className="border-line grid grid-cols-3 gap-3 border-b pb-3">
+                        <dt className="text-ink-2 font-bold">{t.label}</dt>
+                        <dd className="col-span-2">{t.items.join("、")}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+                <div className="card p-8">
+                  <h3 className="text-lg font-bold">AI機能（すべて無料で体験できます）</h3>
+                  <ul className="mt-4 space-y-4">
+                    {extra.thisSite.aiFeatures.map((f) => (
+                      <li key={f.href}>
+                        <Link href={f.href} className="text-link font-bold hover:underline">
+                          {f.title}
+                        </Link>
+                        <p className="text-ink-2 mt-1 text-sm">{f.description}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </Section>
+        </>
+      );
+    case "social":
+      return (
+        <>
+          <SectionBar label="支援プラットフォーム・運用体制" color="biz" colorVar="--color-biz-social" />
+          <Section surface="tint">
+            <div className="container-max">
+              <SectionHeading title="支援プラットフォーム" align="left" />
+              <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {extra.platforms.map((p) => (
+                  <li key={p.name}>
+                    <Card title={p.name} description={p.description} accentVar="--color-biz-social" />
+                  </li>
+                ))}
+              </ul>
+              <SectionHeading title="運用体制" align="left" className="mt-16" />
+              <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                {extra.team.map((t) => (
+                  <li key={t.role} className="card p-6">
+                    <h3 className="font-bold">{t.role}</h3>
+                    <p className="text-ink-2 mt-2 text-sm leading-[1.8]">{t.description}</p>
+                  </li>
+                ))}
+              </ul>
+              <SectionHeading
+                title="レポートのサンプル"
+                lead={extra.reportSample.description}
+                align="left"
+                className="mt-16"
+              />
+              <div className="card p-8">
+                <DummyBadge label="SAMPLE" className="mb-4" />
+                <dl className="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
+                  {extra.reportSample.metrics.map((m) => (
+                    <div key={m.label} className="border-line border-b pb-3">
+                      <dt className="font-bold">{m.label}</dt>
+                      <dd className="text-ink-2 mt-1 text-sm">{m.note}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          </Section>
+        </>
+      );
+    case "consulting":
+      return (
+        <>
+          <SectionBar label="支援領域・支援形態" color="biz" colorVar="--color-biz-consulting" />
+          <Section surface="tint">
+            <div className="container-max">
+              <SectionHeading title="支援領域" align="left" />
+              <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {extra.areas.map((a) => (
+                  <li key={a.title}>
+                    <Card title={a.title} description={a.description} accentVar="--color-biz-consulting" />
+                  </li>
+                ))}
+              </ul>
+              <SectionHeading title="支援形態" align="left" className="mt-16" />
+              <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                {extra.formats.map((f) => (
+                  <li key={f.title} className="card p-8">
+                    <h3 className="text-xl font-bold">{f.title}</h3>
+                    <p className="text-ink-2 mt-3 text-sm leading-[1.8]">{f.description}</p>
+                    <ul className="mt-4 list-disc space-y-1 pl-5 text-sm">
+                      {f.points.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        </>
+      );
+    case "build":
+      return (
+        <>
+          <SectionBar label="施工エリア・施工事例" color="biz" colorVar="--color-biz-build" />
+          <Section surface="tint">
+            <div className="container-max">
+              <SectionHeading title="施工エリア" align="left" />
+              <ul className="flex flex-wrap gap-2">
+                {extra.serviceAreas.map((a, i) => (
+                  <li
+                    key={i}
+                    className="rounded-pill border-line bg-paper border px-4 py-1.5 text-sm font-bold"
+                  >
+                    <Placeholder value={a} />
+                  </li>
+                ))}
+              </ul>
+              <SectionHeading
+                title="施工事例ギャラリー"
+                lead="スライダーを左右に動かすと、施工前後を比較できます。"
+                align="left"
+                className="mt-16"
+              />
+              <ul className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                {extra.gallery.map((g) => (
+                  <li key={g.title}>
+                    <BeforeAfter beforeId={g.beforeId} afterId={g.afterId} title={g.title} />
+                    <p className="text-ink-2 mt-1 text-sm">
+                      {g.description} <DummyBadge show={g.isDummy} />
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        </>
+      );
+    case "dining":
+      return (
+        <>
+          <SectionBar label="店舗・メニュー" color="biz" colorVar="--color-biz-dining" />
+          <Section surface="tint">
+            <div className="container-max">
+              <SectionHeading title="店舗一覧" align="left" />
+              <ul className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                {extra.stores.map((s) => (
+                  <li key={s.name} className="card overflow-hidden">
+                    <Photo
+                      id={s.photoId}
+                      fill
+                      className="aspect-[16/9] w-full"
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                    />
+                    <div className="p-6">
+                      <p className="text-ink-3 text-xs font-bold">{s.brand}</p>
+                      <h3 className="mt-1 text-xl font-bold">
+                        {s.name} <DummyBadge show={s.isDummy} />
+                      </h3>
+                      <p className="text-ink-2 mt-2 text-sm">{s.concept}</p>
+                      <dl className="mt-4 grid grid-cols-[5rem_1fr] gap-y-2 text-sm">
+                        <dt className="text-ink-2 font-bold">所在地</dt>
+                        <dd>
+                          <Placeholder value={s.address} />
+                        </dd>
+                        <dt className="text-ink-2 font-bold">営業時間</dt>
+                        <dd>{s.hours}</dd>
+                        <dt className="text-ink-2 font-bold">定休日</dt>
+                        <dd>{s.closed}</dd>
+                        {s.tel && (
+                          <>
+                            <dt className="text-ink-2 font-bold">電話</dt>
+                            <dd>
+                              <Placeholder value={s.tel} />
+                            </dd>
+                          </>
+                        )}
+                      </dl>
+                      <div className="mt-5">
+                        {s.reservationUrl ? (
+                          <LinkButton href={s.reservationUrl} target="_blank" rel="noopener">
+                            予約する（外部サイト）
+                          </LinkButton>
+                        ) : (
+                          <span className="rounded-pill border-line text-ink-3 inline-flex items-center border border-dashed px-4 py-2 text-xs">
+                            予約サービスのリンクは準備中です
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <SectionHeading title="メニュー" align="left" className="mt-16" />
+              <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {extra.menu.map((m) => (
+                  <li key={m.name} className="card overflow-hidden">
+                    {m.photoId && (
+                      <Photo
+                        id={m.photoId}
+                        fill
+                        className="aspect-square w-full"
+                        sizes="(min-width: 1024px) 33vw, 50vw"
+                      />
+                    )}
+                    <div className="p-5">
+                      <div className="flex items-baseline justify-between gap-3">
+                        <h3 className="font-bold">{m.name}</h3>
+                        <span className="font-display text-sm font-bold">{m.price}</span>
+                      </div>
+                      <p className="text-ink-2 mt-1 text-sm">{m.description}</p>
+                      <DummyBadge show={m.isDummy} className="mt-2" />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        </>
+      );
+  }
+}
+
+export default async function BusinessPage({ params }: PageProps<"/business/[id]">) {
+  const { id } = await params;
+  if (!isBusinessId(id)) notFound();
+  const b = getBusiness(id);
+  const d = getBusinessDetail(id);
+  const tools = getAiToolsForBusiness(id);
+  const [works, posts] = await Promise.all([
+    getWorks({ business: id, limit: 3 }),
+    getLatestPosts({ business: id, limit: 3 }),
+  ]);
+  const license = company.licenses.find((l) => l.business === id);
+
+  return (
+    <>
+      <Hero
+        tintVar={b.colorVar}
+        eyebrow={
+          <span className="inline-flex flex-wrap items-center gap-3">
+            <span className="font-display">
+              <Placeholder value={businessBrandName(b)} />
+            </span>
+            <span className="text-white/60">｜</span>
+            <span>{pillars[b.pillar].ja}</span>
+          </span>
+        }
+        title={d.hero.headline}
+        tagline={b.tagline}
+        lead={d.hero.lead}
+        photoId={d.hero.photoId}
+        actions={
+          <>
+            <LinkButton href="/contact">お問い合わせ</LinkButton>
+            {tools[0] && (
+              <LinkButton href={tools[0].href} variant="outline-light">
+                {tools[0].name}を試す
+              </LinkButton>
+            )}
+          </>
+        }
+      />
+      {license && id === "build" && (
+        <div className="bg-biz-build text-white">
+          <div className="container-max flex flex-wrap items-center gap-x-6 gap-y-1 py-3 text-sm">
+            <span className="font-bold">{license.label}</span>
+            <span className="font-display">
+              <Placeholder value={license.number} />
+            </span>
+          </div>
+        </div>
+      )}
+      <Breadcrumbs items={[{ label: "事業一覧", href: "/business" }, { label: b.nameJa }]} />
+
+      {/* 2. 課題提起 */}
+      <Section>
+        <div className="container-max">
+          <SectionHeading title="こんなお悩みはありませんか" />
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {d.problems.map((p) => (
+              <li key={p} className="rounded-brand bg-paper-2 flex gap-3 p-5 text-[0.9375rem] font-bold">
+                <span
+                  aria-hidden
+                  className="mt-1 inline-block h-4 w-4 shrink-0 rounded-full"
+                  style={{ backgroundColor: `var(${b.colorVar})` }}
+                />
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      {/* 3. 提供サービス */}
+      <SectionBar label="提供サービス" color="biz" colorVar={b.colorVar} />
+      <Section surface="paper-2">
+        <div className="container-max">
+          <SectionHeading title="提供サービス" />
+          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {d.services.map((s) => (
+              <li key={s.title}>
+                <Card title={s.title} description={s.description} accentVar={b.colorVar} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      {/* 4. 選ばれる理由 */}
+      <Section>
+        <div className="container-max">
+          <SectionHeading
+            title="選ばれる理由"
+            lead="単独の事業ではなく、グループ全体で課題に向き合えることが私たちの強みです。"
+          />
+          <ol className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {d.reasons.map((r, i) => (
+              <li key={r.title} className="border-t-4 pt-5" style={{ borderColor: `var(${b.colorVar})` }}>
+                <p className="font-display text-ink-3 text-sm font-bold">0{i + 1}</p>
+                <h3 className="mt-2 text-xl font-bold">{r.title}</h3>
+                <p className="text-ink-2 mt-3 text-[0.9375rem] leading-[1.8]">{r.description}</p>
+                {r.synergy && r.synergy.length > 0 && (
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {r.synergy.map((sid) => {
+                      const sb = getBusiness(sid);
+                      return (
+                        <li key={sid}>
+                          <Link
+                            href={sb.href}
+                            className="rounded-pill hover:bg-paper-2 inline-flex items-center border px-3 py-1 text-xs font-bold"
+                            style={{ borderColor: `var(${sb.colorVar})`, color: `var(${sb.colorVar})` }}
+                          >
+                            {sb.nameJa}と連携
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Section>
+
+      {/* 5. 進め方 */}
+      <SectionBar label="進め方" color="black" />
+      <Section surface="paper-2">
+        <div className="container-max">
+          <SectionHeading title="進め方" />
+          <ol className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+            {d.flow.map((f, i) => (
+              <li key={f.title} className="card relative p-6">
+                <span className="font-display text-3xl font-bold" style={{ color: `var(${b.colorVar})` }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-2 font-bold">{f.title}</h3>
+                <p className="text-ink-2 mt-2 text-sm leading-[1.8]">{f.description}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Section>
+
+      {/* 6. 料金の目安 */}
+      <Section>
+        <div className="container-max">
+          <SectionHeading
+            title="料金の目安"
+            lead="内容・規模により変動します。まずはお気軽にご相談ください。"
+          />
+          <table className="w-full border-collapse text-[0.9375rem]">
+            <thead>
+              <tr className="border-ink border-b-2 text-left text-sm">
+                <th className="py-3 pr-4 font-bold">プラン</th>
+                <th className="py-3 pr-4 font-bold">料金</th>
+                <th className="py-3 font-bold">含まれる内容・条件</th>
+              </tr>
+            </thead>
+            <tbody>
+              {d.pricing.map((p) => (
+                <tr key={p.plan} className="border-line border-b align-top">
+                  <td className="py-4 pr-4 font-bold">{p.plan}</td>
+                  <td className="font-display py-4 pr-4 font-bold whitespace-nowrap">
+                    <Placeholder value={p.price} />
+                  </td>
+                  <td className="text-ink-2 py-4">{p.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {d.pricingNote && <p className="text-ink-3 mt-4 text-xs">{d.pricingNote}</p>}
+        </div>
+      </Section>
+
+      {/* 事業固有 */}
+      <ExtraSection extra={d.extra} />
+
+      {/* 7. 関連する実績 */}
+      {works.length > 0 && (
+        <Section>
+          <div className="container-max">
+            <SectionHeading
+              title="関連する実績"
+              align="left"
+              action={
+                <LinkButton href={`/works?business=${id}`} variant="text">
+                  {b.nameJa}の実績をすべて見る
+                </LinkButton>
+              }
+            />
+            <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {works.map((w) => (
+                <li key={w.slug}>
+                  <Card
+                    title={w.title}
+                    description={w.summary}
+                    href={`/works/${w.slug}`}
+                    photoId={w.photoId}
+                    isDummy={w.isDummy}
+                    accentVar={b.colorVar}
+                    meta={<span className="text-ink-2 font-bold">{w.client}</span>}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Section>
+      )}
+
+      {/* 8. 関連AIツール */}
+      {tools.length > 0 && (
+        <section className="bg-black text-white">
+          <div className="container-max grid grid-cols-1 gap-8 py-14 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-7">
+              <p className="text-accent text-sm font-bold">無料のAIツール</p>
+              <h2 className="mt-2 text-2xl md:text-3xl">{tools[0].name}</h2>
+              <p className="mt-4 max-w-xl text-[0.9375rem] leading-[1.9] text-white/85">
+                {tools[0].description}
+              </p>
+              <p className="mt-2 text-xs text-white/60">
+                所要時間 {tools[0].duration}
+                。結果はAIによる参考情報であり、正式な提案・見積もりではありません。
+              </p>
+            </div>
+            <div className="flex gap-3 lg:col-span-5 lg:justify-end">
+              <LinkButton href={tools[0].href} size="lg">
+                無料で試す
+              </LinkButton>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 9. 関連ブログ */}
+      {posts.length > 0 && (
+        <Section surface="paper-2">
+          <div className="container-max">
+            <SectionHeading
+              title="関連する記事"
+              align="left"
+              action={
+                <LinkButton href={`/blog?business=${id}`} variant="text">
+                  記事をもっと見る
+                </LinkButton>
+              }
+            />
+            <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {posts.map((p) => (
+                <li key={p.slug}>
+                  <Card
+                    title={p.title}
+                    description={p.description}
+                    href={`/blog/${p.slug}`}
+                    linkLabel="記事を読む"
+                    isDummy={p.isDummy}
+                    accentVar={b.colorVar}
+                    meta={<span className="text-ink-2 font-bold">{p.category}</span>}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Section>
+      )}
+
+      {/* 10. FAQ */}
+      <Section>
+        <div className="container-narrow">
+          <Faq items={d.faq} />
+        </div>
+      </Section>
+
+      {/* 11. CTA */}
+      <CtaBlock photoId={b.keyVisualId} />
+    </>
+  );
+}

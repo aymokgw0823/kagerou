@@ -1,22 +1,25 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
-/* ダークモードのバリアント：data-theme または OS 設定 */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* Tailwind のユーティリティをトークンに接続する */
 @theme inline {
   --color-paper: var(--color-paper);
   --color-paper-2: var(--color-paper-2);
   --color-paper-3: var(--color-paper-3);
+  --color-tint: var(--color-tint);
   --color-ink: var(--color-ink);
   --color-ink-2: var(--color-ink-2);
   --color-ink-3: var(--color-ink-3);
   --color-line: var(--color-line);
   --color-line-strong: var(--color-line-strong);
   --color-accent: var(--color-accent);
+  --color-accent-deep: var(--color-accent-deep);
   --color-accent-ink: var(--color-accent-ink);
   --color-accent-soft: var(--color-accent-soft);
+  --color-link: var(--color-link);
+  --color-link-hover: var(--color-link-hover);
+  --color-link-ink: var(--color-link-ink);
   --color-biz-digital: var(--color-biz-digital);
   --color-biz-social: var(--color-biz-social);
   --color-biz-consulting: var(--color-biz-consulting);
@@ -26,6 +29,9 @@
   --color-notice-soft: var(--color-notice-soft);
   --color-danger: var(--color-danger);
   --color-success: var(--color-success);
+  /* 常に黒／白（ヘッダー・フッターなどテーマに依存しない面） */
+  --color-black: #0b0b0b;
+  --color-white: #ffffff;
 
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
@@ -43,9 +49,11 @@
   --container-text: var(--container-text);
 
   --radius-brand: var(--radius);
+  --radius-pill: var(--radius-pill);
+  --shadow-card: var(--shadow-card);
 
-  --breakpoint-xs: 23.4375rem; /* 375px */
-  --breakpoint-3xl: 120rem; /* 1920px */
+  --breakpoint-xs: 23.4375rem;
+  --breakpoint-3xl: 120rem;
 }
 
 @layer base {
@@ -57,8 +65,7 @@
     background: var(--color-paper);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "palt";
-    scroll-padding-top: var(--header-h);
+    scroll-padding-top: calc(var(--header-h) + 1rem);
   }
   body {
     min-height: 100dvh;
@@ -71,7 +78,7 @@
     color: var(--color-accent-ink);
   }
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-link);
     outline-offset: 3px;
   }
   h1,
@@ -79,8 +86,8 @@
   h3,
   h4 {
     letter-spacing: var(--tracking-heading);
-    line-height: 1.3;
-    font-weight: 500;
+    line-height: 1.35;
+    font-weight: 400;
     text-wrap: balance;
   }
   p {
@@ -130,52 +137,137 @@
   padding-inline: var(--gutter);
 }
 
-/* 欧文見出し（セリフ）：英語ラベル・セクション番号に使う */
+/* 欧文（Open Sans）：英語ラベル・数字に使う */
 @utility font-display {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: 0;
-  font-feature-settings: "liga", "kern";
 }
 
-/* 小さな大文字ラベル */
+/* 小さなラベル */
 @utility label-caps {
   font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   color: var(--color-ink-3);
 }
 
-/* 罫線のみのボタン（SaaS 風の塗り＋角丸を避ける） */
+/* 丸形ボタンの共通部分 */
 @utility btn-base {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  min-height: 3rem;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
   padding-inline: 1.5rem;
-  border: 1px solid var(--color-line-strong);
-  border-radius: var(--radius);
-  font-size: 0.9375rem;
-  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
   transition:
     background-color var(--duration-fast) var(--ease-brand),
     color var(--duration-fast) var(--ease-brand),
     border-color var(--duration-fast) var(--ease-brand);
 }
 
-/* 本文リンクの下線 */
-@utility link-underline {
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
-  text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
-  transition: text-decoration-color var(--duration-fast) var(--ease-brand);
+/* 太字のテキストリンク（「詳しくはこちら →」） */
+@utility link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-ink);
+  text-decoration: none;
   &:hover {
-    text-decoration-color: currentColor;
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
   }
 }
 
-/* スクリーンリーダー用 */
+/* 本文リンク */
+@utility link-underline {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+  &:hover {
+    color: var(--color-link-hover);
+  }
+}
+
+/* 白カード（左罫線つき） */
+@utility card {
+  background: var(--color-paper);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  border-left: 4px solid var(--color-accent);
+}
+
+/* 長文本文（ポリシー・メッセージ） */
+@utility prose-corp {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--color-ink);
+  & h2 {
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    font-size: 1.375rem;
+    font-weight: 700;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--color-accent);
+  }
+  & h3 {
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  & p {
+    margin-bottom: 1.2em;
+  }
+  & ul,
+  & ol {
+    margin: 0 0 1.2em 1.4em;
+  }
+  & ul {
+    list-style: disc;
+  }
+  & ol {
+    list-style: decimal;
+  }
+  & li {
+    margin-bottom: 0.4em;
+  }
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5em;
+    font-size: 0.9375rem;
+  }
+  & th,
+  & td {
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.9em 0.75em;
+    text-align: left;
+    vertical-align: top;
+  }
+  & th {
+    width: 11rem;
+    font-weight: 700;
+    background: var(--color-paper-2);
+  }
+  & a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+}
+
 @utility sr-only-focusable {
   position: absolute;
   left: -9999px;

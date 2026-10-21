@@ -16,6 +16,14 @@ export const site = {
   description:
     "Web開発・SNS運用代行・経営コンサルティング・建設・飲食の5事業を展開するグループ企業。つくる・伝える・育てるを一社で担い、自らの事業で実践しながら地域の事業者を支えます。",
   locale: "ja_JP",
+  /* English */
+  taglineEn: "Create. Convey. Grow. Everything your business needs, from one company.",
+  taglineLinesEn: ["Create.", "Convey.", "Grow."] as const,
+  taglineSubEn: "Everything your business needs, from one company.",
+  missionEn:
+    "We take on the whole of what local businesses need to create, convey and grow — as one company.",
+  descriptionEn:
+    "A group company with five businesses: web development, social media management, management consulting, construction and dining. We create, convey and grow — and prove our strategies in our own businesses.",
 } as const;
 
 export type NavItem = {

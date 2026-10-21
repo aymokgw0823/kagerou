@@ -28,6 +28,9 @@ export type Business = {
   nameJa: string;
   /** 短い和文名（ナビ用） */
   shortJa: string;
+  /** 英語名 */
+  nameEn: string;
+  descriptionEn: string;
   /** 一言コピー */
   tagline: string;
   /** 2〜3文の説明 */
@@ -49,6 +52,9 @@ export type Business = {
 export const businesses: Business[] = [
   {
     id: "digital",
+    nameEn: "Web Development",
+    descriptionEn:
+      "Corporate sites, web systems and AI features — designed from your business goals and supported after launch.",
     brandSuffix: "Digital",
     nameJa: "Web開発受託",
     shortJa: "Web開発",
@@ -64,6 +70,8 @@ export const businesses: Business[] = [
   },
   {
     id: "social",
+    nameEn: "Social Media Management",
+    descriptionEn: "Planning, shooting, posting and analysis for Instagram, TikTok, YouTube and X.",
     brandSuffix: "Social",
     nameJa: "SNS運用代行",
     shortJa: "SNS運用",
@@ -79,6 +87,9 @@ export const businesses: Business[] = [
   },
   {
     id: "consulting",
+    nameEn: "Management Consulting",
+    descriptionEn:
+      "From getting the numbers straight to strategy and execution, we stand beside owners as advisors or on projects.",
     brandSuffix: "Consulting",
     nameJa: "経営コンサルティング",
     shortJa: "経営コンサル",
@@ -94,6 +105,9 @@ export const businesses: Business[] = [
   },
   {
     id: "build",
+    nameEn: "Construction",
+    descriptionEn:
+      "Renovation and new construction for shops, offices and homes — from design through site management.",
     brandSuffix: "Build",
     nameJa: "建設",
     shortJa: "建設",
@@ -109,6 +123,8 @@ export const businesses: Business[] = [
   },
   {
     id: "dining",
+    nameEn: "Dining",
+    descriptionEn: "We run our own restaurants, testing every strategy we propose in our own business.",
     brandSuffix: "Dining",
     nameJa: "飲食",
     shortJa: "飲食",

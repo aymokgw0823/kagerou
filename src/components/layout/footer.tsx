@@ -1,41 +1,42 @@
 import Link from "next/link";
 import { company } from "@/config/company";
 import { footerNav, policyNav, site } from "@/config/site";
+import type { Locale } from "@/config/i18n";
 import { Placeholder } from "@/components/ui/placeholder";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { Arrow } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { CopyrightYear } from "./copyright-year";
 
-export function Footer() {
+const quickLinks = [
+  { label: "お問い合わせ", labelEn: "Get in touch", href: "/contact" },
+  { label: "採用情報を見る", labelEn: "Explore careers", href: "/recruit" },
+  { label: "アクセス", labelEn: "View locations", href: "/about#access" },
+  { label: "会社について", labelEn: "About us", href: "/about" },
+];
+
+export function Footer({ locale = "ja" }: { locale?: Locale }) {
+  const en = locale === "en";
   return (
-    <footer className="border-line bg-paper border-t">
-      <div className="container-max">
-        {/* 上段：ブランドとサイトマップ */}
-        <div className="grid grid-cols-12 gap-x-8 gap-y-12 py-20 md:py-28">
+    <footer>
+      {/* 黒い「Let's connect」ブロック */}
+      <div className="bg-black text-white">
+        <div className="container-max grid grid-cols-12 gap-x-8 gap-y-12 py-16 md:py-20">
           <div className="col-span-12 lg:col-span-4">
-            <Logo />
-            <p className="text-ink-2 mt-8 max-w-xs text-sm leading-[1.9]">{site.tagline}</p>
-            <dl className="text-ink-2 mt-10 space-y-3 text-sm">
-              <div>
-                <dt className="sr-only">社名</dt>
-                <dd>
-                  <Placeholder value={company.nameJa} />
-                </dd>
-              </div>
-              <div>
-                <dt className="sr-only">所在地</dt>
-                <dd>
-                  <Placeholder value={company.address.full} />
-                </dd>
-              </div>
-              <div>
-                <dt className="sr-only">電話番号</dt>
-                <dd>
-                  TEL <Placeholder value={company.contact.tel} />
-                  <span className="text-ink-3 ml-2">（{company.contact.hours}）</span>
-                </dd>
-              </div>
-            </dl>
+            <p className="font-display text-3xl font-bold md:text-[2rem]">Let&rsquo;s connect</p>
+            <ul className="mt-8 space-y-4">
+              {quickLinks.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="group hover:text-accent inline-flex items-center gap-2 text-lg font-bold text-white/90"
+                  >
+                    {en ? l.labelEn : l.label}
+                    <Arrow className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
           <nav
             aria-label="フッターナビゲーション"
@@ -43,13 +44,13 @@ export function Footer() {
           >
             {footerNav.map((group) => (
               <div key={group.heading}>
-                <p className="label-caps mb-5">{group.heading}</p>
-                <ul className="space-y-3">
+                <p className="mb-4 text-base font-bold">{group.heading}</p>
+                <ul className="space-y-2.5">
                   {group.items.map((item) => (
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className="text-ink-2 ease-brand hover:text-ink text-sm transition-colors duration-300"
+                        className="text-[0.8125rem] text-white/75 transition-colors hover:text-white hover:underline hover:underline-offset-4"
                       >
                         {item.label}
                       </Link>
@@ -59,27 +60,48 @@ export function Footer() {
               </div>
             ))}
           </nav>
+          <div className="col-span-12 flex flex-col gap-6 border-t border-white/15 pt-8 md:flex-row md:items-center md:justify-between">
+            <Logo inverted href={en ? "/en" : "/"} />
+            <p className="max-w-xl text-xs leading-relaxed text-white/60">{site.tagline}</p>
+          </div>
         </div>
+      </div>
 
-        {/* 下段：ポリシー・テーマ・コピーライト */}
-        <div className="border-line flex flex-col gap-6 border-t py-8 md:flex-row md:items-center md:justify-between">
+      {/* 下段：ポリシー・会社情報・テーマ・コピーライト */}
+      <div className="border-line bg-paper border-t">
+        <div className="container-max py-8">
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {policyNav.map((p) => (
               <li key={p.href}>
                 <Link
                   href={p.href}
-                  className="text-ink-3 ease-brand hover:text-ink text-xs transition-colors duration-300"
+                  className="text-ink-2 hover:text-link text-xs font-bold hover:underline hover:underline-offset-4"
                 >
                   {p.label}
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/sitemap"
+                className="text-ink-2 hover:text-link text-xs font-bold hover:underline hover:underline-offset-4"
+              >
+                サイトマップ
+              </Link>
+            </li>
           </ul>
-          <div className="flex items-center gap-6">
-            <ThemeToggle />
-            <p className="font-display text-ink-3 text-sm">
-              © <CopyrightYear /> <Placeholder value={company.nameEn} />
+          <div className="text-ink-3 mt-6 flex flex-col gap-4 text-xs md:flex-row md:items-center md:justify-between">
+            <p>
+              <Placeholder value={company.nameJa} />
+              <span className="mx-2">｜</span>
+              <Placeholder value={company.address.full} />
             </p>
+            <div className="flex items-center gap-5">
+              <ThemeToggle />
+              <p className="font-display">
+                © <CopyrightYear /> <Placeholder value={company.nameEn} />
+              </p>
+            </div>
           </div>
         </div>
       </div>

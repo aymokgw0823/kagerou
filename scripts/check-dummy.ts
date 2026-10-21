@@ -35,7 +35,8 @@ const IGNORE_DIRS = new Set(["node_modules", ".next", "__tests__"]);
 /** company.ts は文字列検索ではなく値を直接走査する（PLACEHOLDER 定数経由の値を漏らさないため） */
 const RUNTIME_SCANNED = new Set(["src/config/company.ts"]);
 const PLACEHOLDER_RE = /【[^】]*】/;
-const DUMMY_RE = /\bisDummy\s*[:=]\s*true\b/;
+// 型定義（isDummy: true;）は除外し、データの isDummy: true だけ拾う
+const DUMMY_RE = /\bisDummy\s*[:=]\s*true\b(?!\s*;)/;
 
 function walk(dir: string, out: string[] = []): string[] {
   let entries: string[];
@@ -63,7 +64,7 @@ function isDefinitionOrComment(line: string): boolean {
     t.startsWith("/*") ||
     /\bPLACEHOLDER\s*=\s*"/.test(t) ||
     /\bPLACEHOLDER_RE\b|\bPATTERN\b|\bDUMMY_RE\b/.test(t) ||
-    /isPlaceholder\(|title=|title:/.test(t) ||
+    /isPlaceholder\(|title="未確定/.test(t) ||
     /【\[\^】\]\*】/.test(t) // 正規表現リテラル
   );
 }
