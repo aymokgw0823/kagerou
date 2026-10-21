@@ -18,6 +18,11 @@
 - **会社情報**は `src/config/company.ts` のみを編集する。未確定値は `【要差し替え】` 文字列のまま入れる（`<Placeholder>` コンポーネントが目立つ表示にする）。
 - **写真**は `src/config/photo-manifest.ts` に定義 → `npm run gen:placeholders` でダミー画像と `docs/shot-list.md` を生成。実写真に差し替えるときはマニフェストの `src` を書き換えるだけ。
 - 各 Phase 終了時に `npm run lint && npm run typecheck && npm run test && npm run build` を通す。
+- **デザインの参考**（2026-10-21 ユーザー指示）：Deloitte Japan（https://www.deloitte.com/jp/ja.html）の方向性に合わせる。
+  黒いヘッダー／フッター（Let's connect）、白地＋緑のアクセント（1色）＋青の機能色（ボタン・リンク）、全幅のダーク写真ヒーロー、
+  色帯のセクションラベル（`<SectionBar>`）、左罫線つき白カード（`card` ユーティリティ）、青い丸形ボタン、Noto Sans JP ＋ Open Sans。
+  本サイトは個人利用のサンプル（ダミーサイト）であり、著作権配慮は不要とのこと。ただしロゴ・社名・文章の転載はしない。
+- Phase 2 で後続 Phase のルート（/works /blog /news /recruit /contact /booking /ai/*）には `<ComingSoon>` の暫定ページを置いている。各 Phase で本実装に置き換える。
 
 ---
 
