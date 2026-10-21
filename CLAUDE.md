@@ -23,6 +23,7 @@
   黒いヘッダー／フッター（Let's connect）、白地＋緑のアクセント（1色）＋青の機能色（ボタン・リンク）、全幅のダーク写真ヒーロー、
   色帯のセクションラベル（`<SectionBar>`）、左罫線つき白カード（`card` ユーティリティ）、青い丸形ボタン、Noto Sans JP ＋ Open Sans（`@fontsource-variable` で自己ホスト。next/font/google は使わない）。
   本サイトは個人利用のサンプル（ダミーサイト）であり、著作権配慮は不要とのこと。ただしロゴ・社名・文章の転載はしない。
+- **写真**（2026-10-21 ユーザー指示）：ダミー画像は Pexels の無料素材に差し替え済み（`docs/photo-credits.md`）。要件 0-3「ストック写真を使わない」はユーザーが明示的に解除。実写真への差し替えは `public/images/photos/<id>.jpg` を置いて `npm run photo:import`。
 - **AI 機能の実装メモ**：Claude Sonnet 5.5 は強制 tool_choice を受け付けないため、構造化出力は `output_config.format`（JSON スキーマ）＋ zod 検証で実装している（要件の「tool use による構造化出力」と同じ目的）。Route Handler で `export const runtime` は Cache Components と非互換なので書かない。PDF は `@react-pdf/renderer`（`serverExternalPackages`）、日本語は極細スペース（U+200A）で改行位置を作る。
 - **フォント**：`@fontsource`（静的 400/700）を `scripts/build-fonts.ts` で `public/fonts/` に生成し、`font-display: optional`＋描画後アイドル読み込み（`FontLoader`）。描画ブロックとフォント待ちの LCP 悪化を避けるため。`next/font/google` は使わない（ビルド環境のネットワーク依存を避ける）。
 - **URL クエリ同期**：`useSearchParams` は静的ページで本文を CSR 化しレイアウトシフトの原因になるため、`src/lib/use-url-params.ts`（window.location 購読＋replaceState）を使う。

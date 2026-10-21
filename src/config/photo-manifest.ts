@@ -49,6 +49,8 @@ export type PhotoShot = {
   alt: string;
   /** 実写真のパス。未設定ならダミー画像 */
   src?: string;
+  /** photo:import で比率を合わせる際のトリミング位置（既定は被写体検出 "attention"） */
+  cropPosition?: "attention" | "centre" | "top" | "bottom" | "left" | "right";
   /** 優先度（撮影日の組み立て用） */
   priority: "A" | "B" | "C";
 };
@@ -78,6 +80,7 @@ export const photoManifest: PhotoShot[] = [
     location: "本社会議室の窓際、または応接室",
     alt: "代表取締役のポートレート",
     priority: "A",
+    src: "/images/photos/ceo-portrait.jpg",
   },
   {
     id: "ceo-at-work",
@@ -94,6 +97,7 @@ export const photoManifest: PhotoShot[] = [
     location: "本社オフィス",
     alt: "打ち合わせ中の代表取締役",
     priority: "B",
+    src: "/images/photos/ceo-at-work.jpg",
   },
   {
     id: "officer-01",
@@ -110,6 +114,7 @@ export const photoManifest: PhotoShot[] = [
     location: "代表ポートレートと同じ場所",
     alt: "取締役のポートレート",
     priority: "A",
+    src: "/images/photos/officer-01.jpg",
   },
   {
     id: "officer-02",
@@ -126,6 +131,7 @@ export const photoManifest: PhotoShot[] = [
     location: "officer-01 と同一",
     alt: "取締役のポートレート",
     priority: "A",
+    src: "/images/photos/officer-02.jpg",
   },
   {
     id: "officer-03",
@@ -142,6 +148,7 @@ export const photoManifest: PhotoShot[] = [
     location: "officer-01 と同一",
     alt: "取締役のポートレート",
     priority: "A",
+    src: "/images/photos/officer-03.jpg",
   },
   // ───────── オフィス ─────────
   {
@@ -159,6 +166,7 @@ export const photoManifest: PhotoShot[] = [
     location: "本社ビル前",
     alt: "本社ビルの外観",
     priority: "A",
+    src: "/images/photos/office-exterior.jpg",
   },
   {
     id: "office-interior",
@@ -175,6 +183,7 @@ export const photoManifest: PhotoShot[] = [
     location: "本社オフィス",
     alt: "本社オフィスの内観",
     priority: "A",
+    src: "/images/photos/office-interior.jpg",
   },
   {
     id: "office-working",
@@ -191,6 +200,7 @@ export const photoManifest: PhotoShot[] = [
     location: "本社オフィス",
     alt: "打ち合わせをする社員",
     priority: "A",
+    src: "/images/photos/office-working.jpg",
   },
   // ───────── 2事業キービジュアル ─────────
   {
@@ -208,6 +218,7 @@ export const photoManifest: PhotoShot[] = [
     location: "施工中の現場（施主の許可を得る）",
     alt: "建設事業のキービジュアル",
     priority: "A",
+    src: "/images/photos/kv-build.jpg",
   },
   {
     id: "kv-dining",
@@ -224,6 +235,7 @@ export const photoManifest: PhotoShot[] = [
     location: "自社店舗",
     alt: "飲食事業のキービジュアル",
     priority: "A",
+    src: "/images/photos/kv-dining.jpg",
   },
   // ───────── 建設 ─────────
   {
@@ -241,6 +253,7 @@ export const photoManifest: PhotoShot[] = [
     location: "施工中の現場",
     alt: "施工中の建設現場",
     priority: "B",
+    src: "/images/photos/build-site-wide.jpg",
   },
   {
     id: "build-before",
@@ -257,6 +270,7 @@ export const photoManifest: PhotoShot[] = [
     location: "施工物件",
     alt: "施工前の様子",
     priority: "A",
+    src: "/images/photos/build-before.jpg",
   },
   {
     id: "build-after",
@@ -273,6 +287,7 @@ export const photoManifest: PhotoShot[] = [
     location: "施工物件",
     alt: "施工後の様子",
     priority: "A",
+    src: "/images/photos/build-after.jpg",
   },
   // ───────── 飲食 ─────────
   {
@@ -290,6 +305,7 @@ export const photoManifest: PhotoShot[] = [
     location: "自社店舗",
     alt: "店舗の内観",
     priority: "A",
+    src: "/images/photos/dining-interior.jpg",
   },
   {
     id: "dining-food-01",
@@ -306,6 +322,7 @@ export const photoManifest: PhotoShot[] = [
     location: "自社店舗",
     alt: "看板メニュー",
     priority: "A",
+    src: "/images/photos/dining-food-01.jpg",
   },
   {
     id: "dining-food-02",
@@ -322,6 +339,7 @@ export const photoManifest: PhotoShot[] = [
     location: "自社店舗",
     alt: "店舗の料理",
     priority: "B",
+    src: "/images/photos/dining-food-02.jpg",
   },
   {
     id: "dining-exterior",
@@ -338,6 +356,7 @@ export const photoManifest: PhotoShot[] = [
     location: "自社店舗前",
     alt: "店舗の外観",
     priority: "B",
+    src: "/images/photos/dining-exterior.jpg",
   },
   // ───────── 採用 ─────────
   {
@@ -355,6 +374,7 @@ export const photoManifest: PhotoShot[] = [
     location: "本社オフィス、または店舗",
     alt: "採用情報のメインビジュアル",
     priority: "A",
+    src: "/images/photos/recruit-hero.jpg",
   },
   {
     id: "interview-01",
@@ -371,6 +391,7 @@ export const photoManifest: PhotoShot[] = [
     location: "本人の職場",
     alt: "社員インタビュー",
     priority: "B",
+    src: "/images/photos/interview-01.jpg",
   },
   {
     id: "interview-02",
@@ -387,6 +408,7 @@ export const photoManifest: PhotoShot[] = [
     location: "施工現場",
     alt: "社員インタビュー",
     priority: "B",
+    src: "/images/photos/interview-02.jpg",
   },
   {
     id: "interview-03",
@@ -403,6 +425,7 @@ export const photoManifest: PhotoShot[] = [
     location: "自社店舗",
     alt: "社員インタビュー",
     priority: "B",
+    src: "/images/photos/interview-03.jpg",
   },
 ];
 
