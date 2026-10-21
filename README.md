@@ -30,6 +30,20 @@ npm run dev
 `src/config/company.ts` だけを編集する。未確定値は `PLACEHOLDER`（【要差し替え】）のまま入れておくと、画面で目立つ表示になり `check:dummy` が検出する。
 数値実績（年商・従業員数など）は確定するまで `null` のままにする（`null` の項目は画面に出ない）。
 
+## コンテンツの追加（Phase 3）
+
+| 種類           | 場所                       | スキーマ                                                     |
+| -------------- | -------------------------- | ------------------------------------------------------------ |
+| ブログ記事     | `content/blog/<slug>.mdx`  | `src/lib/content/schema.ts` の `blogFrontmatter`             |
+| 執筆者・監修者 | `content/authors/<id>.md`  | `authorFrontmatter`                                          |
+| 実績・事例     | `content/works/<slug>.mdx` | `workFrontmatter`（本文は「## 課題」「## 施策」「## 成果」） |
+| ニュース       | `content/news/<slug>.mdx`  | `newsFrontmatter`（`pdf` でプレスリリースPDFを添付）         |
+
+- 分類（事業・カテゴリー・業種・課題・難易度）は `src/lib/content/taxonomy.ts` が唯一の正。frontmatter はビルド時に zod で検証され、不正な値はエラーになる。
+- `npm run seed:articles` で 300 本のダミー記事を再生成できる（既存の `content/blog` を削除して生成）。
+- 検索インデックス `public/search-index.json` は `predev` / `prebuild` で自動生成される（手動は `npm run build:search-index`）。
+- 取得ロジックは `src/lib/content/`（リポジトリパターン）。ヘッドレスCMSへ移行する場合はこの層だけを差し替える。
+
 ## 写真の差し替え
 
 1. 撮影指示書 `docs/shot-list.md` に沿って撮影する

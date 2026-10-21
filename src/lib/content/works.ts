@@ -1,189 +1,57 @@
 /**
- * 実績・事例リポジトリ。
- * Phase 3 で content/works/*.mdx からの読み込みに差し替える（インターフェースは維持）。
+ * 実績・事例リポジトリ（content/works/*.mdx）。
  */
 import type { BusinessId } from "@/config/businesses";
-import type { WorkSummary } from "./types";
+import { loadCollection, type Doc } from "./fs";
+import { workFrontmatter, type WorkFrontmatter } from "./schema";
+import type { Work, WorkSummary } from "./types";
 
-const dummyWorks: WorkSummary[] = [
-  {
-    slug: "store-renovation",
-    title: "飲食店の全面改装（居抜き物件の再生）",
-    client: "都内 飲食店 A様",
-    anonymous: true,
-    business: "build",
-    industry: "飲食",
-    challenge: "開業・改装",
-    region: "東京都",
-    publishedAt: "2026-09-30",
-    photoId: "build-after",
-    summary: "厨房設備を活かしつつ客席を再構成。営業しながらの段階的な改装で休業期間を最小限に。",
-    isDummy: true,
-  },
-  {
-    slug: "cafe-new-open",
-    title: "カフェの新規出店（スケルトンからの内装）",
-    client: "神奈川県 カフェ B様",
-    anonymous: true,
-    business: "build",
-    industry: "飲食",
-    challenge: "開業・改装",
-    region: "神奈川県",
-    publishedAt: "2026-09-02",
-    photoId: "kv-build",
-    summary: "自社店舗の運営経験をもとに、席数と厨房の作業性のバランスを設計段階から詰めた。",
-    isDummy: true,
-  },
-  {
-    slug: "office-renewal",
-    title: "士業事務所のオフィス改修",
-    client: "東京都 士業 C事務所様",
-    anonymous: true,
-    business: "build",
-    industry: "士業",
-    challenge: "採用・来客対応",
-    region: "東京都",
-    publishedAt: "2026-08-12",
-    photoId: "build-site-wide",
-    summary: "来客対応と執務の動線を分離。採用時の見学にも使える空間に。",
-    isDummy: true,
-  },
-  {
-    slug: "exterior-repaint",
-    title: "戸建て住宅の外壁・屋根塗装",
-    client: "埼玉県 個人 D様",
-    anonymous: true,
-    business: "build",
-    industry: "住宅",
-    challenge: "メンテナンス",
-    region: "埼玉県",
-    publishedAt: "2026-07-20",
-    photoId: "build-before",
-    summary: "写真でのリフォーム相談から現地調査、施工まで一貫して対応。",
-    isDummy: true,
-  },
-  {
-    slug: "kitchen-bath-reform",
-    title: "マンションの水回りリフォーム",
-    client: "東京都 個人 E様",
-    anonymous: true,
-    business: "build",
-    industry: "住宅",
-    challenge: "メンテナンス",
-    region: "東京都",
-    publishedAt: "2026-06-25",
-    photoId: "build-after",
-    summary: "キッチン・浴室・洗面を同時に更新。管理組合への申請から引き渡しまで対応。",
-    isDummy: true,
-  },
-  {
-    slug: "salon-interior",
-    title: "美容サロンの内装工事",
-    client: "千葉県 美容サロン F様",
-    anonymous: true,
-    business: "build",
-    industry: "美容",
-    challenge: "開業・改装",
-    region: "千葉県",
-    publishedAt: "2026-05-18",
-    photoId: "kv-build",
-    summary: "施術スペースと待合の仕切り方を見直し、同じ面積で席数を確保。",
-    isDummy: true,
-  },
-  {
-    slug: "home-renovation",
-    title: "築30年住宅のリノベーション",
-    client: "神奈川県 個人 G様",
-    anonymous: true,
-    business: "build",
-    industry: "住宅",
-    challenge: "リノベーション",
-    region: "神奈川県",
-    publishedAt: "2026-04-10",
-    photoId: "build-after",
-    summary: "間取り変更を伴う全面改修。断熱と耐震の補強もあわせて実施。",
-    isDummy: true,
-  },
-  {
-    slug: "roof-waterproof",
-    title: "店舗ビルの屋上防水・外壁補修",
-    client: "東京都 不動産オーナー H様",
-    anonymous: true,
-    business: "build",
-    industry: "不動産",
-    challenge: "メンテナンス",
-    region: "東京都",
-    publishedAt: "2026-03-05",
-    photoId: "build-site-wide",
-    summary: "雨漏りの原因調査から防水工事、外壁クラックの補修まで。テナント営業中に施工。",
-    isDummy: true,
-  },
-  {
-    slug: "own-store-launch",
-    title: "自社飲食店 1号店の立ち上げ",
-    client: "自社事業",
-    anonymous: false,
-    business: "dining",
-    industry: "飲食",
-    challenge: "開業・改装",
-    region: "東京都",
-    publishedAt: "2026-03-01",
-    photoId: "dining-interior",
-    summary:
-      "物件選定から設計・施工、メニュー開発、営業開始までを自社で実践。建設と飲食が最初に交わった現場。",
-    isDummy: true,
-  },
-  {
-    slug: "own-store-second",
-    title: "自社飲食店 2号店（昼の定食・喫茶）の出店",
-    client: "自社事業",
-    anonymous: false,
-    business: "dining",
-    industry: "飲食",
-    challenge: "開業・改装",
-    region: "東京都",
-    publishedAt: "2026-06-20",
-    photoId: "dining-exterior",
-    summary: "1号店の運営で得た動線と収納の知見を設計に反映。営業開始後も小さな改修を継続。",
-    isDummy: true,
-  },
-  {
-    slug: "store-small-renewal",
-    title: "営業しながらの客席・照明の見直し",
-    client: "自社事業",
-    anonymous: false,
-    business: "dining",
-    industry: "飲食",
-    challenge: "店舗運営",
-    region: "東京都",
-    publishedAt: "2026-08-25",
-    photoId: "dining-food-01",
-    summary: "客席の配置と照明を営業しながら段階的に変更。滞在のしやすさと作業性の両立を検証。",
-    isDummy: true,
-  },
-  {
-    slug: "charter-event",
-    title: "地域イベントでの貸切営業",
-    client: "自社事業",
-    anonymous: false,
-    business: "dining",
-    industry: "飲食",
-    challenge: "店舗運営",
-    region: "東京都",
-    publishedAt: "2026-05-30",
-    photoId: "dining-food-02",
-    summary: "近隣の事業者会の懇親会を貸切で受け入れ。コース設計とオペレーションを整備。",
-    isDummy: true,
-  },
-];
+function toSummary(d: Doc<WorkFrontmatter>): WorkSummary {
+  const f = d.frontmatter;
+  return {
+    slug: f.slug,
+    title: f.title,
+    client: f.client,
+    anonymous: f.anonymous,
+    business: f.business,
+    industry: f.industry,
+    challenge: f.challenge,
+    region: f.region,
+    publishedAt: f.publishedAt,
+    photoId: f.photoId,
+    summary: f.summary,
+    parts: f.parts,
+    isDummy: f.isDummy,
+  };
+}
+
+function docs(): Doc<WorkFrontmatter>[] {
+  return loadCollection("works", workFrontmatter).sort((a, b) =>
+    a.frontmatter.publishedAt < b.frontmatter.publishedAt ? 1 : -1,
+  );
+}
 
 export async function getWorks(opts: { business?: BusinessId; limit?: number } = {}): Promise<WorkSummary[]> {
-  let list = [...dummyWorks].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+  let list = docs().map(toSummary);
   if (opts.business) list = list.filter((w) => w.business === opts.business);
   if (opts.limit) list = list.slice(0, opts.limit);
   return list;
 }
 
-export async function getWork(slug: string): Promise<WorkSummary | undefined> {
-  return dummyWorks.find((w) => w.slug === slug);
+export async function getWork(slug: string): Promise<Work | undefined> {
+  const d = docs().find((x) => x.frontmatter.slug === slug);
+  return d ? { ...toSummary(d), frontmatter: d.frontmatter, body: d.body } : undefined;
+}
+
+/** 部位が近い建設事例（AIリフォーム相談の類似事例に使う） */
+export async function getWorksByParts(parts: string[], limit = 3): Promise<WorkSummary[]> {
+  const set = new Set(parts);
+  return docs()
+    .map(toSummary)
+    .filter((w) => w.business === "build")
+    .map((w) => ({ w, score: w.parts.filter((p) => set.has(p)).length }))
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((x) => x.w);
 }

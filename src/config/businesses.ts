@@ -90,8 +90,9 @@ export function otherBusiness(id: BusinessId): Business {
   return businesses.find((b) => b.id !== id)!;
 }
 
+/** 事業ブランド名（例：「KAGERO Build」） */
 export function businessBrandName(b: Business): string {
-  return `${company.brandName} ${b.brandSuffix}`;
+  return `${company.brandNameEn} ${b.brandSuffix}`;
 }
 
 export function businessesByPillar(): Record<Pillar, Business[]> {

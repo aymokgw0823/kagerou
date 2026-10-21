@@ -38,7 +38,7 @@ describe("check-dummy", () => {
 
   it("company.ts の値を走査し、PLACEHOLDER 定数経由の未確定値も検出する", () => {
     const r = scan(root);
-    expect(r.companyPlaceholders.some((p) => p.startsWith("company.nameJa"))).toBe(true);
+    expect(r.companyPlaceholders.some((p) => p.startsWith("company.founded"))).toBe(true);
     expect(r.companyPlaceholders.some((p) => p.includes("company.licenses[0].number"))).toBe(true);
     expect(r.companyDummies.some((p) => p.startsWith("company.officers["))).toBe(true);
   });

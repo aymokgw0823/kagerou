@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { businesses, pillars } from "@/config/businesses";
 import { site } from "@/config/site";
 import { getWorks } from "@/lib/content/works";
 import { getLatestPosts } from "@/lib/content/blog";

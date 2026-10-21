@@ -1,82 +1,50 @@
 /**
- * ニュースリポジトリ。Phase 3 で content/news/*.mdx に差し替える。
+ * ニュースリポジトリ（content/news/*.mdx）。
  */
-import type { NewsSummary } from "./types";
+import { loadCollection, type Doc } from "./fs";
+import { newsFrontmatter, type NewsFrontmatter } from "./schema";
+import type { News, NewsSummary } from "./types";
 
-const dummyNews: NewsSummary[] = [
-  {
-    slug: "site-launch",
-    title: "コーポレートサイトを公開しました",
-    category: "お知らせ",
-    publishedAt: "2026-10-01",
-    isDummy: true,
-  },
-  {
-    slug: "ai-reform-release",
-    title: "写真でリフォーム相談ができるAIサービスの提供を開始",
-    category: "プレスリリース",
-    publishedAt: "2026-09-24",
-    isDummy: true,
-  },
-  {
-    slug: "recruit-2027",
-    title: "2027年度 新卒・中途採用の募集を開始しました",
-    category: "採用",
-    publishedAt: "2026-09-15",
-    isDummy: true,
-  },
-  {
-    slug: "media-interview",
-    title: "地域経済誌に代表のインタビューが掲載されました",
-    category: "メディア掲載",
-    publishedAt: "2026-08-30",
-    isDummy: true,
-  },
-  {
-    slug: "summer-holiday",
-    title: "夏季休業のお知らせ",
-    category: "お知らせ",
-    publishedAt: "2026-08-01",
-    isDummy: true,
-  },
-  {
-    slug: "build-license",
-    title: "建設業許可を取得しました",
-    category: "お知らせ",
-    publishedAt: "2026-07-15",
-    isDummy: true,
-  },
-  {
-    slug: "store-open",
-    title: "自社運営の飲食店 2号店をオープンしました",
-    category: "プレスリリース",
-    publishedAt: "2026-06-20",
-    isDummy: true,
-  },
-  {
-    slug: "seminar",
-    title: "地域の方向け「店舗づくりと開業準備」相談会を開催します",
-    category: "お知らせ",
-    publishedAt: "2026-05-10",
-    isDummy: true,
-  },
-  {
-    slug: "office-move",
-    title: "本社を移転しました",
-    category: "お知らせ",
-    publishedAt: "2026-04-01",
-    isDummy: true,
-  },
-  {
-    slug: "founding",
-    title: "会社を設立しました",
-    category: "プレスリリース",
-    publishedAt: "2026-01-15",
-    isDummy: true,
-  },
-];
+function toSummary(d: Doc<NewsFrontmatter>): NewsSummary {
+  const f = d.frontmatter;
+  return {
+    slug: f.slug,
+    title: f.title,
+    category: f.category,
+    publishedAt: f.publishedAt,
+    pdf: f.pdf,
+    isDummy: f.isDummy,
+  };
+}
+
+function docs(): Doc<NewsFrontmatter>[] {
+  return loadCollection("news", newsFrontmatter).sort((a, b) =>
+    a.frontmatter.publishedAt < b.frontmatter.publishedAt ? 1 : -1,
+  );
+}
 
 export async function getLatestNews(limit?: number): Promise<NewsSummary[]> {
-  const list = [...dummyNews].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+  const list = docs().map(toSummary);
   return limit ? list.slice(0, limit) : list;
+}
+
+export async function getNewsItem(slug: string): Promise<News | undefined> {
+  const d = docs().find((x) => x.frontmatter.slug === slug);
+  return d ? { ...toSummary(d), body: d.body } : undefined;
+}
+
+/** 年別アーカイブ（新しい年から） */
+export async function getNewsYears(): Promise<{ year: string; count: number }[]> {
+  const m = new Map<string, number>();
+  for (const d of docs()) {
+    const y = d.frontmatter.publishedAt.slice(0, 4);
+    m.set(y, (m.get(y) ?? 0) + 1);
+  }
+  return [...m].map(([year, count]) => ({ year, count })).sort((a, b) => (a.year < b.year ? 1 : -1));
+}
+
+export async function getNewsByYear(year: string): Promise<NewsSummary[]> {
+  return docs()
+    .map(toSummary)
+    .filter((n) => n.publishedAt.startsWith(year));
 }

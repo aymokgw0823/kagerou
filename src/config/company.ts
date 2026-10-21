@@ -66,11 +66,13 @@ export type CompanyFigures = {
 
 export const company = {
   /** 社名（和文） */
-  nameJa: PLACEHOLDER,
+  nameJa: "株式会社陽炎総業",
   /** 社名（英文） */
-  nameEn: PLACEHOLDER,
-  /** コーポレートブランド名（事業ブランドの接頭辞にも使う。例：「◯◯ Digital」） */
-  brandName: PLACEHOLDER,
+  nameEn: "Kagero Corporation",
+  /** コーポレートブランド名（ロゴ表示用。「株式会社」を除いた通称） */
+  brandName: "陽炎総業",
+  /** 欧文ブランド名（事業ブランドの接頭辞に使う。例：「KAGERO Build」） */
+  brandNameEn: "KAGERO",
   /** 設立（例：2025年4月） */
   founded: PLACEHOLDER,
   /** 資本金 */
