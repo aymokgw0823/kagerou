@@ -54,6 +54,15 @@ npm run dev
 - 履歴書は `uploads/`（git 管理外）に保存。Vercel 等では `src/lib/storage.ts` を Blob ストレージ実装に差し替える。
 - 外部の日程調整サービスを使う場合は `NEXT_PUBLIC_BOOKING_EMBED_URL` を設定すると予約ページが埋め込みに切り替わる。
 
+## AI 機能（Phase 5）
+
+- `ANTHROPIC_API_KEY` 未設定 → **デモモード**（モック応答・遅延つきストリーミング）。設定すると Claude API で動作（モデルは `ANTHROPIC_MODEL`、既定 `claude-sonnet-5-5`）。
+- モジュールは `src/features/ai/<tool>/` に独立（UI・API・スキーマ・モック）。共通基盤は `src/features/ai/shared/`（レート制限 IP＋セッション、日次トークン上限 `AI_DAILY_TOKEN_BUDGET`、画像の検証と EXIF 除去、出力サニタイズ、相談ログのマスキング、SSE）。
+- **写真でリフォーム相談**（`/ai/reform`）：`POST /api/ai/reform`（multipart → SSE）。構造化出力（JSON スキーマ）を zod で検証し、失敗時は1回再試行。金額は `src/config/reform-pricing.ts` の単価表で計算（AI は項目と数量のみ推定）。PDF は `POST /api/ai/reform/[id]/pdf`（Noto Sans JP 埋め込み）。
+- **AIコンシェルジュ**（全ページ右下）：`POST /api/ai/concierge`。`public/search-index.json`（ブログ・実績・事業／店舗情報）を bigram 検索して根拠にし、【番号】で引用。引用のない回答は問い合わせ誘導に差し替える。意味検索は `AI_SEMANTIC_SEARCH_ENABLED` で切り替え可能なインターフェースのみ。
+- システムプロンプトは `prompts/*.md`。コードを変えずに調整できる。
+- **管理画面**（`/admin`）：`ADMIN_USER` / `ADMIN_PASSWORD` / `ADMIN_SESSION_SECRET` を設定してログイン。リード・相談ログ・予約・エントリーの一覧と CSV 出力、簡易ダッシュボード。
+
 ## 写真の差し替え
 
 1. 撮影指示書 `docs/shot-list.md` に沿って撮影する

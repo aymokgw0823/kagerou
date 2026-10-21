@@ -23,6 +23,7 @@
   黒いヘッダー／フッター（Let's connect）、白地＋緑のアクセント（1色）＋青の機能色（ボタン・リンク）、全幅のダーク写真ヒーロー、
   色帯のセクションラベル（`<SectionBar>`）、左罫線つき白カード（`card` ユーティリティ）、青い丸形ボタン、Noto Sans JP ＋ Open Sans（`@fontsource-variable` で自己ホスト。next/font/google は使わない）。
   本サイトは個人利用のサンプル（ダミーサイト）であり、著作権配慮は不要とのこと。ただしロゴ・社名・文章の転載はしない。
+- **AI 機能の実装メモ**：Claude Sonnet 5.5 は強制 tool_choice を受け付けないため、構造化出力は `output_config.format`（JSON スキーマ）＋ zod 検証で実装している（要件の「tool use による構造化出力」と同じ目的）。Route Handler で `export const runtime` は Cache Components と非互換なので書かない。PDF は `@react-pdf/renderer`（`serverExternalPackages`）、日本語は極細スペース（U+200A）で改行位置を作る。
 - Phase 2 で後続 Phase のルート（/works /blog /news /recruit /contact /booking /ai/*）には `<ComingSoon>` の暫定ページを置いている。各 Phase で本実装に置き換える。
 
 ---

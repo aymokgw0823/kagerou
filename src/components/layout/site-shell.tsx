@@ -5,6 +5,7 @@ import "@fontsource-variable/open-sans";
 import type { Locale } from "@/config/i18n";
 import { Header } from "./header";
 import { Footer } from "./footer";
+import { ConciergeWidget } from "@/features/ai/concierge/ui/concierge-widget";
 import "@/app/globals.css";
 
 /** html/body を含むサイト全体の骨格。ロケールごとのルートレイアウトから使う */
@@ -20,6 +21,7 @@ export function SiteShell({ locale, children }: { locale: Locale; children: Reac
           {children}
         </main>
         <Footer locale={locale} />
+        {locale === "ja" && <ConciergeWidget />}
       </body>
     </html>
   );
