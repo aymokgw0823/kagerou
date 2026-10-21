@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { format, scan, walkValues } from "../check-dummy";
+import { photoManifest } from "../../src/config/photo-manifest";
 
 let root: string;
 
@@ -50,9 +51,9 @@ describe("check-dummy", () => {
     expect(out.dummies).toEqual(["root.c"]);
   });
 
-  it("src 未設定の写真カットを一覧に含める", () => {
+  it("src 未設定の写真カットだけを一覧に含める", () => {
     const r = scan(root);
-    expect(r.placeholderPhotos.length).toBeGreaterThan(0);
-    expect(r.placeholderPhotos[0]).toHaveProperty("id");
+    const expected = photoManifest.filter((p) => !p.src).map((p) => p.id);
+    expect(r.placeholderPhotos.map((p) => p.id)).toEqual(expected);
   });
 });

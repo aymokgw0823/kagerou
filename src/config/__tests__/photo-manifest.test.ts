@@ -35,10 +35,12 @@ describe("photo-manifest", () => {
       expect(ids.has(required), required).toBe(true);
   });
 
-  it("src 未設定ならダミー画像パスに解決される", () => {
+  it("src が設定されていれば実写真、未設定ならダミー画像パスに解決される", () => {
     const p = resolvePhoto("ceo-portrait");
-    expect(p.isPlaceholder).toBe(true);
-    expect(p.src).toBe("/images/placeholders/ceo-portrait.jpg");
+    expect(p.isPlaceholder).toBe(false);
+    expect(p.src).toBe("/images/photos/ceo-portrait.jpg");
+    const placeholder = photoManifest.find((x) => !x.src);
+    if (placeholder) expect(resolvePhoto(placeholder.id).src).toBe(`/images/placeholders/${placeholder.id}.jpg`);
     expect(() => resolvePhoto("nope")).toThrow();
   });
 });
