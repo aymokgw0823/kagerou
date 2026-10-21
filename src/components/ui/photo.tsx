@@ -33,8 +33,10 @@ export function Photo({ id, alt, sizes, priority, fill, className, imgClassName 
     ) : null;
 
   if (fill) {
+    // 呼び出し側が absolute で敷く場合は relative を付けない（position クラスの競合で高さ 0 になるのを防ぐ）
+    const positioned = className?.split(/\s+/).some((c) => c === "absolute" || c === "fixed");
     return (
-      <span className={cn("relative block overflow-hidden", className)}>
+      <span className={cn("block overflow-hidden", !positioned && "relative", className)}>
         <Image
           src={photo.src}
           alt={alt ?? photo.alt}
