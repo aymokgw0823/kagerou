@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/* ダークモードのバリアント：data-theme または OS 設定 */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Tailwind のユーティリティをトークンに接続する */
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-paper-2: var(--color-paper-2);
+  --color-paper-3: var(--color-paper-3);
+  --color-ink: var(--color-ink);
+  --color-ink-2: var(--color-ink-2);
+  --color-ink-3: var(--color-ink-3);
+  --color-line: var(--color-line);
+  --color-line-strong: var(--color-line-strong);
+  --color-accent: var(--color-accent);
+  --color-accent-ink: var(--color-accent-ink);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-biz-digital: var(--color-biz-digital);
+  --color-biz-social: var(--color-biz-social);
+  --color-biz-consulting: var(--color-biz-consulting);
+  --color-biz-build: var(--color-biz-build);
+  --color-biz-dining: var(--color-biz-dining);
+  --color-notice: var(--color-notice);
+  --color-notice-soft: var(--color-notice-soft);
+  --color-danger: var(--color-danger);
+  --color-success: var(--color-success);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --ease-brand: var(--ease-brand);
+
+  --spacing-section: var(--section-y);
+  --spacing-section-sm: var(--section-y-sm);
+  --spacing-gutter: var(--gutter);
+  --spacing-header: var(--header-h);
+
+  --container-max: var(--container-max);
+  --container-narrow: var(--container-narrow);
+  --container-text: var(--container-text);
+
+  --radius-brand: var(--radius);
+
+  --breakpoint-xs: 23.4375rem; /* 375px */
+  --breakpoint-3xl: 120rem; /* 1920px */
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: var(--leading-body);
+    color: var(--color-ink);
+    background: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "palt";
+    scroll-padding-top: var(--header-h);
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: var(--tracking-heading);
+    line-height: 1.3;
+    font-weight: 500;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility container-max {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+@utility container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+@utility container-text {
+  width: 100%;
+  max-width: var(--container-text);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* 欧文見出し（セリフ）：英語ラベル・セクション番号に使う */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0;
+  font-feature-settings: "liga", "kern";
+}
+
+/* 小さな大文字ラベル */
+@utility label-caps {
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+/* 罫線のみのボタン（SaaS 風の塗り＋角丸を避ける） */
+@utility btn-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding-inline: 1.5rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  transition:
+    background-color var(--duration-fast) var(--ease-brand),
+    color var(--duration-fast) var(--ease-brand),
+    border-color var(--duration-fast) var(--ease-brand);
+}
+
+/* 本文リンクの下線 */
+@utility link-underline {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  transition: text-decoration-color var(--duration-fast) var(--ease-brand);
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* スクリーンリーダー用 */
+@utility sr-only-focusable {
+  position: absolute;
+  left: -9999px;
+  &:focus {
+    left: 1rem;
+    top: 1rem;
+    z-index: 100;
+  }
+}

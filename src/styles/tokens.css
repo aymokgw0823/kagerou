@@ -1,0 +1,126 @@
+/*
+ * デザイントークン（唯一の正）
+ * - ベース：オフホワイト（paper）＋ 墨色（ink）。真っ黒・真っ白は使わない。
+ * - コーポレートのアクセントは 1 色（--color-accent：朱を落とした赤）。
+ * - 5 事業のアクセントは彩度を抑えて統一感を保つ。
+ * - ダークモードは html[data-theme="dark"]、未指定時は prefers-color-scheme に従う。
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ── Base ── */
+  --color-paper: #f5f3ee; /* 背景：生成り寄りのオフホワイト */
+  --color-paper-2: #ece9e1; /* 一段落とした面 */
+  --color-paper-3: #e2ded4; /* 罫線・区切り面 */
+  --color-ink: #1f1e1b; /* 墨色：本文・見出し */
+  --color-ink-2: #4a4843; /* 補助テキスト */
+  --color-ink-3: #85817a; /* キャプション・メタ情報 */
+  --color-line: #d4d0c6; /* 罫線 */
+  --color-line-strong: #1f1e1b;
+
+  /* ── Corporate accent（1色のみ） ── */
+  --color-accent: #b1452c; /* 朱を落とした赤 */
+  --color-accent-ink: #ffffff; /* アクセント上の文字 */
+  --color-accent-soft: #f1ddd5;
+
+  /* ── Business accents（彩度を抑える） ── */
+  --color-biz-digital: #2f4a6b; /* 藍 */
+  --color-biz-social: #7b4a62; /* 蘇芳 */
+  --color-biz-consulting: #4e6a52; /* 松葉 */
+  --color-biz-build: #8f5a3a; /* 煉瓦 */
+  --color-biz-dining: #a07a2e; /* 琥珀 */
+
+  /* ── Status（控えめ） ── */
+  --color-notice: #9a6b00; /* 【要差し替え】・DUMMY の注意色 */
+  --color-notice-soft: #fbf0d0;
+  --color-danger: #a1382c;
+  --color-success: #3f6b47;
+
+  /* ── Typography ── */
+  --font-sans:
+    var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  --font-display: var(--font-instrument-serif), "Times New Roman", Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-body: 1rem; /* 16px */
+  --leading-body: 1.85;
+  --tracking-heading: 0.02em;
+  --tracking-wide: 0.12em;
+
+  /* ── Spacing & grid ── */
+  --section-y: clamp(6rem, 12vw, 10rem); /* PC で 160px 基準 */
+  --section-y-sm: clamp(4rem, 8vw, 6rem);
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --container-max: 88rem; /* 1408px */
+  --container-narrow: 48rem;
+  --container-text: 42rem;
+
+  /* ── Motion ── */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-base: 0.8s;
+  --duration-fast: 0.4s;
+
+  /* ── Misc ── */
+  --radius: 2px; /* 角丸はほぼ使わない */
+  --header-h: 4.5rem;
+}
+
+/* ダークモード：OS 設定に従う（明示指定がない場合） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-paper: #171614;
+    --color-paper-2: #1f1e1b;
+    --color-paper-3: #2a2825;
+    --color-ink: #ebe8e0;
+    --color-ink-2: #b9b5ab;
+    --color-ink-3: #827e75;
+    --color-line: #343230;
+    --color-line-strong: #ebe8e0;
+    --color-accent: #d4694f;
+    --color-accent-ink: #171614;
+    --color-accent-soft: #3a241e;
+    --color-biz-digital: #7f9bc0;
+    --color-biz-social: #b98aa3;
+    --color-biz-consulting: #8fae94;
+    --color-biz-build: #c28f6b;
+    --color-biz-dining: #c9a85a;
+    --color-notice: #e0b14a;
+    --color-notice-soft: #3a2f12;
+    --color-danger: #d26a5e;
+    --color-success: #7fb088;
+  }
+}
+
+/* ダークモード：明示指定 */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #171614;
+  --color-paper-2: #1f1e1b;
+  --color-paper-3: #2a2825;
+  --color-ink: #ebe8e0;
+  --color-ink-2: #b9b5ab;
+  --color-ink-3: #827e75;
+  --color-line: #343230;
+  --color-line-strong: #ebe8e0;
+  --color-accent: #d4694f;
+  --color-accent-ink: #171614;
+  --color-accent-soft: #3a241e;
+  --color-biz-digital: #7f9bc0;
+  --color-biz-social: #b98aa3;
+  --color-biz-consulting: #8fae94;
+  --color-biz-build: #c28f6b;
+  --color-biz-dining: #c9a85a;
+  --color-notice: #e0b14a;
+  --color-notice-soft: #3a2f12;
+  --color-danger: #d26a5e;
+  --color-success: #7fb088;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-base: 0s;
+    --duration-fast: 0s;
+  }
+}
