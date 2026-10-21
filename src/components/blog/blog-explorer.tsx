@@ -418,6 +418,7 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
             </button>
           </div>
         ) : (
+          <h2 className="sr-only">記事一覧</h2>
           <ul
             className={cn(
               "mt-6 grid gap-5",
