@@ -26,6 +26,7 @@ import { DummyBadge } from "@/components/ui/dummy-badge";
 import { Faq } from "@/components/ui/faq";
 import { CtaBlock } from "@/components/ui/cta-block";
 import { BeforeAfter } from "@/components/business/before-after";
+import { LocalBusinessJsonLd } from "@/components/seo/json-ld";
 
 const ids = businesses.map((b) => b.id);
 function isBusinessId(v: string): v is BusinessId {
@@ -461,6 +462,11 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
 
       {/* 11. CTA */}
       <CtaBlock photoId={b.keyVisualId} />
+      {d.extra.kind === "dining" ? (
+        <LocalBusinessJsonLd kind="dining" stores={d.extra.stores} />
+      ) : (
+        <LocalBusinessJsonLd kind="build" serviceAreas={d.extra.serviceAreas} />
+      )}
     </>
   );
 }

@@ -9,7 +9,7 @@ import { site } from "@/config/site";
 import { formatYen } from "@/config/reform-pricing";
 import type { ReformResult } from "./schema";
 
-const FONT_PATH = join(process.cwd(), "src/assets/fonts/NotoSansJP-Regular.ttf");
+const FONT_PATH = join(process.cwd(), "src/assets/fonts/NotoSansJP-Regular.otf");
 let registered = false;
 function ensureFont() {
   if (registered) return;

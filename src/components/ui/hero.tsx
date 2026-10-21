@@ -10,6 +10,8 @@ type Props = {
   /** 強調したい1文（見出し直下・太字） */
   tagline?: ReactNode;
   photoId?: string;
+  /** 背景に敷く要素（3D 演出など）。写真の上に重なる。`absolute inset-0 -z-10` で配置すること */
+  background?: ReactNode;
   actions?: ReactNode;
   /** 高さ */
   size?: "default" | "tall";
@@ -25,6 +27,7 @@ export function Hero({
   lead,
   tagline,
   photoId,
+  background,
   actions,
   size = "default",
   tintVar,
@@ -42,6 +45,7 @@ export function Hero({
           imgClassName="opacity-90"
         />
       )}
+      {background}
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/45 to-black/10"

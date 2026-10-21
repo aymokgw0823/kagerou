@@ -56,3 +56,6 @@ next-env.d.ts
 /src/generated/
 # uploaded files (local storage)
 /uploads/
+
+# generated fonts
+/public/fonts/

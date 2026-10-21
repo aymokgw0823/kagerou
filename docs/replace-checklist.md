@@ -1,0 +1,582 @@
+# 公開前の差し替えチェックリスト
+
+> `npm run check:dummy -- --md` で自動生成。チェックが終わったら再実行して更新してください。
+
+生成日：2026-10-21　／　残り：565 件
+
+## 1. 会社情報（src/config/company.ts）
+
+- [ ] company.founded を実際の値に
+- [ ] company.representative を実際の値に
+- [ ] company.officers[0].name を実際の値に
+- [ ] company.officers[1].name を実際の値に
+- [ ] company.officers[2].name を実際の値に
+- [ ] company.address.postalCode を実際の値に
+- [ ] company.address.region を実際の値に
+- [ ] company.address.street を実際の値に
+- [ ] company.address.directions を実際の値に
+- [ ] company.contact.tel を実際の値に
+- [ ] company.contact.email を実際の値に
+- [ ] company.banks[0] を実際の値に
+- [ ] company.licenses[0].number を実際の値に
+- [ ] company.licenses[1].number を実際の値に
+- [ ] company.invoiceRegistrationNumber を実際の値に
+- [ ] company.history[0].date を実際の値に
+- [ ] company.history[1].date を実際の値に
+- [ ] company.history[2].date を実際の値に
+- [ ] company.history[3].date を実際の値に
+- [ ] company.officers[0] のダミーデータを実データに（isDummy を外す）
+- [ ] company.officers[1] のダミーデータを実データに（isDummy を外す）
+- [ ] company.officers[2] のダミーデータを実データに（isDummy を外す）
+- [ ] company.history[0] のダミーデータを実データに（isDummy を外す）
+- [ ] company.history[1] のダミーデータを実データに（isDummy を外す）
+- [ ] company.history[2] のダミーデータを実データに（isDummy を外す）
+- [ ] company.history[3] のダミーデータを実データに（isDummy を外す）
+
+## 2. コンテンツ・設定の未確定値
+
+- [ ] `src/content/recruit.ts:31` "施工管理技士、建築士、調理師、食品衛生責任者など、業務に関わる資格の受験費用と学習時間を支援します（制度の詳細は【要差し替え】）。",
+- [ ] `src/content/recruit.ts:67` "交通費支給（上限は【要差し替え】）",
+- [ ] `src/features/ai/concierge/chat.ts:36` `【${i + 1}】${d.title}（${d.type === "work" ? "施工事例" : d.type === "page"…
+- [ ] `src/features/ai/concierge/chat.ts:88` const cited = [...answer.matchAll(/【(\d+)】/g)]
+- [ ] `src/features/ai/concierge/mock.ts:12` `${first.snippet.slice(0, 120)}…といった内容が参考になります【1】。`,
+- [ ] `src/features/ai/concierge/mock.ts:13` second ? `あわせて「${second.title}」もご覧ください【2】。` : "",
+- [ ] `src/features/ai/concierge/ui/concierge-widget.tsx:27` const parts = text.split(/(【\d+】|\/[a-z][a-z0-9\-/]*)/g);
+- [ ] `src/features/ai/concierge/ui/concierge-widget.tsx:29` const m = /^【(\d+)】$/.exec(p);
+- [ ] `src/features/ai/concierge/ui/concierge-widget.tsx:195` 【{s.n}】{s.title}
+- [ ] `src/lib/forms/mail-templates.ts:41` subject: `【お問い合わせ】${bizLabel[input.business]}｜${input.name}様（${id}）`,
+- [ ] `src/lib/forms/mail-templates.ts:45` subject: `【${company.nameJa}】お問い合わせを受け付けました`,
+- [ ] `src/lib/forms/mail-templates.ts:74` admin: { subject: `【ご相談予約】${input.name}様 ${slotText}（${id}）`, text: li…
+- [ ] `src/lib/forms/mail-templates.ts:76` subject: `【${company.nameJa}】ご相談予約を受け付けました（確定ではありません）`,
+- [ ] `src/lib/forms/mail-templates.ts:103` admin: { subject: `【採用エントリー】${jobTitle}｜${input.name}様（${id}）`, text: …
+- [ ] `src/lib/forms/mail-templates.ts:105` subject: `【${company.nameJa}】エントリーを受け付けました`,
+- [ ] `content/authors/sup-architect.md:6` qualifications: ["一級建築士【要差し替え】"]
+- [ ] `content/authors/sup-foodsafety.md:6` qualifications: ["食品衛生責任者【要差し替え】"]
+- [ ] `content/blog/2024-10-31-design-build-schedule.mdx:2` title: "【2024年版】工事が遅れる原因と、開業日を動かさないための工夫"
+- [ ] `content/blog/2024-11-07-food-safety-manager.mdx:2` title: "【はじめての方へ】食品衛生責任者は何をする人？設置の義務と実務"
+- [ ] `content/blog/2024-11-15-haccp-basics.mdx:2` title: "【2024年版】衛生管理計画と記録表。形だけにしないための運用"
+- [ ] `content/blog/2024-11-20-bathroom-unit-bath.mdx:2` title: "【2024年版】ユニットバスの交換時期と、工事で確認しておくべきポイント"
+- [ ] `content/blog/2024-11-22-exterior-chalking.mdx:2` title: "【はじめての方へ】外壁のチョーキングとは？見つけたときの判断と対処"
+- [ ] `content/blog/2024-11-28-roof-cover-vs-replace.mdx:2` title: "【保存版】屋根の葺き替えとカバー工法、どちらを選ぶ？判断の基準"
+- [ ] `content/blog/2024-11-29-reform-tax-reduction.mdx:2` title: "【2024年版】リフォーム減税の基本──所得税・固定資産税の控除の仕組み"
+- [ ] `content/blog/2024-12-03-shift-planning.mdx:2` title: "【2024年版】シフトが毎週ぎりぎり。作り方の見直しで変わること"
+- [ ] `content/blog/2024-12-05-inuki-checklist.mdx:2` title: "【基礎知識】居抜き物件で後悔しないために、設備と動線をどう確認するか"
+- [ ] `content/blog/2024-12-16-sealing-replacement.mdx:2` title: "【2024年版】サイディングの目地から雨が入る前に──シーリングの点検ポイント"
+- [ ] `content/blog/2024-12-17-kitchen-replacement.mdx:2` title: "【保存版】キッチン交換の時期はいつ？寿命のサインと費用の目安"
+- [ ] `content/blog/2024-12-19-design-build-schedule.mdx:2` title: "【2024年版】設計・施工のスケジュールと保健所検査──開業日を守るための段取り"
+- [ ] `content/blog/2025-01-01-haccp-basics.mdx:2` title: "【基礎知識】HACCPの「手引書」をどう使う？日々の記録を続けるコツ"
+- [ ] `content/blog/2025-01-01-seating-layout.mdx:2` title: "【はじめての方へ】客席レイアウトの考え方。席数・通路・居心地のバランス"
+- [ ] `content/blog/2025-01-17-sealing-replacement.mdx:2` title: "【2025年版】シーリング（コーキング）の劣化サインと打ち替え・増し打ちの違い"
+- [ ] `content/blog/2025-01-18-opening-roadmap.mdx:2` title: "【基礎知識】開業の順番を間違えると起きること。全体の流れを先に知る"
+- [ ] `content/blog/2025-02-09-toilet-replacement.mdx:2` title: "【2025年版】トイレの不具合、修理と交換のどちらを選ぶか"
+- [ ] `content/blog/2025-02-11-lighting-storage.mdx:2` title: "【基礎知識】店舗の照明と収納──営業してから効いてくる設計のポイント"
+- [ ] `content/blog/2025-02-11-skeleton-vs-inuki-construction.mdx:2` title: "【2025年版】スケルトン物件と居抜き物件、工事の内容はどう違うのか"
+- [ ] `content/blog/2025-02-17-reform-subsidy.mdx:2` title: "【基礎知識】補助金が使えるリフォームとは？対象工事と注意点"
+- [ ] `content/blog/2025-02-23-renovation-while-open.mdx:2` title: "【保存版】営業しながら改装する方法──夜間工事・分割工事・休業の使い分け"
+- [ ] `content/blog/2025-02-26-bathroom-unit-bath.mdx:2` title: "【基礎知識】浴室リフォームの進め方──在来浴室からユニットバスへの交換で知っておきたいこと"
+- [ ] `content/blog/2025-02-28-floor-plan-change.mdx:2` title: "【2025年版】LDKを広くしたい。壁撤去の可否と工事の進め方"
+- [ ] `content/blog/2025-03-12-estimate-reading.mdx:2` title: "【2025年版】リフォーム見積書の見方──「一式」「諸経費」で確認すべきこと"
+- [ ] `content/blog/2025-03-27-bathroom-unit-bath.mdx:2` title: "【はじめての方へ】お風呂のタイルにひび、床が冷たい。浴室交換を考えるタイミング"
+- [ ] `content/blog/2025-03-29-roof-inspection-timing.mdx:2` title: "【保存版】屋根の点検はいつ・どこを見る？台風シーズン前後のチェックリスト"
+- [ ] `content/blog/2025-04-03-purchasing-suppliers.mdx:2` title: "【保存版】発注ミスとロスを減らす仕入れの仕組みづくり"
+- [ ] `content/blog/2025-04-08-peak-time-operation.mdx:2` title: "【2025年版】ピークタイムを乗り切るオペレーション──仕込み・ポジション・声かけ"
+- [ ] `content/blog/2025-04-13-sealing-replacement.mdx:2` title: "【2025年版】サイディングの目地から雨が入る前に──シーリングの点検ポイント"
+- [ ] `content/blog/2025-04-17-grease-trap-ventilation.mdx:2` title: "【2025年版】厨房の臭いとベタつきは設備の管理で変わる"
+- [ ] `content/blog/2025-04-19-renovation-while-open.mdx:2` title: "【2025年版】営業しながら改装する方法──夜間工事・分割工事・休業の使い分け"
+- [ ] `content/blog/2025-04-20-reservation-no-show.mdx:2` title: "【2025年版】ノーショーが続くときに見直したい予約の受け方"
+- [ ] `content/blog/2025-04-27-budget-allocation-interior-equipment.mdx:2` title: "【基礎知識】店舗づくりの予算が足りないとき、削る順番の考え方"
+- [ ] `content/blog/2025-05-05-kitchen-equipment-renewal.mdx:2` title: "【はじめての方へ】厨房機器の寿命と、故障する前に見直したいこと"
+- [ ] `content/blog/2025-05-06-seating-layout.mdx:2` title: "【基礎知識】席数とレイアウト──詰め込むほど売上が上がらない理由"
+- [ ] `content/blog/2025-05-12-flooring-wallpaper.mdx:2` title: "【保存版】壁紙（クロス）の張り替えで知っておきたい下地の話"
+- [ ] `content/blog/2025-05-22-opening-interior-budget.mdx:2` title: "【2025年版】内装にこだわりすぎて失敗する前に。開業時に優先すべき投資"
+- [ ] `content/blog/2025-06-02-barrier-free.mdx:2` title: "【保存版】将来に備える住まいの改修、どこから手をつけるか"
+- [ ] `content/blog/2025-06-06-exterior-paint-grade.mdx:2` title: "【2025年版】外壁塗料の選び方──シリコン・フッ素・無機の違いと向き不向き"
+- [ ] `content/blog/2025-06-14-shop-interior-flow.mdx:2` title: "【2025年版】店舗内装工事の流れと工期──依頼から引き渡しまでに何が起きるか"
+- [ ] `content/blog/2025-06-19-roof-leak.mdx:2` title: "【基礎知識】天井にシミが出たら。雨漏りの原因の探し方と修理の流れ"
+- [ ] `content/blog/2025-06-22-insulation-reform.mdx:2` title: "【2025年版】断熱リフォームは窓から？壁・床・天井との違いと効果の考え方"
+- [ ] `content/blog/2025-07-01-multiple-estimates.mdx:2` title: "【2025年版】相見積もりで失敗しないために。条件をそろえる方法"
+- [ ] `content/blog/2025-07-04-shop-interior-flow.mdx:2` title: "【基礎知識】店舗内装工事の流れと工期──依頼から引き渡しまでに何が起きるか"
+- [ ] `content/blog/2025-07-04-training-manual.mdx:2` title: "【2025年版】飲食店のマニュアルは何を書くべきか。作り方と使い方"
+- [ ] `content/blog/2025-07-09-barrier-free.mdx:2` title: "【保存版】介護保険の住宅改修と自費工事の組み合わせ方"
+- [ ] `content/blog/2025-07-10-kitchen-replacement.mdx:2` title: "【はじめての方へ】キッチンリフォーム、「交換だけ」と「位置を変える」で何が違うか"
+- [ ] `content/blog/2025-07-11-roof-leak.mdx:2` title: "【2025年版】雨漏りの原因は屋根だけではない──よくある侵入経路と応急処置"
+- [ ] `content/blog/2025-07-23-inuki-checklist.mdx:2` title: "【基礎知識】居抜き物件のチェックリスト──内見で確認したい設備と契約の条件"
+- [ ] `content/blog/2025-07-24-floor-plan-change.mdx:2` title: "【はじめての方へ】間取り変更で壁は抜ける？構造と配管から考えるリノベーションの基本"
+- [ ] `content/blog/2025-08-01-renovation-while-open.mdx:2` title: "【2025年版】店を休まずにリニューアルできる？営業中改装の進め方と注意点"
+- [ ] `content/blog/2025-08-01-seat-turnover.mdx:2` title: "【はじめての方へ】席数を増やせば売上は上がる？回転率と客単価のバランス"
+- [ ] `content/blog/2025-08-05-exterior-crack.mdx:2` title: "【保存版】外壁クラックの種類と補修の考え方"
+- [ ] `content/blog/2025-08-08-seat-turnover.mdx:2` title: "【2025年版】席数を増やせば売上は上がる？回転率と客単価のバランス"
+- [ ] `content/blog/2025-08-12-peak-time-operation.mdx:2` title: "【2025年版】ランチのピークで提供が遅れる。原因の切り分けと対策"
+- [ ] `content/blog/2025-08-20-insulation-reform.mdx:2` title: "【保存版】冬寒く夏暑い家をどうするか──断熱リフォームの優先順位"
+- [ ] `content/blog/2025-09-10-toilet-replacement.mdx:2` title: "【はじめての方へ】トイレの不具合、修理と交換のどちらを選ぶか"
+- [ ] `content/blog/2025-09-16-grease-trap-ventilation.mdx:2` title: "【はじめての方へ】グリストラップの清掃頻度と、換気扇の油汚れの対策"
+- [ ] `content/blog/2025-09-22-lighting-storage-2.mdx:2` title: "【保存版】店舗の照明と収納──営業してから効いてくる設計のポイント"
+- [ ] `content/blog/2025-09-29-purchasing-suppliers.mdx:2` title: "【基礎知識】仕入れ先の選び方と発注の基本──価格だけで決めない理由"
+- [ ] `content/blog/2025-09-30-price-revision.mdx:2` title: "【はじめての方へ】価格を上げても客足を落とさないためのメニュー見直し"
+- [ ] `content/blog/2025-10-01-food-safety-manager.mdx:2` title: "【2025年版】食品衛生責任者は何をする人？設置の義務と実務"
+- [ ] `content/blog/2025-10-02-exterior-chalking.mdx:2` title: "【2025年版】外壁を触ると白い粉がつく──チョーキングのサインと塗り替えの考え方"
+- [ ] `content/blog/2025-10-04-parttime-hiring.mdx:2` title: "【2025年版】飲食店の求人で伝えるべき情報と、面接で確認すること"
+- [ ] `content/blog/2025-10-06-renovation-while-open.mdx:2` title: "【基礎知識】店を休まずにリニューアルできる？営業中改装の進め方と注意点"
+- [ ] `content/blog/2025-10-08-barrier-free.mdx:2` title: "【基礎知識】介護保険の住宅改修と自費工事の組み合わせ方"
+- [ ] `content/blog/2025-10-17-training-manual.mdx:2` title: "【はじめての方へ】新人育成とマニュアル──教える人によって違う、をなくす方法"
+- [ ] `content/blog/2025-10-24-exterior-chalking.mdx:2` title: "【2025年版】チョーキング現象が出たら塗り替え時期？確認の手順"
+- [ ] `content/blog/2025-10-26-training-manual.mdx:2` title: "【保存版】飲食店のマニュアルは何を書くべきか。作り方と使い方"
+- [ ] `content/blog/2025-10-27-shift-planning.mdx:2` title: "【はじめての方へ】シフト作成の基本──人件費と働きやすさを両立させる考え方"
+- [ ] `content/blog/2025-11-10-multiple-estimates.mdx:2` title: "【基礎知識】相見積もりで失敗しないために。条件をそろえる方法"
+- [ ] `content/blog/2025-11-21-shift-planning.mdx:2` title: "【基礎知識】時間帯別の売上からシフトを組む方法"
+- [ ] `content/blog/2025-12-06-reservation-no-show.mdx:2` title: "【2025年版】予約管理とノーショー対策──小さな店でもできる基本の仕組み"
+- [ ] `content/blog/2025-12-10-opening-interior-budget.mdx:2` title: "【基礎知識】飲食店の内装で「営業してから効いてくる」部分とは"
+- [ ] `content/blog/2025-12-15-reservation-no-show.mdx:2` title: "【2025年版】予約の取りこぼしとダブルブッキングを防ぐ運用ルール"
+- [ ] `content/blog/2025-12-18-barrier-free.mdx:2` title: "【2025年版】手すり・段差解消・引き戸化──バリアフリーリフォームの優先順位"
+- [ ] `content/blog/2025-12-18-reservation-no-show.mdx:2` title: "【保存版】予約管理とノーショー対策──小さな店でもできる基本の仕組み"
+- [ ] `content/blog/2025-12-19-grease-trap-ventilation.mdx:2` title: "【2025年版】グリストラップの清掃頻度と、換気扇の油汚れの対策"
+- [ ] `content/blog/2025-12-25-design-build-schedule.mdx:2` title: "【保存版】設計・施工のスケジュールと保健所検査──開業日を守るための段取り"
+- [ ] `content/blog/2025-12-25-funding-plan.mdx:2` title: "【2025年版】開業資金はいくら必要？項目ごとの考え方と自己資金・融資"
+- [ ] `content/blog/2025-12-25-seismic-reinforcement.mdx:2` title: "【2025年版】古い木造住宅の耐震性が心配なとき、最初にやるべきこと"
+- [ ] `content/blog/2025-12-26-water-pipe-renewal.mdx:2` title: "【2025年版】赤水・水圧低下・排水の臭い。配管の劣化を疑うべきとき"
+- [ ] `content/blog/2026-01-10-purchasing-suppliers.mdx:2` title: "【はじめての方へ】仕入れ先の選び方と発注の基本──価格だけで決めない理由"
+- [ ] `content/blog/2026-01-13-kitchen-workflow-design.mdx:2` title: "【2026年版】小さな厨房でも回る動線のつくり方"
+- [ ] `content/blog/2026-01-20-peak-time-operation.mdx:2` title: "【2026年版】ランチのピークで提供が遅れる。原因の切り分けと対策"
+- [ ] `content/blog/2026-01-27-price-revision.mdx:2` title: "【保存版】値上げはどう伝えるか──価格改定の考え方とお客様への説明"
+- [ ] `content/blog/2026-02-02-property-infrastructure.mdx:2` title: "【基礎知識】飲食店向け物件のインフラチェック。見落としやすい4項目"
+- [ ] `content/blog/2026-02-05-health-office-permit.mdx:2` title: "【2026年版】飲食店営業許可の取り方。事前相談から検査までの手順"
+- [ ] `content/blog/2026-02-06-toilet-replacement.mdx:2` title: "【はじめての方へ】トイレ交換の目安と節水型に替えるメリット・注意点"
+- [ ] `content/blog/2026-02-09-office-layout-change.mdx:2` title: "【基礎知識】オフィスのレイアウト変更で見落としがちな電気・配線・空調のこと"
+- [ ] `content/blog/2026-02-10-property-infrastructure.mdx:2` title: "【2026年版】物件を契約する前に。インフラの容量が足りないとどうなるか"
+- [ ] `content/blog/2026-02-28-opening-interior-budget.mdx:2` title: "【はじめての方へ】内装にこだわりすぎて失敗する前に。開業時に優先すべき投資"
+- [ ] `content/blog/2026-03-16-roof-cover-vs-replace.mdx:2` title: "【基礎知識】屋根の葺き替えとカバー工法、どちらを選ぶ？判断の基準"
+- [ ] `content/blog/2026-03-18-food-safety-manager.mdx:2` title: "【2026年版】食品衛生責任者の役割──資格の取り方と日々の仕事"
+- [ ] `content/blog/2026-03-26-seismic-reinforcement.mdx:2` title: "【基礎知識】耐震診断と耐震補強の進め方──何を調べ、どこを補強するのか"
+- [ ] `content/blog/2026-03-27-food-safety-manager.mdx:2` title: "【保存版】食品衛生責任者は何をする人？設置の義務と実務"
+- [ ] `content/blog/2026-04-04-purchasing-suppliers.mdx:2` title: "【基礎知識】発注ミスとロスを減らす仕入れの仕組みづくり"
+- [ ] `content/blog/2026-04-12-training-manual.mdx:2` title: "【2026年版】新人育成とマニュアル──教える人によって違う、をなくす方法"
+- [ ] `content/blog/2026-04-13-reform-tax-reduction.mdx:2` title: "【2026年版】リフォームで税金が安くなる？知っておきたい制度の概要"
+- [ ] `content/blog/2026-04-23-reform-tax-reduction.mdx:2` title: "【2026年版】住宅ローン減税とリフォーム減税、どちらが使えるか"
+- [ ] `content/blog/2026-04-26-flooring-wallpaper.mdx:2` title: "【はじめての方へ】フローリングの張り替えと重ね張り、どちらを選ぶか"
+- [ ] `content/blog/2026-05-04-kitchen-replacement.mdx:2` title: "【はじめての方へ】キッチン交換の時期はいつ？寿命のサインと費用の目安"
+- [ ] `content/blog/2026-05-06-training-manual.mdx:2` title: "【2026年版】新人が育つ店の共通点。最初の2週間の教え方"
+- [ ] `content/blog/2026-05-07-exterior-chalking.mdx:2` title: "【はじめての方へ】チョーキング現象が出たら塗り替え時期？確認の手順"
+- [ ] `content/blog/2026-05-07-seat-turnover.mdx:2` title: "【保存版】席数を増やせば売上は上がる？回転率と客単価のバランス"
+- [ ] `content/blog/2026-05-14-inuki-checklist.mdx:2` title: "【はじめての方へ】居抜き物件のチェックリスト──内見で確認したい設備と契約の条件"
+- [ ] `content/blog/2026-06-06-kitchen-workflow-design.mdx:2` title: "【2026年版】厨房のレイアウトで営業が変わる。動線設計の基本"
+- [ ] `content/blog/2026-06-09-kitchen-workflow-design.mdx:2` title: "【基礎知識】小さな厨房でも回る動線のつくり方"
+- [ ] `content/blog/2026-06-11-peak-time-operation.mdx:2` title: "【基礎知識】ピークタイムを乗り切るオペレーション──仕込み・ポジション・声かけ"
+- [ ] `content/blog/2026-06-26-toilet-replacement.mdx:2` title: "【2026年版】トイレの不具合、修理と交換のどちらを選ぶか"
+- [ ] `content/blog/2026-06-28-parttime-hiring.mdx:2` title: "【保存版】飲食店の求人で伝えるべき情報と、面接で確認すること"
+- [ ] `content/blog/2026-07-07-budget-allocation-interior-equipment.mdx:2` title: "【2026年版】内装と設備の予算配分──どちらを優先し、どこで調整するか"
+- [ ] `content/blog/2026-07-10-roof-inspection-timing.mdx:2` title: "【保存版】屋根の定期点検で見ておきたい5つの場所"
+- [ ] `content/blog/2026-07-11-price-revision.mdx:2` title: "【2026年版】原材料費が上がったとき。価格改定の判断とタイミング"
+- [ ] `content/blog/2026-07-15-reform-subsidy.mdx:2` title: "【2026年版】リフォーム補助金の探し方──国・自治体の制度と申請の流れ"
+- [ ] `content/blog/2026-07-17-floor-plan-change.mdx:2` title: "【基礎知識】間取り変更で壁は抜ける？構造と配管から考えるリノベーションの基本"
+- [ ] `content/blog/2026-07-27-roof-cover-vs-replace.mdx:2` title: "【2026年版】屋根の葺き替えとカバー工法、どちらを選ぶ？判断の基準"
+- [ ] `content/blog/2026-07-31-budget-allocation-interior-equipment.mdx:2` title: "【2026年版】店舗づくりの予算が足りないとき、削る順番の考え方"
+- [ ] `content/blog/2026-08-01-menu-structure-cost-rate.mdx:2` title: "【基礎知識】看板メニューと利益メニュー。役割を分けて構成する方法"
+- [ ] `content/blog/2026-08-01-skeleton-vs-inuki-construction.mdx:2` title: "【2026年版】スケルトン物件と居抜き物件、工事の内容はどう違うのか"
+- [ ] `content/blog/2026-08-12-purchasing-suppliers.mdx:2` title: "【はじめての方へ】食材の仕入れを安定させる。業者・市場・ネットの使い分け"
+- [ ] `content/blog/2026-08-12-seismic-reinforcement.mdx:2` title: "【はじめての方へ】耐震診断と耐震補強の進め方──何を調べ、どこを補強するのか"
+- [ ] `content/blog/2026-08-14-purchasing-suppliers.mdx:2` title: "【はじめての方へ】発注ミスとロスを減らす仕入れの仕組みづくり"
+- [ ] `content/blog/2026-08-17-multiple-estimates.mdx:2` title: "【はじめての方へ】相見積もりで失敗しないために。条件をそろえる方法"
+- [ ] `content/blog/2026-08-29-flooring-wallpaper.mdx:2` title: "【2026年版】フローリングの張り替えと重ね張り、どちらを選ぶか"
+- [ ] `content/blog/2026-08-31-training-manual.mdx:2` title: "【はじめての方へ】飲食店のマニュアルは何を書くべきか。作り方と使い方"
+- [ ] `content/blog/2026-09-05-shift-planning.mdx:2` title: "【はじめての方へ】シフトが毎週ぎりぎり。作り方の見直しで変わること"
+- [ ] `content/blog/2026-09-14-kitchen-equipment-renewal.mdx:2` title: "【保存版】新品・中古・リース。厨房機器の導入方法を比べる"
+- [ ] `content/blog/2026-09-28-insulation-reform.mdx:2` title: "【はじめての方へ】内窓・断熱材・玄関ドア。断熱改修の選択肢を整理する"
+- [ ] `content/blog/2026-10-05-design-build-schedule.mdx:2` title: "【はじめての方へ】工事が遅れる原因と、開業日を動かさないための工夫"
+- [ ] `content/blog/2026-10-14-seating-layout.mdx:2` title: "【保存版】席数とレイアウト──詰め込むほど売上が上がらない理由"
+- [ ] `content/jobs/construction-manager.mdx:8` salary: "【要差し替え】"
+- [ ] `content/jobs/craftsman.mdx:8` salary: "【要差し替え】"
+- [ ] `content/jobs/estimator.mdx:8` salary: "【要差し替え】"
+- [ ] `content/jobs/hall-staff.mdx:8` salary: "【要差し替え】"
+- [ ] `content/jobs/kitchen-staff.mdx:8` salary: "【要差し替え】"
+- [ ] `content/jobs/sales-admin.mdx:8` salary: "【要差し替え】"
+- [ ] `content/news/build-license.mdx:11` 許可の種別および許可番号は【要差し替え】です。詳細は会社概要ページの許認可欄に記載しています。
+- [ ] `content/news/founding.mdx:10` 当社は、建設事業と飲食事業を展開する会社として設立されました。設立日は【要差し替え】です。
+- [ ] `content/news/media-interview.mdx:13` 掲載誌の名称、号数、掲載ページは【要差し替え】です。記事の内容は掲載誌にてご確認ください。
+- [ ] `content/news/office-move.mdx:11` 新しい本社の所在地、電話番号、アクセスは【要差し替え】です。詳細は会社概要ページおよびアクセスページをご確認ください。
+- [ ] `content/news/seminar.mdx:13` 開催日時、会場、定員、お申し込み方法は【要差し替え】です。参加費は無料を予定しています。
+- [ ] `content/news/store-open.mdx:14` 店舗の所在地、営業時間、定休日は【要差し替え】です。詳細は店舗ページをご覧ください。
+- [ ] `content/news/summer-holiday.mdx:11` 当社の夏季休業期間は【要差し替え】です。期間中はお電話および本社窓口でのご対応をお休みさせていただきます。お問い合わせフォームからのご連絡は…
+- [ ] `content/works/cafe-new-open.mdx:12` budget: "【要差し替え】"
+- [ ] `content/works/exterior-repaint.mdx:12` budget: "【要差し替え】"
+- [ ] `content/works/home-renovation.mdx:12` budget: "【要差し替え】"
+- [ ] `content/works/kitchen-bath-reform.mdx:12` budget: "【要差し替え】"
+- [ ] `content/works/office-renewal.mdx:12` budget: "【要差し替え】"
+- [ ] `content/works/roof-waterproof.mdx:12` budget: "【要差し替え】"
+- [ ] `content/works/salon-interior.mdx:12` budget: "【要差し替え】"
+- [ ] `content/works/store-renovation.mdx:12` budget: "【要差し替え】"
+
+## 3. ダミーデータ（isDummy: true）
+
+- [ ] `src/content/about.ts`（1 件）
+- [ ] `src/content/business/build.ts`（2 件）
+- [ ] `src/content/business/dining.ts`（7 件）
+- [ ] `src/content/business/types.ts`（2 件）
+- [ ] `src/content/recruit.ts`（4 件）
+- [ ] `content/authors/author-construction.md`（1 件）
+- [ ] `content/authors/author-dining.md`（1 件）
+- [ ] `content/authors/author-site.md`（1 件）
+- [ ] `content/authors/sup-architect.md`（1 件）
+- [ ] `content/authors/sup-foodsafety.md`（1 件）
+- [ ] `content/blog/2024-10-31-design-build-schedule.mdx`（1 件）
+- [ ] `content/blog/2024-10-31-opening-interior-budget.mdx`（1 件）
+- [ ] `content/blog/2024-11-01-flooring-wallpaper.mdx`（1 件）
+- [ ] `content/blog/2024-11-07-food-safety-manager.mdx`（1 件）
+- [ ] `content/blog/2024-11-12-water-pipe-renewal.mdx`（1 件）
+- [ ] `content/blog/2024-11-14-roof-leak.mdx`（1 件）
+- [ ] `content/blog/2024-11-15-haccp-basics.mdx`（1 件）
+- [ ] `content/blog/2024-11-18-opening-interior-budget.mdx`（1 件）
+- [ ] `content/blog/2024-11-18-sealing-replacement.mdx`（1 件）
+- [ ] `content/blog/2024-11-20-bathroom-unit-bath.mdx`（1 件）
+- [ ] `content/blog/2024-11-22-exterior-chalking.mdx`（1 件）
+- [ ] `content/blog/2024-11-22-exterior-paint-grade.mdx`（1 件）
+- [ ] `content/blog/2024-11-24-estimate-reading.mdx`（1 件）
+- [ ] `content/blog/2024-11-27-menu-structure-cost-rate.mdx`（1 件）
+- [ ] `content/blog/2024-11-28-roof-cover-vs-replace.mdx`（1 件）
+- [ ] `content/blog/2024-11-29-reform-tax-reduction.mdx`（1 件）
+- [ ] `content/blog/2024-12-01-shop-interior-flow.mdx`（1 件）
+- [ ] `content/blog/2024-12-03-shift-planning.mdx`（1 件）
+- [ ] `content/blog/2024-12-05-inuki-checklist.mdx`（1 件）
+- [ ] `content/blog/2024-12-09-exterior-chalking.mdx`（1 件）
+- [ ] `content/blog/2024-12-10-roof-cover-vs-replace.mdx`（1 件）
+- [ ] `content/blog/2024-12-12-shop-interior-flow.mdx`（1 件）
+- [ ] `content/blog/2024-12-16-sealing-replacement.mdx`（1 件）
+- [ ] `content/blog/2024-12-17-bathroom-unit-bath.mdx`（1 件）
+- [ ] `content/blog/2024-12-17-kitchen-replacement.mdx`（1 件）
+- [ ] `content/blog/2024-12-19-design-build-schedule.mdx`（1 件）
+- [ ] `content/blog/2024-12-20-property-infrastructure.mdx`（1 件）
+- [ ] `content/blog/2024-12-22-parttime-hiring.mdx`（1 件）
+- [ ] `content/blog/2024-12-22-toilet-replacement.mdx`（1 件）
+- [ ] `content/blog/2024-12-25-haccp-basics.mdx`（1 件）
+- [ ] `content/blog/2024-12-27-barrier-free.mdx`（1 件）
+- [ ] `content/blog/2024-12-30-seat-turnover.mdx`（1 件）
+- [ ] `content/blog/2025-01-01-haccp-basics.mdx`（1 件）
+- [ ] `content/blog/2025-01-01-seating-layout.mdx`（1 件）
+- [ ] `content/blog/2025-01-02-parttime-hiring.mdx`（1 件）
+- [ ] `content/blog/2025-01-03-reform-subsidy.mdx`（1 件）
+- [ ] `content/blog/2025-01-03-sealing-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-01-04-sealing-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-01-07-kitchen-equipment-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-01-15-kitchen-equipment-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-01-17-sealing-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-01-18-opening-roadmap.mdx`（1 件）
+- [ ] `content/blog/2025-01-20-exterior-crack.mdx`（1 件）
+- [ ] `content/blog/2025-01-21-estimate-reading.mdx`（1 件）
+- [ ] `content/blog/2025-01-24-reform-tax-reduction.mdx`（1 件）
+- [ ] `content/blog/2025-01-24-roof-inspection-timing.mdx`（1 件）
+- [ ] `content/blog/2025-01-24-shift-planning.mdx`（1 件）
+- [ ] `content/blog/2025-01-28-inuki-checklist.mdx`（1 件）
+- [ ] `content/blog/2025-02-04-funding-plan.mdx`（1 件）
+- [ ] `content/blog/2025-02-05-water-pipe-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-02-08-insulation-reform.mdx`（1 件）
+- [ ] `content/blog/2025-02-09-toilet-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-02-10-office-layout-change.mdx`（1 件）
+- [ ] `content/blog/2025-02-10-roof-inspection-timing.mdx`（1 件）
+- [ ] `content/blog/2025-02-11-lighting-storage.mdx`（1 件）
+- [ ] `content/blog/2025-02-11-purchasing-suppliers.mdx`（1 件）
+- [ ] `content/blog/2025-02-11-skeleton-vs-inuki-construction.mdx`（1 件）
+- [ ] `content/blog/2025-02-17-funding-plan.mdx`（1 件）
+- [ ] `content/blog/2025-02-17-reform-subsidy.mdx`（1 件）
+- [ ] `content/blog/2025-02-18-menu-structure-cost-rate.mdx`（1 件）
+- [ ] `content/blog/2025-02-21-peak-time-operation.mdx`（1 件）
+- [ ] `content/blog/2025-02-23-renovation-while-open.mdx`（1 件）
+- [ ] `content/blog/2025-02-25-seating-layout.mdx`（1 件）
+- [ ] `content/blog/2025-02-26-bathroom-unit-bath.mdx`（1 件）
+- [ ] `content/blog/2025-02-28-floor-plan-change.mdx`（1 件）
+- [ ] `content/blog/2025-03-06-health-office-permit.mdx`（1 件）
+- [ ] `content/blog/2025-03-09-funding-plan.mdx`（1 件）
+- [ ] `content/blog/2025-03-12-estimate-reading.mdx`（1 件）
+- [ ] `content/blog/2025-03-12-seat-turnover.mdx`（1 件）
+- [ ] `content/blog/2025-03-13-food-safety-manager.mdx`（1 件）
+- [ ] `content/blog/2025-03-18-haccp-basics.mdx`（1 件）
+- [ ] `content/blog/2025-03-23-food-safety-manager.mdx`（1 件）
+- [ ] `content/blog/2025-03-24-reform-tax-reduction.mdx`（1 件）
+- [ ] `content/blog/2025-03-25-opening-interior-budget.mdx`（1 件）
+- [ ] `content/blog/2025-03-26-kitchen-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-03-27-bathroom-unit-bath.mdx`（1 件）
+- [ ] `content/blog/2025-03-29-roof-inspection-timing.mdx`（1 件）
+- [ ] `content/blog/2025-03-31-opening-roadmap.mdx`（1 件）
+- [ ] `content/blog/2025-04-03-purchasing-suppliers.mdx`（1 件）
+- [ ] `content/blog/2025-04-04-office-layout-change.mdx`（1 件）
+- [ ] `content/blog/2025-04-08-parttime-hiring.mdx`（1 件）
+- [ ] `content/blog/2025-04-08-peak-time-operation.mdx`（1 件）
+- [ ] `content/blog/2025-04-08-seating-layout.mdx`（1 件）
+- [ ] `content/blog/2025-04-13-sealing-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-04-16-kitchen-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-04-17-grease-trap-ventilation.mdx`（1 件）
+- [ ] `content/blog/2025-04-18-insulation-reform.mdx`（1 件）
+- [ ] `content/blog/2025-04-19-renovation-while-open.mdx`（1 件）
+- [ ] `content/blog/2025-04-20-reservation-no-show.mdx`（1 件）
+- [ ] `content/blog/2025-04-27-budget-allocation-interior-equipment.mdx`（1 件）
+- [ ] `content/blog/2025-05-05-kitchen-equipment-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-05-06-seating-layout.mdx`（1 件）
+- [ ] `content/blog/2025-05-12-flooring-wallpaper.mdx`（1 件）
+- [ ] `content/blog/2025-05-20-menu-structure-cost-rate.mdx`（1 件）
+- [ ] `content/blog/2025-05-22-opening-interior-budget.mdx`（1 件）
+- [ ] `content/blog/2025-05-24-parttime-hiring.mdx`（1 件）
+- [ ] `content/blog/2025-06-01-funding-plan.mdx`（1 件）
+- [ ] `content/blog/2025-06-02-barrier-free.mdx`（1 件）
+- [ ] `content/blog/2025-06-06-budget-allocation-interior-equipment.mdx`（1 件）
+- [ ] `content/blog/2025-06-06-exterior-paint-grade.mdx`（1 件）
+- [ ] `content/blog/2025-06-09-reform-tax-reduction.mdx`（1 件）
+- [ ] `content/blog/2025-06-11-health-office-permit.mdx`（1 件）
+- [ ] `content/blog/2025-06-14-shop-interior-flow.mdx`（1 件）
+- [ ] `content/blog/2025-06-19-roof-leak.mdx`（1 件）
+- [ ] `content/blog/2025-06-22-insulation-reform.mdx`（1 件）
+- [ ] `content/blog/2025-07-01-multiple-estimates.mdx`（1 件）
+- [ ] `content/blog/2025-07-03-skeleton-vs-inuki-construction.mdx`（1 件）
+- [ ] `content/blog/2025-07-04-shop-interior-flow.mdx`（1 件）
+- [ ] `content/blog/2025-07-04-training-manual.mdx`（1 件）
+- [ ] `content/blog/2025-07-08-funding-plan.mdx`（1 件）
+- [ ] `content/blog/2025-07-08-roof-cover-vs-replace.mdx`（1 件）
+- [ ] `content/blog/2025-07-09-barrier-free.mdx`（1 件）
+- [ ] `content/blog/2025-07-10-kitchen-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-07-10-water-pipe-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-07-11-roof-leak.mdx`（1 件）
+- [ ] `content/blog/2025-07-16-flooring-wallpaper.mdx`（1 件）
+- [ ] `content/blog/2025-07-21-estimate-reading.mdx`（1 件）
+- [ ] `content/blog/2025-07-23-inuki-checklist.mdx`（1 件）
+- [ ] `content/blog/2025-07-24-floor-plan-change.mdx`（1 件）
+- [ ] `content/blog/2025-07-25-opening-roadmap.mdx`（1 件）
+- [ ] `content/blog/2025-08-01-price-revision.mdx`（1 件）
+- [ ] `content/blog/2025-08-01-renovation-while-open.mdx`（1 件）
+- [ ] `content/blog/2025-08-01-seat-turnover.mdx`（1 件）
+- [ ] `content/blog/2025-08-04-reform-tax-reduction.mdx`（1 件）
+- [ ] `content/blog/2025-08-05-exterior-crack.mdx`（1 件）
+- [ ] `content/blog/2025-08-06-exterior-paint-grade.mdx`（1 件）
+- [ ] `content/blog/2025-08-06-toilet-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-08-08-seat-turnover.mdx`（1 件）
+- [ ] `content/blog/2025-08-11-roof-inspection-timing.mdx`（1 件）
+- [ ] `content/blog/2025-08-12-peak-time-operation.mdx`（1 件）
+- [ ] `content/blog/2025-08-12-skeleton-vs-inuki-construction.mdx`（1 件）
+- [ ] `content/blog/2025-08-13-water-pipe-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-08-14-multiple-estimates.mdx`（1 件）
+- [ ] `content/blog/2025-08-20-insulation-reform.mdx`（1 件）
+- [ ] `content/blog/2025-08-20-menu-structure-cost-rate.mdx`（1 件）
+- [ ] `content/blog/2025-08-21-exterior-crack.mdx`（1 件）
+- [ ] `content/blog/2025-08-30-reform-subsidy.mdx`（1 件）
+- [ ] `content/blog/2025-09-02-parttime-hiring.mdx`（1 件）
+- [ ] `content/blog/2025-09-04-budget-allocation-interior-equipment.mdx`（1 件）
+- [ ] `content/blog/2025-09-08-lighting-storage.mdx`（1 件）
+- [ ] `content/blog/2025-09-08-renovation-while-open.mdx`（1 件）
+- [ ] `content/blog/2025-09-10-toilet-replacement.mdx`（1 件）
+- [ ] `content/blog/2025-09-11-roof-cover-vs-replace.mdx`（1 件）
+- [ ] `content/blog/2025-09-16-grease-trap-ventilation.mdx`（1 件）
+- [ ] `content/blog/2025-09-18-bathroom-unit-bath.mdx`（1 件）
+- [ ] `content/blog/2025-09-21-exterior-crack.mdx`（1 件）
+- [ ] `content/blog/2025-09-22-lighting-storage-2.mdx`（1 件）
+- [ ] `content/blog/2025-09-22-lighting-storage.mdx`（1 件）
+- [ ] `content/blog/2025-09-26-renovation-while-open.mdx`（1 件）
+- [ ] `content/blog/2025-09-29-floor-plan-change.mdx`（1 件）
+- [ ] `content/blog/2025-09-29-purchasing-suppliers.mdx`（1 件）
+- [ ] `content/blog/2025-09-30-price-revision.mdx`（1 件）
+- [ ] `content/blog/2025-10-01-food-safety-manager.mdx`（1 件）
+- [ ] `content/blog/2025-10-02-exterior-chalking.mdx`（1 件）
+- [ ] `content/blog/2025-10-04-parttime-hiring.mdx`（1 件）
+- [ ] `content/blog/2025-10-06-renovation-while-open.mdx`（1 件）
+- [ ] `content/blog/2025-10-08-barrier-free.mdx`（1 件）
+- [ ] `content/blog/2025-10-16-opening-roadmap.mdx`（1 件）
+- [ ] `content/blog/2025-10-17-training-manual.mdx`（1 件）
+- [ ] `content/blog/2025-10-21-shift-planning.mdx`（1 件）
+- [ ] `content/blog/2025-10-24-exterior-chalking.mdx`（1 件）
+- [ ] `content/blog/2025-10-26-training-manual.mdx`（1 件）
+- [ ] `content/blog/2025-10-27-shift-planning.mdx`（1 件）
+- [ ] `content/blog/2025-11-04-property-infrastructure.mdx`（1 件）
+- [ ] `content/blog/2025-11-05-kitchen-equipment-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-11-09-exterior-crack.mdx`（1 件）
+- [ ] `content/blog/2025-11-10-multiple-estimates.mdx`（1 件）
+- [ ] `content/blog/2025-11-17-seating-layout.mdx`（1 件）
+- [ ] `content/blog/2025-11-18-flooring-wallpaper.mdx`（1 件）
+- [ ] `content/blog/2025-11-21-shift-planning.mdx`（1 件）
+- [ ] `content/blog/2025-11-23-multiple-estimates.mdx`（1 件）
+- [ ] `content/blog/2025-11-28-skeleton-vs-inuki-construction.mdx`（1 件）
+- [ ] `content/blog/2025-12-06-reservation-no-show.mdx`（1 件）
+- [ ] `content/blog/2025-12-10-opening-interior-budget.mdx`（1 件）
+- [ ] `content/blog/2025-12-13-lighting-storage.mdx`（1 件）
+- [ ] `content/blog/2025-12-15-reservation-no-show.mdx`（1 件）
+- [ ] `content/blog/2025-12-16-health-office-permit.mdx`（1 件）
+- [ ] `content/blog/2025-12-18-barrier-free.mdx`（1 件）
+- [ ] `content/blog/2025-12-18-bathroom-unit-bath.mdx`（1 件）
+- [ ] `content/blog/2025-12-18-reservation-no-show.mdx`（1 件）
+- [ ] `content/blog/2025-12-19-grease-trap-ventilation-2.mdx`（1 件）
+- [ ] `content/blog/2025-12-19-grease-trap-ventilation.mdx`（1 件）
+- [ ] `content/blog/2025-12-25-design-build-schedule.mdx`（1 件）
+- [ ] `content/blog/2025-12-25-funding-plan.mdx`（1 件）
+- [ ] `content/blog/2025-12-25-roof-leak.mdx`（1 件）
+- [ ] `content/blog/2025-12-25-seismic-reinforcement.mdx`（1 件）
+- [ ] `content/blog/2025-12-26-water-pipe-renewal.mdx`（1 件）
+- [ ] `content/blog/2025-12-31-kitchen-equipment-renewal.mdx`（1 件）
+- [ ] `content/blog/2026-01-07-estimate-reading.mdx`（1 件）
+- [ ] `content/blog/2026-01-08-grease-trap-ventilation.mdx`（1 件）
+- [ ] `content/blog/2026-01-08-seat-turnover.mdx`（1 件）
+- [ ] `content/blog/2026-01-10-purchasing-suppliers.mdx`（1 件）
+- [ ] `content/blog/2026-01-13-kitchen-workflow-design.mdx`（1 件）
+- [ ] `content/blog/2026-01-20-peak-time-operation.mdx`（1 件）
+- [ ] `content/blog/2026-01-21-inuki-checklist.mdx`（1 件）
+- [ ] `content/blog/2026-01-21-menu-structure-cost-rate.mdx`（1 件）
+- [ ] `content/blog/2026-01-21-opening-roadmap.mdx`（1 件）
+- [ ] `content/blog/2026-01-21-seismic-reinforcement.mdx`（1 件）
+- [ ] `content/blog/2026-01-24-renovation-while-open.mdx`（1 件）
+- [ ] `content/blog/2026-01-25-price-revision.mdx`（1 件）
+- [ ] `content/blog/2026-01-26-exterior-crack.mdx`（1 件）
+- [ ] `content/blog/2026-01-27-price-revision.mdx`（1 件）
+- [ ] `content/blog/2026-01-29-estimate-reading.mdx`（1 件）
+- [ ] `content/blog/2026-02-02-property-infrastructure.mdx`（1 件）
+- [ ] `content/blog/2026-02-05-grease-trap-ventilation.mdx`（1 件）
+- [ ] `content/blog/2026-02-05-health-office-permit.mdx`（1 件）
+- [ ] `content/blog/2026-02-05-skeleton-vs-inuki-construction.mdx`（1 件）
+- [ ] `content/blog/2026-02-06-toilet-replacement.mdx`（1 件）
+- [ ] `content/blog/2026-02-09-office-layout-change.mdx`（1 件）
+- [ ] `content/blog/2026-02-10-property-infrastructure.mdx`（1 件）
+- [ ] `content/blog/2026-02-17-health-office-permit.mdx`（1 件）
+- [ ] `content/blog/2026-02-24-opening-interior-budget.mdx`（1 件）
+- [ ] `content/blog/2026-02-24-seismic-reinforcement.mdx`（1 件）
+- [ ] `content/blog/2026-02-27-floor-plan-change.mdx`（1 件）
+- [ ] `content/blog/2026-02-28-opening-interior-budget.mdx`（1 件）
+- [ ] `content/blog/2026-03-06-exterior-paint-grade.mdx`（1 件）
+- [ ] `content/blog/2026-03-06-reform-subsidy.mdx`（1 件）
+- [ ] `content/blog/2026-03-10-roof-leak.mdx`（1 件）
+- [ ] `content/blog/2026-03-16-roof-cover-vs-replace.mdx`（1 件）
+- [ ] `content/blog/2026-03-18-food-safety-manager.mdx`（1 件）
+- [ ] `content/blog/2026-03-20-exterior-chalking.mdx`（1 件）
+- [ ] `content/blog/2026-03-26-seismic-reinforcement.mdx`（1 件）
+- [ ] `content/blog/2026-03-27-exterior-chalking.mdx`（1 件）
+- [ ] `content/blog/2026-03-27-food-safety-manager.mdx`（1 件）
+- [ ] `content/blog/2026-03-30-flooring-wallpaper.mdx`（1 件）
+- [ ] `content/blog/2026-04-04-purchasing-suppliers.mdx`（1 件）
+- [ ] `content/blog/2026-04-05-price-revision.mdx`（1 件）
+- [ ] `content/blog/2026-04-07-multiple-estimates.mdx`（1 件）
+- [ ] `content/blog/2026-04-12-training-manual.mdx`（1 件）
+- [ ] `content/blog/2026-04-13-reform-tax-reduction.mdx`（1 件）
+- [ ] `content/blog/2026-04-23-haccp-basics.mdx`（1 件）
+- [ ] `content/blog/2026-04-23-reform-tax-reduction.mdx`（1 件）
+- [ ] `content/blog/2026-04-24-barrier-free.mdx`（1 件）
+- [ ] `content/blog/2026-04-26-flooring-wallpaper.mdx`（1 件）
+- [ ] `content/blog/2026-05-04-kitchen-replacement.mdx`（1 件）
+- [ ] `content/blog/2026-05-06-training-manual.mdx`（1 件）
+- [ ] `content/blog/2026-05-07-exterior-chalking.mdx`（1 件）
+- [ ] `content/blog/2026-05-07-inuki-checklist.mdx`（1 件）
+- [ ] `content/blog/2026-05-07-seat-turnover.mdx`（1 件）
+- [ ] `content/blog/2026-05-08-peak-time-operation.mdx`（1 件）
+- [ ] `content/blog/2026-05-11-shop-interior-flow.mdx`（1 件）
+- [ ] `content/blog/2026-05-14-inuki-checklist.mdx`（1 件）
+- [ ] `content/blog/2026-05-17-budget-allocation-interior-equipment.mdx`（1 件）
+- [ ] `content/blog/2026-05-19-grease-trap-ventilation.mdx`（1 件）
+- [ ] `content/blog/2026-05-25-kitchen-equipment-renewal.mdx`（1 件）
+- [ ] `content/blog/2026-05-30-reservation-no-show.mdx`（1 件）
+- [ ] `content/blog/2026-05-31-health-office-permit.mdx`（1 件）
+- [ ] `content/blog/2026-06-04-floor-plan-change.mdx`（1 件）
+- [ ] `content/blog/2026-06-06-kitchen-workflow-design.mdx`（1 件）
+- [ ] `content/blog/2026-06-08-haccp-basics.mdx`（1 件）
+- [ ] `content/blog/2026-06-09-kitchen-workflow-design.mdx`（1 件）
+- [ ] `content/blog/2026-06-11-peak-time-operation.mdx`（1 件）
+- [ ] `content/blog/2026-06-26-toilet-replacement.mdx`（1 件）
+- [ ] `content/blog/2026-06-28-parttime-hiring.mdx`（1 件）
+- [ ] `content/blog/2026-07-01-exterior-paint-grade.mdx`（1 件）
+- [ ] `content/blog/2026-07-03-kitchen-replacement.mdx`（1 件）
+- [ ] `content/blog/2026-07-07-budget-allocation-interior-equipment.mdx`（1 件）
+- [ ] `content/blog/2026-07-10-roof-inspection-timing.mdx`（1 件）
+- [ ] `content/blog/2026-07-11-price-revision.mdx`（1 件）
+- [ ] `content/blog/2026-07-12-design-build-schedule.mdx`（1 件）
+- [ ] `content/blog/2026-07-15-reform-subsidy.mdx`（1 件）
+- [ ] `content/blog/2026-07-17-floor-plan-change.mdx`（1 件）
+- [ ] `content/blog/2026-07-20-insulation-reform.mdx`（1 件）
+- [ ] `content/blog/2026-07-27-roof-cover-vs-replace.mdx`（1 件）
+- [ ] `content/blog/2026-07-29-office-layout-change.mdx`（1 件）
+- [ ] `content/blog/2026-07-31-budget-allocation-interior-equipment.mdx`（1 件）
+- [ ] `content/blog/2026-08-01-menu-structure-cost-rate.mdx`（1 件）
+- [ ] `content/blog/2026-08-01-skeleton-vs-inuki-construction.mdx`（1 件）
+- [ ] `content/blog/2026-08-05-reform-subsidy.mdx`（1 件）
+- [ ] `content/blog/2026-08-09-roof-leak.mdx`（1 件）
+- [ ] `content/blog/2026-08-12-purchasing-suppliers.mdx`（1 件）
+- [ ] `content/blog/2026-08-12-seismic-reinforcement.mdx`（1 件）
+- [ ] `content/blog/2026-08-13-roof-inspection-timing.mdx`（1 件）
+- [ ] `content/blog/2026-08-14-exterior-paint-grade.mdx`（1 件）
+- [ ] `content/blog/2026-08-14-opening-roadmap.mdx`（1 件）
+- [ ] `content/blog/2026-08-14-purchasing-suppliers.mdx`（1 件）
+- [ ] `content/blog/2026-08-17-multiple-estimates.mdx`（1 件）
+- [ ] `content/blog/2026-08-26-exterior-paint-grade.mdx`（1 件）
+- [ ] `content/blog/2026-08-26-insulation-reform.mdx`（1 件）
+- [ ] `content/blog/2026-08-29-flooring-wallpaper.mdx`（1 件）
+- [ ] `content/blog/2026-08-30-kitchen-workflow-design.mdx`（1 件）
+- [ ] `content/blog/2026-08-30-seat-turnover.mdx`（1 件）
+- [ ] `content/blog/2026-08-31-training-manual.mdx`（1 件）
+- [ ] `content/blog/2026-09-05-shift-planning.mdx`（1 件）
+- [ ] `content/blog/2026-09-07-funding-plan.mdx`（1 件）
+- [ ] `content/blog/2026-09-10-water-pipe-renewal.mdx`（1 件）
+- [ ] `content/blog/2026-09-12-office-layout-change.mdx`（1 件）
+- [ ] `content/blog/2026-09-14-kitchen-equipment-renewal.mdx`（1 件）
+- [ ] `content/blog/2026-09-17-office-layout-change.mdx`（1 件）
+- [ ] `content/blog/2026-09-22-kitchen-workflow-design.mdx`（1 件）
+- [ ] `content/blog/2026-09-25-food-safety-manager.mdx`（1 件）
+- [ ] `content/blog/2026-09-27-property-infrastructure.mdx`（1 件）
+- [ ] `content/blog/2026-09-28-insulation-reform.mdx`（1 件）
+- [ ] `content/blog/2026-09-29-seismic-reinforcement.mdx`（1 件）
+- [ ] `content/blog/2026-10-02-shop-interior-flow.mdx`（1 件）
+- [ ] `content/blog/2026-10-03-property-infrastructure.mdx`（1 件）
+- [ ] `content/blog/2026-10-04-peak-time-operation.mdx`（1 件）
+- [ ] `content/blog/2026-10-05-design-build-schedule.mdx`（1 件）
+- [ ] `content/blog/2026-10-12-reservation-no-show.mdx`（1 件）
+- [ ] `content/blog/2026-10-14-seating-layout.mdx`（1 件）
+- [ ] `content/jobs/construction-manager.mdx`（1 件）
+- [ ] `content/jobs/craftsman.mdx`（1 件）
+- [ ] `content/jobs/estimator.mdx`（1 件）
+- [ ] `content/jobs/hall-staff.mdx`（1 件）
+- [ ] `content/jobs/kitchen-staff.mdx`（1 件）
+- [ ] `content/jobs/sales-admin.mdx`（1 件）
+- [ ] `content/news/ai-reform-release.mdx`（1 件）
+- [ ] `content/news/build-license.mdx`（1 件）
+- [ ] `content/news/founding.mdx`（1 件）
+- [ ] `content/news/media-interview.mdx`（1 件）
+- [ ] `content/news/office-move.mdx`（1 件）
+- [ ] `content/news/recruit-2027.mdx`（1 件）
+- [ ] `content/news/seminar.mdx`（1 件）
+- [ ] `content/news/site-launch.mdx`（1 件）
+- [ ] `content/news/store-open.mdx`（1 件）
+- [ ] `content/news/summer-holiday.mdx`（1 件）
+- [ ] `content/works/cafe-new-open.mdx`（1 件）
+- [ ] `content/works/charter-event.mdx`（1 件）
+- [ ] `content/works/exterior-repaint.mdx`（1 件）
+- [ ] `content/works/home-renovation.mdx`（1 件）
+- [ ] `content/works/kitchen-bath-reform.mdx`（1 件）
+- [ ] `content/works/office-renewal.mdx`（1 件）
+- [ ] `content/works/own-store-launch.mdx`（1 件）
+- [ ] `content/works/own-store-second.mdx`（1 件）
+- [ ] `content/works/roof-waterproof.mdx`（1 件）
+- [ ] `content/works/salon-interior.mdx`（1 件）
+- [ ] `content/works/store-renovation.mdx`（1 件）
+- [ ] `content/works/store-small-renewal.mdx`（1 件）
+
+## 4. 写真（src/config/photo-manifest.ts）
+
+撮影指示書は `docs/shot-list.md`。撮影後は `public/images/photos/` に置き、マニフェストの `src` を設定する。
+
+- [ ] 代表ポートレート（`ceo-portrait`）
+- [ ] 代表：仕事風景（`ceo-at-work`）
+- [ ] 役員ポートレート 01（`officer-01`）
+- [ ] 役員ポートレート 02（`officer-02`）
+- [ ] 役員ポートレート 03（`officer-03`）
+- [ ] オフィス外観（`office-exterior`）
+- [ ] オフィス内観（`office-interior`）
+- [ ] 執務風景（`office-working`）
+- [ ] キービジュアル：建設（`kv-build`）
+- [ ] キービジュアル：飲食（`kv-dining`）
+- [ ] 建設現場（引き）（`build-site-wide`）
+- [ ] 施工事例：ビフォー（`build-before`）
+- [ ] 施工事例：アフター（`build-after`）
+- [ ] 飲食店舗の内観（`dining-interior`）
+- [ ] 料理 01（看板メニュー）（`dining-food-01`）
+- [ ] 料理 02（`dining-food-02`）
+- [ ] 飲食店舗の外観（`dining-exterior`）
+- [ ] 採用メインビジュアル（`recruit-hero`）
+- [ ] 社員インタビュー 01（`interview-01`）
+- [ ] 社員インタビュー 02（`interview-02`）
+- [ ] 社員インタビュー 03（`interview-03`）
+
+## 5. その他（手動確認）
+
+- [ ] `src/config/reform-pricing.ts` の単価表を自社の実勢価格に（`reformPricingIsDummy` を false に）
+- [ ] ポリシー文書 5 本の専門家確認（`src/content/policies/`）
+- [ ] `.env` の本番値（ANTHROPIC_API_KEY・DATABASE_URL・MAIL_*・ADMIN_*・NEXT_PUBLIC_SITE_URL・GA4/GTM）
+- [ ] `content/blog/` のダミー記事 300 本を削除または実記事に置き換え（`npm run seed:articles` は実運用では使わない）
+- [ ] 店舗の予約サービス URL（`src/content/business/dining.ts` の reservationUrl）
+- [ ] 代表メッセージ・採用メッセージ・社員インタビューの実文章

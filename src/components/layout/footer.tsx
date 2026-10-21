@@ -6,6 +6,7 @@ import { Placeholder } from "@/components/ui/placeholder";
 import { Arrow } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { CopyrightYear } from "./copyright-year";
+import { CookieSettingsButton } from "@/components/consent/cookie-banner";
 
 const quickLinks = [
   { label: "お問い合わせ", labelEn: "Get in touch", href: "/contact" },
@@ -87,6 +88,9 @@ export function Footer({ locale = "ja" }: { locale?: Locale }) {
               >
                 サイトマップ
               </Link>
+            </li>
+            <li>
+              <CookieSettingsButton />
             </li>
           </ul>
           <div className="text-ink-3 mt-6 flex flex-col gap-4 text-xs md:flex-row md:items-center md:justify-between">

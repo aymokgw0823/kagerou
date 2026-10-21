@@ -3,6 +3,7 @@
  *
  *   npm run check:dummy            … 一覧を表示（終了コード 0）
  *   npm run check:dummy -- --strict … 1件でもあれば終了コード 1（CI 用）
+ *   npm run check:dummy -- --md      … docs/replace-checklist.md（公開前の差し替えチェックリスト）を書き出す
  *   CHECK_DUMMY_STRICT=1           … 同上
  *
  * 検出対象
@@ -12,7 +13,7 @@
  *
  * `prebuild` からも呼ばれ、本番ビルド時に警告を出す（build 自体は止めない）。
  */
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { pathToFileURL } from "node:url";
 import { photoManifest } from "../src/config/photo-manifest";
@@ -169,11 +170,67 @@ function trunc(s: string, n = 90): string {
   return s.length > n ? `${s.slice(0, n)}…` : s;
 }
 
+/** 公開前チェックリスト（Markdown） */
+export function formatMarkdown(report: Report): string {
+  const out: string[] = [];
+  out.push("# 公開前の差し替えチェックリスト");
+  out.push("");
+  out.push("> `npm run check:dummy -- --md` で自動生成。チェックが終わったら再実行して更新してください。");
+  out.push("");
+  out.push(`生成日：${new Date().toISOString().slice(0, 10)}　／　残り：${countTotal(report)} 件`);
+  out.push("");
+  out.push("## 1. 会社情報（src/config/company.ts）");
+  out.push("");
+  for (const p of report.companyPlaceholders) out.push(`- [ ] ${p.replace(/ = .*$/, "")} を実際の値に`);
+  for (const p of report.companyDummies) out.push(`- [ ] ${p} のダミーデータを実データに（isDummy を外す）`);
+  out.push("");
+  out.push("## 2. コンテンツ・設定の未確定値");
+  out.push("");
+  for (const f of report.placeholders) out.push(`- [ ] \`${f.file}:${f.line}\` ${trunc(f.text, 70)}`);
+  out.push("");
+  out.push("## 3. ダミーデータ（isDummy: true）");
+  out.push("");
+  const byFile = new Map<string, number>();
+  for (const f of report.dummies) byFile.set(f.file, (byFile.get(f.file) ?? 0) + 1);
+  for (const [file, n] of byFile) out.push(`- [ ] \`${file}\`（${n} 件）`);
+  out.push("");
+  out.push("## 4. 写真（src/config/photo-manifest.ts）");
+  out.push("");
+  out.push(
+    "撮影指示書は `docs/shot-list.md`。撮影後は `public/images/photos/` に置き、マニフェストの `src` を設定する。",
+  );
+  out.push("");
+  for (const p of report.placeholderPhotos) out.push(`- [ ] ${p.label}（\`${p.id}\`）`);
+  out.push("");
+  out.push("## 5. その他（手動確認）");
+  out.push("");
+  out.push(
+    "- [ ] `src/config/reform-pricing.ts` の単価表を自社の実勢価格に（`reformPricingIsDummy` を false に）",
+  );
+  out.push("- [ ] ポリシー文書 5 本の専門家確認（`src/content/policies/`）");
+  out.push(
+    "- [ ] `.env` の本番値（ANTHROPIC_API_KEY・DATABASE_URL・MAIL_*・ADMIN_*・NEXT_PUBLIC_SITE_URL・GA4/GTM）",
+  );
+  out.push(
+    "- [ ] `content/blog/` のダミー記事 300 本を削除または実記事に置き換え（`npm run seed:articles` は実運用では使わない）",
+  );
+  out.push("- [ ] 店舗の予約サービス URL（`src/content/business/dining.ts` の reservationUrl）");
+  out.push("- [ ] 代表メッセージ・採用メッセージ・社員インタビューの実文章");
+  out.push("");
+  return out.join("\n");
+}
+
 function main() {
   const root = join(import.meta.dirname, "..");
   const strict = process.argv.includes("--strict") || process.env.CHECK_DUMMY_STRICT === "1";
   const report = scan(root);
   const total = countTotal(report);
+  if (process.argv.includes("--md")) {
+    mkdirSync(join(root, "docs"), { recursive: true });
+    writeFileSync(join(root, "docs/replace-checklist.md"), formatMarkdown(report), "utf8");
+    console.log("docs/replace-checklist.md を書き出しました。");
+    return;
+  }
   console.log(format(report));
   if (strict && total > 0) {
     console.error("check-dummy: --strict のため終了コード 1 で終了します。");

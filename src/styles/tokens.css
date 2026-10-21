@@ -18,7 +18,7 @@
   --color-tint: #e3ede9; /* 緑がかった薄い面（コールアウト） */
   --color-ink: #0b0b0b; /* 見出し・本文（真っ黒よりわずかに浮かせる） */
   --color-ink-2: #53565a; /* 補助テキスト */
-  --color-ink-3: #75787b; /* キャプション・メタ情報 */
+  --color-ink-3: #65686b; /* キャプション・メタ情報（白地で 5.2:1、AA） */
   --color-line: #d0d0ce;
   --color-line-strong: #0b0b0b;
 
@@ -45,8 +45,8 @@
 
   /* ── Typography ── */
   --font-sans-stack:
-    "Noto Sans JP Variable", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
-  --font-display-stack: "Open Sans Variable", "Noto Sans JP Variable", sans-serif;
+    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  --font-display-stack: "Open Sans", "Noto Sans JP", sans-serif;
   --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --text-body: 1rem;

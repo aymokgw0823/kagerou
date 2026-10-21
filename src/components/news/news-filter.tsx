@@ -1,7 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { replaceUrlParams, useUrlParams } from "@/lib/use-url-params";
 import type { NewsSummary } from "@/lib/content/types";
 import { newsCategories } from "@/lib/content/schema";
 import { NewsList } from "@/components/home/news-list";
@@ -9,18 +8,14 @@ import { cn } from "@/lib/utils";
 
 /** カテゴリーで絞り込むニュース一覧（URL同期） */
 export function NewsFilter({ items }: { items: NewsSummary[] }) {
-  const sp = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const [, startTransition] = useTransition();
+  const sp = useUrlParams();
   const cat = sp.get("category") ?? "";
   const filtered = cat ? items.filter((n) => n.category === cat) : items;
   function set(v: string) {
     const next = new URLSearchParams(sp.toString());
     if (v) next.set("category", v);
     else next.delete("category");
-    const qs = next.toString();
-    startTransition(() => router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false }));
+    replaceUrlParams(next);
   }
   return (
     <div>

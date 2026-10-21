@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   },
   description: site.descriptionEn,
   openGraph: { type: "website", locale: "en_US", siteName: company.nameEn },
+  alternates: { canonical: "/en", languages: { ja: "/", en: "/en" } },
 };
 
 export default function RootLayoutEn({ children }: { children: ReactNode }) {

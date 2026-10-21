@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { submitEntry } from "@/lib/forms/actions";
 import { idleState, type ActionState } from "@/lib/forms/state";
 import { Consent, Field, FormMessage, Honeypot, Input, Select, SubmitButton, Textarea } from "./fields";
+import { TrackSuccess } from "./track-success";
 
 type Props = { jobs: { slug: string; title: string }[]; initialJob?: string };
 
@@ -13,6 +14,7 @@ export function EntryForm({ jobs, initialJob }: Props) {
   if (state.status === "success") {
     return (
       <div className="card p-8">
+        <TrackSuccess event={{ name: "entry_submit", params: { job: initialJob ?? "unknown" } }} />
         <FormMessage status="success" message={state.message} />
       </div>
     );

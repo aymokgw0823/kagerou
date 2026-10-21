@@ -5,6 +5,7 @@ import { submitBooking } from "@/lib/forms/actions";
 import { idleState, type ActionState } from "@/lib/forms/state";
 import { Consent, Field, FormMessage, Honeypot, Input, Select, SubmitButton, Textarea } from "./fields";
 import { cn } from "@/lib/utils";
+import { TrackSuccess } from "./track-success";
 
 type Biz = "build" | "dining" | "other";
 const kinds: { id: Biz; label: string }[] = [
@@ -75,6 +76,9 @@ export function BookingForm({ initialBusiness, consultationId }: Props) {
   if (state.status === "success") {
     return (
       <div className="card p-8">
+        <TrackSuccess
+          event={{ name: "booking_submit", params: { business: biz, with_consultation: !!consultationId } }}
+        />
         <FormMessage status="success" message={state.message} />
         <dl className="mt-4 grid grid-cols-[5rem_1fr] gap-y-1 text-sm">
           <dt className="text-ink-2 font-bold">第1希望</dt>

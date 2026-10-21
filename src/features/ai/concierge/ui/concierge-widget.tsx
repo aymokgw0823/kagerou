@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { readSse } from "@/features/ai/shared/sse";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 type Source = { n: number; title: string; url: string; type: string };
 type Msg = {
@@ -83,6 +84,7 @@ export function ConciergeWidget() {
     const history = msgs.filter((m) => !m.pending).map((m) => ({ role: m.role, content: m.content }));
     setMsgs((m) => [...m, { role: "user", content: q }, { role: "assistant", content: "", pending: true }]);
     setBusy(true);
+    track({ name: "concierge_message" });
     try {
       const res = await fetch("/api/ai/concierge", {
         method: "POST",

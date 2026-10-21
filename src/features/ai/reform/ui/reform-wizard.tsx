@@ -8,6 +8,7 @@ import { reformParts, type ReformPartInput, type ReformResult } from "../schema"
 import { Photo } from "@/components/ui/photo";
 import { LinkButton } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 type Step = "consent" | "upload" | "detail" | "analyzing" | "result";
 type Picked = { file: File; url: string };
@@ -58,6 +59,7 @@ export function ReformWizard() {
   async function submit() {
     if (!part) return;
     setStep("analyzing");
+    track({ name: "ai_reform_start", params: { part } });
     setStatusLog([]);
     setStreamText("");
     setError(null);
@@ -76,7 +78,9 @@ export function ReformWizard() {
         if (e.event === "status") setStatusLog((l) => [...l, (e.data as { message: string }).message]);
         else if (e.event === "delta") setStreamText((t) => t + (e.data as { text: string }).text);
         else if (e.event === "result") {
-          setResult(e.data as ReformResult);
+          const r = e.data as ReformResult;
+          setResult(r);
+          track({ name: "ai_reform_complete", params: { mode: r.mode, id: r.id } });
           setStep("result");
         } else if (e.event === "error") throw new Error((e.data as { message: string }).message);
       });
@@ -404,6 +408,7 @@ export function ReformResultView({ result, onRestart }: { result: ReformResult; 
       aEl.download = `reform-report-${result.id}.pdf`;
       aEl.click();
       URL.revokeObjectURL(url);
+      track({ name: "ai_reform_pdf", params: { id: result.id, with_email: !!email.trim() } });
       setPdfState("done");
     } catch {
       setPdfState("error");

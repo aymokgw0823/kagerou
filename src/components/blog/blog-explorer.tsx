@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, useTransition } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { replaceUrlParams, useUrlParams } from "@/lib/use-url-params";
 import type { BlogSummary } from "@/lib/content/types";
 import {
   categories,
@@ -95,10 +95,7 @@ function loadIndex(): Promise<SearchDoc[]> {
 }
 
 export function BlogExplorer({ posts, locked, tags }: Props) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const sp = useSearchParams();
-  const [, startTransition] = useTransition();
+  const sp = useUrlParams();
 
   const filters = useMemo(() => parseFilters(sp, locked), [sp, locked]);
   const q = sp.get("q") ?? "";
@@ -148,8 +145,7 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
     mutate(next);
     if (opts.resetPage) next.delete("page");
     for (const key of facetKeys) if (locked?.[key]) next.delete(key);
-    const qs = next.toString();
-    startTransition(() => router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false }));
+    replaceUrlParams(next);
   }
 
   function toggle(key: FacetKey, value: string) {

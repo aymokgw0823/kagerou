@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useTransition } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+import { replaceUrlParams, useUrlParams } from "@/lib/use-url-params";
 import Link from "next/link";
 import type { WorkSummary } from "@/lib/content/types";
 import { businesses } from "@/config/businesses";
@@ -14,10 +14,7 @@ const labels: Record<Key, string> = { business: "事業", industry: "業種", ch
 
 /** 実績一覧のフィルター（単一選択・URL同期） */
 export function WorksExplorer({ works }: { works: WorkSummary[] }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const sp = useSearchParams();
-  const [, startTransition] = useTransition();
+  const sp = useUrlParams();
   const sel = Object.fromEntries(keys.map((k) => [k, sp.get(k) ?? ""])) as Record<Key, string>;
 
   const filtered = useMemo(
@@ -29,8 +26,7 @@ export function WorksExplorer({ works }: { works: WorkSummary[] }) {
     const next = new URLSearchParams(sp.toString());
     if (value && sel[key] !== value) next.set(key, value);
     else next.delete(key);
-    const qs = next.toString();
-    startTransition(() => router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false }));
+    replaceUrlParams(next);
   }
 
   const options = (key: Key) => {
@@ -95,7 +91,7 @@ export function WorksExplorer({ works }: { works: WorkSummary[] }) {
         <span className="font-display text-ink text-lg font-bold">{filtered.length}</span> 件を表示
         {active > 0 && (
           <Link
-            href={pathname}
+            href="/works"
             replace
             scroll={false}
             className="text-link ml-3 text-xs font-bold hover:underline"

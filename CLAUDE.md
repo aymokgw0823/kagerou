@@ -24,6 +24,8 @@
   色帯のセクションラベル（`<SectionBar>`）、左罫線つき白カード（`card` ユーティリティ）、青い丸形ボタン、Noto Sans JP ＋ Open Sans（`@fontsource-variable` で自己ホスト。next/font/google は使わない）。
   本サイトは個人利用のサンプル（ダミーサイト）であり、著作権配慮は不要とのこと。ただしロゴ・社名・文章の転載はしない。
 - **AI 機能の実装メモ**：Claude Sonnet 5.5 は強制 tool_choice を受け付けないため、構造化出力は `output_config.format`（JSON スキーマ）＋ zod 検証で実装している（要件の「tool use による構造化出力」と同じ目的）。Route Handler で `export const runtime` は Cache Components と非互換なので書かない。PDF は `@react-pdf/renderer`（`serverExternalPackages`）、日本語は極細スペース（U+200A）で改行位置を作る。
+- **フォント**：`@fontsource`（静的 400/700）を `scripts/build-fonts.ts` で `public/fonts/` に生成し、`font-display: optional`＋描画後アイドル読み込み（`FontLoader`）。描画ブロックとフォント待ちの LCP 悪化を避けるため。`next/font/google` は使わない（ビルド環境のネットワーク依存を避ける）。
+- **URL クエリ同期**：`useSearchParams` は静的ページで本文を CSR 化しレイアウトシフトの原因になるため、`src/lib/use-url-params.ts`（window.location 購読＋replaceState）を使う。
 - Phase 2 で後続 Phase のルート（/works /blog /news /recruit /contact /booking /ai/*）には `<ComingSoon>` の暫定ページを置いている。各 Phase で本実装に置き換える。
 
 ---
@@ -299,10 +301,10 @@ Lighthouse（モバイル）各90以上、LCP 2.5秒以内、CLS 0.1未満。WCA
 
 - **Phase 1：基盤** — 完了
 - **Phase 2：コーポレートページ** — 完了（2026-10-21 に2事業版へ改訂）
-- **Phase 3：コンテンツ基盤** — コンテンツ抽象化層、300本のダミー記事、ブログ一覧・詳細、執筆者ページ、実績・事例、ニュース
-- **Phase 4：採用・問い合わせ・予約** — 採用一式、エントリー、お問い合わせ（事業別）、予約、Prisma、スパム対策
-- **Phase 5：AI機能** — 共通基盤 → 写真でリフォーム相談（PDF含む）→ 横断コンシェルジュ → 管理画面
-- **Phase 6：仕上げ** — 3Dヒーロー、モーション、OGP、構造化データ、sitemap、a11y・パフォーマンス、E2E、ドキュメント、差し替えチェックリスト
+- **Phase 3：コンテンツ基盤** — 完了。コンテンツ抽象化層、300本のダミー記事、ブログ一覧・詳細、執筆者ページ、実績・事例、ニュース
+- **Phase 4：採用・問い合わせ・予約** — 完了。採用一式、エントリー、お問い合わせ（事業別）、予約、Prisma、スパム対策
+- **Phase 5：AI機能** — 完了。共通基盤 → 写真でリフォーム相談（PDF含む）→ 横断コンシェルジュ → 管理画面
+- **Phase 6：仕上げ** — 完了（2026-10-21）：3Dヒーロー、モーション、OGP、構造化データ、sitemap、a11y・パフォーマンス、E2E、ドキュメント、差し替えチェックリスト
 
 ---
 

@@ -5,6 +5,7 @@ import { submitContact } from "@/lib/forms/actions";
 import { idleState, type ActionState } from "@/lib/forms/state";
 import { Consent, Field, FormMessage, Honeypot, Input, Select, SubmitButton, Textarea } from "./fields";
 import { cn } from "@/lib/utils";
+import { TrackSuccess } from "./track-success";
 
 type Biz = "build" | "dining" | "other";
 const kinds: { id: Biz; label: string; description: string }[] = [
@@ -23,6 +24,7 @@ export function ContactForm({ stores, initialBusiness, consultationId, source }:
   if (state.status === "success") {
     return (
       <div className="card p-8">
+        <TrackSuccess event={{ name: "contact_submit", params: { business: biz || "unknown" } }} />
         <FormMessage status="success" message={state.message} />
         <p className="text-ink-2 mt-4 text-sm">お急ぎの場合は、お電話でもご相談いただけます。</p>
       </div>
