@@ -418,19 +418,21 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
             </button>
           </div>
         ) : (
-          <h2 className="sr-only">記事一覧</h2>
-          <ul
-            className={cn(
-              "mt-6 grid gap-5",
-              view === "grid" ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3" : "grid-cols-1",
-            )}
-          >
-            {pageItems.map((p, i) => (
-              <li key={p.slug}>
-                <PostCard post={p} view={view} priority={i < 3} />
-              </li>
-            ))}
-          </ul>
+          <>
+            <h2 className="sr-only">記事一覧</h2>
+            <ul
+              className={cn(
+                "mt-6 grid gap-5",
+                view === "grid" ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3" : "grid-cols-1",
+              )}
+            >
+              {pageItems.map((p, i) => (
+                <li key={p.slug}>
+                  <PostCard post={p} view={view} priority={i < 3} />
+                </li>
+              ))}
+            </ul>
+          </>
         )}
 
         {totalPages > 1 && (
