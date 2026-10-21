@@ -31,9 +31,10 @@
   --color-black: #0b0b0b;
   --color-white: #ffffff;
 
-  --font-sans: var(--font-sans);
-  --font-display: var(--font-display);
-  --font-mono: var(--font-mono);
+  /* 同名で自己参照すると循環になるため、tokens.css 側は *-stack という名前にしている */
+  --font-sans: var(--font-sans-stack);
+  --font-display: var(--font-display-stack);
+  --font-mono: var(--font-mono-stack);
 
   --ease-brand: var(--ease-brand);
 
@@ -56,7 +57,7 @@
 
 @layer base {
   html {
-    font-family: var(--font-sans);
+    font-family: var(--font-sans-stack);
     font-size: 16px;
     line-height: var(--leading-body);
     color: var(--color-ink);
@@ -137,7 +138,7 @@
 
 /* 欧文（Open Sans）：英語ラベル・数字に使う */
 @utility font-display {
-  font-family: var(--font-display);
+  font-family: var(--font-display-stack);
 }
 
 /* 小さなラベル */

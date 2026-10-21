@@ -47,10 +47,10 @@
   --color-success: #046a38;
 
   /* ── Typography ── */
-  --font-sans:
+  --font-sans-stack:
     var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
-  --font-display: "Open Sans Variable", "Noto Sans JP Variable", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display-stack: "Open Sans Variable", "Noto Sans JP Variable", sans-serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --text-body: 1rem;
   --leading-body: 1.8;
