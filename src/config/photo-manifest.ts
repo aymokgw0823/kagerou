@@ -11,7 +11,7 @@
 export type AspectRatio = "3:2" | "2:3" | "4:5" | "16:9" | "21:9" | "1:1" | "4:3";
 
 /** ダミー画像の色調（tokens.css の事業カラーに対応） */
-export type Tone = "corporate" | "digital" | "social" | "consulting" | "build" | "dining" | "neutral";
+export type Tone = "corporate" | "build" | "dining" | "neutral";
 
 /** ダミー画像に描く簡易シルエット（被写体のヒント） */
 export type Silhouette =
@@ -183,7 +183,7 @@ export const photoManifest: PhotoShot[] = [
     ...r("3:2"),
     tone: "corporate",
     silhouette: "group",
-    subject: "社員2〜3名が画面や資料を囲んで話している",
+    subject: "社員2〜3名が図面や資料を囲んで話している（建設と店舗のメンバーが混ざっているとよい）",
     composition: "ミディアムショット。手元と表情の両方が入る。背景をぼかす（F2.8〜4）",
     light: "自然光。被写体に対して斜め前から",
     mood: "集中・対話。カメラ目線は不要",
@@ -192,55 +192,7 @@ export const photoManifest: PhotoShot[] = [
     alt: "打ち合わせをする社員",
     priority: "A",
   },
-  // ───────── 5事業キービジュアル ─────────
-  {
-    id: "kv-digital",
-    label: "キービジュアル：Web開発",
-    pages: ["/", "/business", "/business/digital"],
-    ...r("21:9", 2800),
-    tone: "digital",
-    silhouette: "desk",
-    subject: "エンジニア／デザイナーの手元。コードやワイヤーフレームが映るディスプレイ",
-    composition: "画面と手元を斜め上から。画面内容は読めなくてよい（抽象的な光として扱う）",
-    light: "画面の光と窓の光のミックス。暗めに落としてコントラストを出す",
-    mood: "静謐・精密",
-    people: "1名",
-    location: "本社オフィス",
-    alt: "Web開発事業のキービジュアル",
-    priority: "A",
-  },
-  {
-    id: "kv-social",
-    label: "キービジュアル：SNS運用",
-    pages: ["/", "/business", "/business/social"],
-    ...r("21:9", 2800),
-    tone: "social",
-    silhouette: "desk",
-    subject: "撮影・編集の現場。スマートフォンでの撮影や、小物を並べた物撮りセット",
-    composition: "斜めから、手とスマホと被写体の三角形をつくる",
-    light: "柔らかい面光源。影を薄く",
-    mood: "軽やか・丁寧",
-    people: "1名",
-    location: "飲食店舗、またはスタジオ",
-    alt: "SNS運用代行事業のキービジュアル",
-    priority: "A",
-  },
-  {
-    id: "kv-consulting",
-    label: "キービジュアル：経営コンサルティング",
-    pages: ["/", "/business", "/business/consulting"],
-    ...r("21:9", 2800),
-    tone: "consulting",
-    silhouette: "group",
-    subject: "経営者と向き合って話す場面。テーブル上に資料・ノート",
-    composition: "テーブル越しの対面を横から。顔は見切れてよい",
-    light: "窓際の自然光",
-    mood: "対話・信頼",
-    people: "2〜3名",
-    location: "本社応接室",
-    alt: "経営コンサルティング事業のキービジュアル",
-    priority: "A",
-  },
+  // ───────── 2事業キービジュアル ─────────
   {
     id: "kv-build",
     label: "キービジュアル：建設",
@@ -395,7 +347,7 @@ export const photoManifest: PhotoShot[] = [
     ...r("21:9", 2800),
     tone: "corporate",
     silhouette: "group",
-    subject: "複数の事業のメンバーが同じ空間にいる場面（オフィス・現場・店舗の混成でもよい）",
+    subject: "建設と店舗のメンバーが同じ空間にいる場面（現場・店舗の混成でもよい）",
     composition: "引きで、人物は小さめに。空間の広さと人の関係を見せる",
     light: "自然光",
     mood: "開かれた・これから",
@@ -411,7 +363,7 @@ export const photoManifest: PhotoShot[] = [
     ...r("3:2"),
     tone: "neutral",
     silhouette: "portrait",
-    subject: "社員1名（Web開発またはSNS）。職場で",
+    subject: "社員1名（施工管理）。現場または事務所で",
     composition: "ウエストアップ。少しカメラから視線を外した自然な表情も撮る",
     light: "自然光",
     mood: "自然体",
@@ -427,7 +379,7 @@ export const photoManifest: PhotoShot[] = [
     ...r("3:2"),
     tone: "neutral",
     silhouette: "portrait",
-    subject: "社員1名（施工管理）。現場で",
+    subject: "社員1名（職人）。現場で",
     composition: "interview-01 と統一",
     light: "現場の自然光",
     mood: "自然体",

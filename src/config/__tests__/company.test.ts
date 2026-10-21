@@ -15,9 +15,9 @@ describe("company", () => {
     expect(rows).toEqual([]);
   });
 
-  it("事業数は 5", () => {
-    expect(company.figures.businesses).toBe(5);
-    expect(company.businessSummary).toHaveLength(5);
+  it("事業数は 2", () => {
+    expect(company.figures.businesses).toBe(2);
+    expect(company.businessSummary).toHaveLength(2);
   });
 
   it("住所の1行表示が組み立てられる", () => {

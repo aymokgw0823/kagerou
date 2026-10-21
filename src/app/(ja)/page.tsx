@@ -13,7 +13,8 @@ import { Photo } from "@/components/ui/photo";
 import { CtaBlock } from "@/components/ui/cta-block";
 import { DummyBadge } from "@/components/ui/dummy-badge";
 import { BusinessMap } from "@/components/home/business-map";
-import { AiToolsGrid } from "@/components/home/ai-tools-grid";
+import { ReformFeature } from "@/components/home/reform-feature";
+import { StoreList } from "@/components/home/store-list";
 import { NewsList } from "@/components/home/news-list";
 import { Figures } from "@/components/home/figures";
 
@@ -26,12 +27,12 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* 1. ヒーロー（3D演出は Phase 6 で追加。現在は写真＋タイポグラフィ） */}
+      {/* 1. ヒーロー（3D演出は Phase 6 で追加） */}
       <Hero
         size="tall"
-        photoId="office-working"
+        photoId="kv-build"
         title={
-          <span className="block text-[2.5rem] leading-[1.2] md:text-[3.5rem]">
+          <span className="block text-[3rem] leading-[1.15] md:text-[4.5rem]">
             {site.taglineLines.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -43,23 +44,23 @@ export default async function HomePage() {
         lead={site.mission}
         actions={
           <>
-            <LinkButton href="/ai" size="lg">
-              まずは無料で診断する
+            <LinkButton href="/ai/reform" size="lg">
+              写真でリフォーム相談（無料）
             </LinkButton>
-            <LinkButton href="/business" variant="outline-light" size="lg">
-              事業を見る
+            <LinkButton href="/business/dining" variant="outline-light" size="lg">
+              店舗を見る
             </LinkButton>
           </>
         }
       />
 
-      {/* 2. ミッション／5事業の関係図 */}
+      {/* 2. コンセプト／2事業の関係図 */}
       <SectionBar label="私たちの考え方" />
       <Section surface="paper-2">
         <div className="container-max">
           <SectionHeading
-            title="つくる。伝える。育てる。そして、自ら実践する。"
-            lead="Webと建物という事業の器をつくり、SNSで届け、経営を伸ばす。その戦略を、自社の飲食店で日々検証しています。4つの働きがひとつの会社の中でつながっているから、提案は机上の空論で終わりません。"
+            title="つくる手と、営む目を、一社に。"
+            lead="店舗・住宅・オフィスという「場」をつくる建設事業と、自ら飲食店を営む飲食事業。つくる側と使う側の両方を知っているから、図面の段階で使いにくさに気づき、完成後も場を育て続けられます。"
           />
           <BusinessMap />
         </div>
@@ -70,25 +71,25 @@ export default async function HomePage() {
       <Section>
         <div className="container-max">
           <SectionHeading
-            title="5つの事業"
-            lead="それぞれが独立したサービスとして機能しながら、ひとつのグループとして連携します。"
+            title="2つの事業"
+            lead="それぞれが独立したサービスとして機能しながら、互いの根拠になっています。"
           />
-          <ul className="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {businesses.map((b) => (
               <li key={b.id}>
                 <Link href={b.href} className="group block">
                   <Photo
                     id={b.keyVisualId}
                     fill
-                    className="rounded-brand aspect-[3/2]"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="rounded-brand aspect-[16/9]"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                     imgClassName="transition-transform duration-700 ease-brand group-hover:scale-[1.03]"
                   />
                   <p className="mt-5 text-xs font-bold" style={{ color: `var(${b.colorVar})` }}>
                     {pillars[b.pillar].ja}
                     <span className="font-display text-ink-3 ml-2 font-semibold">{pillars[b.pillar].en}</span>
                   </p>
-                  <h3 className="group-hover:text-link mt-1.5 text-xl font-bold">{b.nameJa}</h3>
+                  <h3 className="group-hover:text-link mt-1.5 text-2xl font-bold">{b.nameJa}事業</h3>
                   <p className="text-ink-2 mt-2 text-[0.9375rem] leading-[1.8]">{b.description}</p>
                   <span className="link-arrow text-link mt-3">詳しくはこちら →</span>
                 </Link>
@@ -98,30 +99,39 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 4. AIツール導線（最重要CTA） */}
-      <SectionBar label="無料で試せる診断ツール" color="link" />
+      {/* 4. AI導線（最重要CTA） */}
+      <SectionBar label="無料で試せる" color="link" />
       <Section surface="tint">
         <div className="container-max">
           <SectionHeading
-            title="まずは無料で診断する"
-            lead="商談の前に、いまの課題を把握してみませんか。AIが対話しながら整理し、その場で結果をお渡しします。結果はそのまま商談予約に引き継げます。"
-            action={
-              <LinkButton href="/ai" variant="text">
-                AIツール一覧
-              </LinkButton>
-            }
+            title="まずは、写真で相談してみる"
+            lead="現地調査の前に、気になる箇所の写真からおおよその施工内容と費用レンジを把握できます。"
           />
-          <AiToolsGrid />
-          <p className="text-ink-3 mt-6 text-xs">
-            ※
-            診断結果はAIによる参考情報であり、正式な提案・見積もりではありません。個人情報は入力しないでください。
-          </p>
+          <ReformFeature />
         </div>
       </Section>
 
-      {/* 5. 実績ハイライト */}
-      <SectionBar label="実績・事例" />
+      {/* 5. 店舗案内 */}
+      <SectionBar label="店舗案内" color="biz" colorVar="--color-biz-dining" />
       <Section>
+        <div className="container-max">
+          <SectionHeading
+            title="自社で営む店"
+            lead="私たちの仕事を知っていただく一番の近道は、店にお越しいただくことです。"
+            align="left"
+            action={
+              <LinkButton href="/business/dining" variant="text">
+                飲食事業について
+              </LinkButton>
+            }
+          />
+          <StoreList />
+        </div>
+      </Section>
+
+      {/* 6. 実績ハイライト */}
+      <SectionBar label="実績・事例" />
+      <Section surface="paper-2">
         <div className="container-max">
           <SectionHeading
             title="実績・事例"
@@ -155,12 +165,12 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 6. 数値（実データがある場合のみ） */}
+      {/* 7. 数値（実データがある場合のみ） */}
       <Figures />
 
-      {/* 7. ブログ最新記事 */}
+      {/* 8. ブログ最新記事 */}
       <SectionBar label="ブログ" color="black" />
-      <Section surface="paper-2">
+      <Section>
         <div className="container-max">
           <SectionHeading
             title="最新の記事"
@@ -194,8 +204,8 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 8. ニュース */}
-      <Section>
+      {/* 9. ニュース */}
+      <Section surface="paper-2">
         <div className="container-max">
           <SectionHeading
             title="ニュース"
@@ -214,18 +224,18 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 9. 採用バナー */}
+      {/* 10. 採用バナー */}
       <section className="bg-black text-white">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="px-gutter order-2 flex flex-col justify-center py-14 lg:order-1 lg:px-16 lg:py-20">
             <p className="text-accent text-sm font-bold">採用情報</p>
             <h2 className="mt-3 text-2xl md:text-3xl">
-              つくる人も、伝える人も、育てる人も。
+              場をつくる人も、場を営む人も。
               <br />
               ひとつの会社で働く。
             </h2>
             <p className="mt-5 max-w-lg text-[0.9375rem] leading-[1.9] text-white/85">
-              Webエンジニア、SNSディレクター、コンサルタント、施工管理、店舗スタッフ。職種は違っても、地域の事業者を支えるという目的は同じです。
+              施工管理、職人、設計・積算、店舗のホール・調理スタッフ。仕事は違っても、地域の「場」に関わるという目的は同じです。
             </p>
             <div className="mt-8 flex items-center gap-3">
               <LinkButton href="/recruit">採用情報を見る</LinkButton>
@@ -243,7 +253,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 10. お問い合わせCTA */}
+      {/* 11. お問い合わせCTA */}
       <CtaBlock photoId="office-interior" />
     </>
   );

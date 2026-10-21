@@ -11,8 +11,7 @@ import { BusinessMap } from "@/components/home/business-map";
 
 export const metadata: Metadata = {
   title: "事業一覧",
-  description:
-    "Web開発受託・SNS運用代行・経営コンサルティング・建設・飲食の5事業。つくる・伝える・育てる＋自ら実践する、の関係図。",
+  description: "建設事業と飲食事業。つくる手と営む目を一社に持つ、2事業の関係図。",
 };
 
 export default function BusinessIndexPage() {
@@ -20,9 +19,9 @@ export default function BusinessIndexPage() {
     <>
       <Hero
         eyebrow="What we do"
-        title="5つの事業"
-        lead="それぞれが独立したサービスブランドとして機能しながら、ひとつのグループとして連携する。それが私たちの事業の形です。"
-        photoId="kv-consulting"
+        title="2つの事業"
+        lead="場をつくる建設事業と、場を営む飲食事業。それぞれが独立したサービスとして機能しながら、互いの根拠になっています。"
+        photoId="office-working"
       />
       <Breadcrumbs items={[{ label: "事業一覧" }]} />
 
@@ -30,8 +29,8 @@ export default function BusinessIndexPage() {
       <Section surface="paper-2">
         <div className="container-max">
           <SectionHeading
-            title="つくる・伝える・育てる、そして実践する"
-            lead="3つの働きを、自社の飲食事業で日々検証する。その構造が、私たちの提案の説得力の源泉です。"
+            title="つくる。営む。"
+            lead="つくる側と使う側の両方を知っていること。それが私たちの提案の説得力の源泉です。"
           />
           <BusinessMap />
         </div>

@@ -5,14 +5,14 @@ type Props = {
   title?: string;
   lead?: string;
   photoId?: string;
-  /** AI診断への導線も出す */
+  /** リフォーム相談（AI）への導線も出す */
   showAi?: boolean;
 };
 
-/** お問い合わせ／商談予約への黒いCTAブロック（全ページ共通で使う） */
+/** お問い合わせ／ご相談予約への黒いCTAブロック（全ページ共通で使う） */
 export function CtaBlock({
   title = "まずは、お気軽にご相談ください",
-  lead = "事業の課題を整理するところからご一緒します。無料のAI診断で現状を把握してから、商談を予約いただくこともできます。",
+  lead = "工事のご相談から、店舗のご予約・貸切まで。リフォームは写真からの無料相談で、おおよその内容と費用を把握してから現地調査を予約いただけます。",
   photoId,
   showAi = true,
 }: Props) {
@@ -38,11 +38,11 @@ export function CtaBlock({
           <div className="mt-8 flex flex-wrap gap-3">
             <LinkButton href="/contact">お問い合わせ</LinkButton>
             <LinkButton href="/booking" variant="outline-light">
-              商談を予約する
+              ご相談を予約する
             </LinkButton>
             {showAi && (
-              <LinkButton href="/ai" variant="text" className="hover:text-accent text-white">
-                無料のAI診断を試す
+              <LinkButton href="/ai/reform" variant="text" className="hover:text-accent text-white">
+                写真でリフォーム相談（無料）
               </LinkButton>
             )}
           </div>

@@ -5,32 +5,27 @@
 import { businesses } from "./businesses";
 
 export const site = {
-  /** 本番URL（環境変数で上書き可） */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  /** タグライン（コーポレートメッセージ） */
-  tagline: "つくる。伝える。育てる。事業のぜんぶを、一社で。",
-  taglineLines: ["つくる。", "伝える。", "育てる。"] as const,
-  taglineSub: "事業のぜんぶを、一社で。",
-  mission: "地域の事業者の「つくる・伝える・育てる」を、一社でまるごと担う。",
-  /** OGP などで使う説明文 */
+  tagline: "つくる。営む。",
+  taglineLines: ["つくる。", "営む。"] as const,
+  taglineSub: "場をつくる手と、場を営む目を、一社に。",
+  mission: "地域の「場」を、つくるところから営むところまで、一社で担う。",
   description:
-    "Web開発・SNS運用代行・経営コンサルティング・建設・飲食の5事業を展開するグループ企業。つくる・伝える・育てるを一社で担い、自らの事業で実践しながら地域の事業者を支えます。",
+    "建設事業と飲食事業を展開する会社。店舗・住宅・オフィスをつくり、自ら飲食店を営む。場をつくる手と、場を営む目を一社に持つことが、私たちの提案の根拠です。",
   locale: "ja_JP",
   /* English */
-  taglineEn: "Create. Convey. Grow. Everything your business needs, from one company.",
-  taglineLinesEn: ["Create.", "Convey.", "Grow."] as const,
-  taglineSubEn: "Everything your business needs, from one company.",
-  missionEn:
-    "We take on the whole of what local businesses need to create, convey and grow — as one company.",
+  taglineEn: "Build. Run.",
+  taglineLinesEn: ["Build.", "Run."] as const,
+  taglineSubEn: "Hands that build the place, eyes that run it — in one company.",
+  missionEn: "We take on the whole life of a place in our community, from building it to running it.",
   descriptionEn:
-    "A group company with five businesses: web development, social media management, management consulting, construction and dining. We create, convey and grow — and prove our strategies in our own businesses.",
+    "A company with two businesses: construction and dining. We build shops, homes and offices, and we run our own restaurants — so we know how a place is used from both sides.",
 } as const;
 
 export type NavItem = {
   label: string;
   labelEn?: string;
   href: string;
-  /** ドロップダウンの子項目 */
   children?: { label: string; description?: string; href: string }[];
 };
 
@@ -41,14 +36,10 @@ export const mainNav: NavItem[] = [
     label: "事業",
     labelEn: "Business",
     href: "/business",
-    children: businesses.map((b) => ({
-      label: b.nameJa,
-      description: b.tagline,
-      href: b.href,
-    })),
+    children: businesses.map((b) => ({ label: b.nameJa, description: b.tagline, href: b.href })),
   },
   { label: "実績", labelEn: "Works", href: "/works" },
-  { label: "AIツール", labelEn: "AI Tools", href: "/ai" },
+  { label: "リフォーム相談（AI）", labelEn: "AI Reform", href: "/ai/reform" },
   { label: "ブログ", labelEn: "Blog", href: "/blog" },
   { label: "ニュース", labelEn: "News", href: "/news" },
   { label: "採用", labelEn: "Recruit", href: "/recruit" },
@@ -57,7 +48,7 @@ export const mainNav: NavItem[] = [
 /** ヘッダー右側の CTA */
 export const headerCtas = {
   contact: { label: "お問い合わせ", href: "/contact" },
-  booking: { label: "商談予約", href: "/booking" },
+  booking: { label: "ご相談予約", href: "/booking" },
 } as const;
 
 /** フッターのサイトマップ */
@@ -79,13 +70,11 @@ export const footerNav: { heading: string; items: { label: string; href: string 
     ],
   },
   {
-    heading: "AIツール",
+    heading: "ご相談",
     items: [
-      { label: "AIツール一覧", href: "/ai" },
-      { label: "AI経営診断", href: "/ai/diagnosis" },
-      { label: "Web制作 AI見積もり", href: "/ai/estimate" },
-      { label: "SNSアカウント診断", href: "/ai/sns-check" },
-      { label: "写真でリフォーム相談", href: "/ai/reform" },
+      { label: "写真でリフォーム相談（AI）", href: "/ai/reform" },
+      { label: "お問い合わせ", href: "/contact" },
+      { label: "ご相談予約", href: "/booking" },
     ],
   },
   {
@@ -93,8 +82,6 @@ export const footerNav: { heading: string; items: { label: string; href: string 
     items: [
       { label: "実績・事例", href: "/works" },
       { label: "ブログ", href: "/blog" },
-      { label: "お問い合わせ", href: "/contact" },
-      { label: "商談予約", href: "/booking" },
       { label: "サイトマップ", href: "/sitemap" },
     ],
   },

@@ -4,7 +4,7 @@
  * 全幅の写真ヒーロー、色帯のセクションラベル、左罫線つきの白カード、青い丸形ボタン）。
  * - ベース：白（paper）＋ ほぼ黒（ink）。
  * - コーポレートのアクセントは緑 1 色（--color-accent）。ボタン・リンクの機能色として青（--color-link）を別に持つ。
- * - 5 事業のアクセントは同じ色相系に揃える。
+ * - 2 事業のアクセント（建設＝紺、飲食＝ティール）。
  * - テーマはライトのみ（ダークモードは提供しない）。
  */
 
@@ -34,11 +34,8 @@
   --color-link-ink: #ffffff;
 
   /* ── Business accents ── */
-  --color-biz-digital: #0076a8; /* 青 */
-  --color-biz-social: #c86f00; /* 橙（彩度控えめ） */
-  --color-biz-consulting: #046a38; /* 深緑 */
-  --color-biz-build: #012169; /* 紺 */
-  --color-biz-dining: #0d8390; /* ティール */
+  --color-biz-build: #012169; /* 紺：建設 */
+  --color-biz-dining: #0d8390; /* ティール：飲食 */
 
   /* ── Status ── */
   --color-notice: #8a5a00; /* 【要差し替え】・DUMMY の注意色 */

@@ -23,9 +23,6 @@ const LONG_EDGE = 1600;
 /** tokens.css のカラーと対応させた階調（dark → light） */
 const palettes: Record<Tone, [string, string, string]> = {
   corporate: ["#2b2622", "#6b5a52", "#c9b8ad"],
-  digital: ["#1f2f44", "#2f4a6b", "#9fb1c6"],
-  social: ["#4a2b3a", "#7b4a62", "#c7a3b4"],
-  consulting: ["#2f4433", "#4e6a52", "#a9bda9"],
   build: ["#4b3023", "#8f5a3a", "#cfae95"],
   dining: ["#4a3815", "#a07a2e", "#d9c48f"],
   neutral: ["#2a2926", "#6e6a62", "#c4bfb3"],

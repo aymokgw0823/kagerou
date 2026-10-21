@@ -24,7 +24,13 @@ export function BeforeAfter({ beforeId, afterId, title }: Props) {
         />
         {/* 施工前：clip-path で右側を隠す（fill 画像の width は変更できないため） */}
         <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-          <Image src={before.src} alt={`${title}（施工前）`} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <Image
+            src={before.src}
+            alt={`${title}（施工前）`}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+          />
         </div>
         <div
           aria-hidden

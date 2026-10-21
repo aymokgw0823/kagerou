@@ -34,7 +34,7 @@ export type License = {
   /** 番号・区分（例：東京都知事 許可（般-XX）第XXXXXX号） */
   number: string;
   /** 関連する事業 */
-  business?: "digital" | "social" | "consulting" | "build" | "dining";
+  business?: "build" | "dining";
 };
 
 export type HistoryEvent = {
@@ -60,7 +60,7 @@ export type CompanyFigures = {
   projects: number | null;
   /** 店舗数（店） */
   stores: number | null;
-  /** グループ事業数（これは事実なので固定） */
+  /** 事業数（これは事実なので固定） */
   businesses: number;
 };
 
@@ -82,7 +82,7 @@ export const company = {
     {
       name: PLACEHOLDER,
       title: "代表取締役",
-      bio: "Web制作会社でディレクターとして勤務した後、飲食店の立ち上げと運営に携わる。現場で得た「つくる・伝える・育てる」の経験をもとに当社を設立。",
+      bio: "内装工事会社で現場監督として勤務した後、飲食店の立ち上げと運営に携わる。「場をつくる側」と「場を営む側」の両方を経験したことをもとに当社を設立。",
       photoId: "ceo-portrait",
       isDummy: true,
     },
@@ -95,8 +95,8 @@ export const company = {
     },
     {
       name: PLACEHOLDER,
-      title: "取締役（デジタル・マーケティング管掌）",
-      bio: "広告代理店でSNSマーケティングに従事した後、独立してWeb開発とSNS運用の支援を行う。当社ではWeb開発・SNS運用代行・経営コンサルティングを統括。",
+      title: "取締役（飲食事業管掌）",
+      bio: "飲食チェーンで店長・エリアマネージャーを務めた後、独立して複数の店舗立ち上げに携わる。当社では飲食事業の店舗運営・メニュー開発・人材育成を統括。",
       photoId: "officer-02",
       isDummy: true,
     },
@@ -139,19 +139,13 @@ export const company = {
   /** 適格請求書発行事業者登録番号（T + 13桁） */
   invoiceRegistrationNumber: PLACEHOLDER,
   /** 事業内容（会社概要の表に出す文言。詳細は businesses.ts） */
-  businessSummary: [
-    "Webサイト・Webシステムの企画・開発",
-    "SNSアカウントの運用代行・コンテンツ制作",
-    "経営コンサルティング",
-    "建築工事・リフォーム工事の設計・施工",
-    "飲食店の経営",
-  ],
+  businessSummary: ["建築工事・リフォーム工事の設計・施工・施工管理", "飲食店の経営"],
   /** 沿革（確定した事実のみ残す。ダミーは isDummy: true） */
   history: [
     { date: PLACEHOLDER, event: "会社設立", isDummy: true },
-    { date: PLACEHOLDER, event: "Web開発・SNS運用・経営コンサルティング事業を開始", isDummy: true },
     { date: PLACEHOLDER, event: "建設事業を開始（建設業許可取得）", isDummy: true },
     { date: PLACEHOLDER, event: "飲食事業を開始（1号店出店）", isDummy: true },
+    { date: PLACEHOLDER, event: "2号店を出店（設計・施工は自社建設部門）", isDummy: true },
   ] satisfies HistoryEvent[],
   /** 数値実績。事実が確定するまで null のまま */
   figures: {
@@ -160,7 +154,7 @@ export const company = {
     clients: null,
     projects: null,
     stores: null,
-    businesses: 5,
+    businesses: 2,
   } satisfies CompanyFigures,
   /** 公式SNS（未設定は null） */
   social: {

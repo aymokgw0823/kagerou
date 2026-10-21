@@ -12,8 +12,8 @@ const dummyNews: NewsSummary[] = [
     isDummy: true,
   },
   {
-    slug: "ai-tools-release",
-    title: "無料で試せるAI診断ツール4種の提供を開始",
+    slug: "ai-reform-release",
+    title: "写真でリフォーム相談ができるAIサービスの提供を開始",
     category: "プレスリリース",
     publishedAt: "2026-09-24",
     isDummy: true,
@@ -55,7 +55,7 @@ const dummyNews: NewsSummary[] = [
   },
   {
     slug: "seminar",
-    title: "地域事業者向け「SNSと経営数字」セミナーを開催します",
+    title: "地域の方向け「店舗づくりと開業準備」相談会を開催します",
     category: "お知らせ",
     publishedAt: "2026-05-10",
     isDummy: true,

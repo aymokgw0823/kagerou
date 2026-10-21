@@ -41,7 +41,7 @@ export default function HomePageEn() {
             title="Five businesses, one company"
             lead="Each business works as an independent service brand, and all five work together as one group. We also run our own restaurants, where we test every strategy we propose."
           />
-          <ul className="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
             {businesses.map((b) => (
               <li key={b.id}>
                 <Link href={b.href} className="group block" hrefLang="ja">
@@ -49,7 +49,7 @@ export default function HomePageEn() {
                     id={b.keyVisualId}
                     fill
                     className="rounded-brand aspect-[3/2]"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                     imgClassName="transition-transform duration-700 ease-brand group-hover:scale-[1.03]"
                   />
                   <p

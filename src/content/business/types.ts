@@ -1,7 +1,7 @@
 /**
  * 事業ページ（/business/<id>）の内容定義。
- * 5事業共通テンプレート（要件 4.3）の各セクションに対応する。
- * 事業ごとのファイル（digital.ts など）がこの型を満たす。
+ * 2事業共通テンプレート（要件 4.3）の各セクションに対応する。
+ * 事業ごとのファイル（build.ts / dining.ts）がこの型を満たす。
  */
 import type { BusinessId } from "@/config/businesses";
 
@@ -14,34 +14,6 @@ export type PricingRow = {
   price: string;
   /** 含まれるもの・条件 */
   note?: string;
-};
-
-export type DigitalExtra = {
-  kind: "digital";
-  /** このサイト自体を事例として紹介するセクション */
-  thisSite: {
-    title: string;
-    description: string;
-    techStack: { label: string; items: string[] }[];
-    aiFeatures: { title: string; description: string; href: string }[];
-  };
-};
-
-export type SocialExtra = {
-  kind: "social";
-  platforms: { name: string; description: string }[];
-  team: { role: string; description: string }[];
-  reportSample: {
-    description: string;
-    /** レポートに含まれる指標（数値は入れない。項目名と説明のみ） */
-    metrics: { label: string; note: string }[];
-  };
-};
-
-export type ConsultingExtra = {
-  kind: "consulting";
-  areas: { title: string; description: string }[];
-  formats: { title: string; description: string; points: string[] }[];
 };
 
 export type BuildExtra = {
@@ -72,7 +44,7 @@ export type DiningExtra = {
   menu: { name: string; price: string; description: string; photoId?: string; isDummy: true }[];
 };
 
-export type BusinessExtra = DigitalExtra | SocialExtra | ConsultingExtra | BuildExtra | DiningExtra;
+export type BusinessExtra = BuildExtra | DiningExtra;
 
 export type BusinessDetail = {
   id: BusinessId;
@@ -88,7 +60,7 @@ export type BusinessDetail = {
   problems: string[];
   /** 提供サービス（4〜6件） */
   services: { title: string; description: string }[];
-  /** 選ばれる理由（3〜4件）。他事業との連携による強みを必ず1件以上含め synergy に事業IDを入れる */
+  /** 選ばれる理由（3〜4件）。もう一方の事業との連携による強みを必ず1件以上含め synergy に事業IDを入れる */
   reasons: { title: string; description: string; synergy?: BusinessId[] }[];
   /** 進め方（4〜6ステップ） */
   flow: { title: string; description: string }[];
