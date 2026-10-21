@@ -49,7 +49,7 @@
   /* ── Typography ── */
   --font-sans:
     var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
-  --font-display: var(--font-open-sans), var(--font-noto-sans-jp), sans-serif;
+  --font-display: "Open Sans Variable", "Noto Sans JP Variable", sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --text-body: 1rem;
