@@ -66,40 +66,7 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 3. 事業紹介 */}
-      <SectionBar label="事業" color="black" />
-      <Section>
-        <div className="container-max">
-          <SectionHeading
-            title="2つの事業"
-            lead="それぞれが独立したサービスとして機能しながら、互いの根拠になっています。"
-          />
-          <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {businesses.map((b) => (
-              <li key={b.id}>
-                <Link href={b.href} className="group block">
-                  <Photo
-                    id={b.keyVisualId}
-                    fill
-                    className="rounded-brand aspect-[16/9]"
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    imgClassName="transition-transform duration-700 ease-brand group-hover:scale-[1.03]"
-                  />
-                  <p className="mt-5 text-xs font-bold" style={{ color: `var(${b.colorVar})` }}>
-                    {pillars[b.pillar].ja}
-                    <span className="font-display text-ink-3 ml-2 font-semibold">{pillars[b.pillar].en}</span>
-                  </p>
-                  <h3 className="group-hover:text-link mt-1.5 text-2xl font-bold">{b.nameJa}事業</h3>
-                  <p className="text-ink-2 mt-2 text-[0.9375rem] leading-[1.8]">{b.description}</p>
-                  <span className="link-arrow text-link mt-3">詳しくはこちら →</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
-      {/* 4. AI導線（最重要CTA） */}
+      {/* 3. AI導線（最重要CTA） */}
       <SectionBar label="無料で試せる" color="link" />
       <Section surface="tint">
         <div className="container-max">
@@ -111,7 +78,7 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 5. 店舗案内 */}
+      {/* 4. 店舗案内 */}
       <SectionBar label="店舗案内" color="biz" colorVar="--color-biz-dining" />
       <Section>
         <div className="container-max">
@@ -129,7 +96,7 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 6. 実績ハイライト */}
+      {/* 5. 実績ハイライト */}
       <SectionBar label="実績・事例" />
       <Section surface="paper-2">
         <div className="container-max">
@@ -165,10 +132,10 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 7. 数値（実データがある場合のみ） */}
+      {/* 6. 数値（実データがある場合のみ） */}
       <Figures />
 
-      {/* 8. ブログ最新記事 */}
+      {/* 7. ブログ最新記事 */}
       <SectionBar label="ブログ" color="black" />
       <Section>
         <div className="container-max">
@@ -204,7 +171,7 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 9. ニュース */}
+      {/* 8. ニュース */}
       <Section surface="paper-2">
         <div className="container-max">
           <SectionHeading
@@ -224,7 +191,7 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 10. 採用バナー */}
+      {/* 9. 採用バナー */}
       <section className="bg-black text-white">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="px-gutter order-2 flex flex-col justify-center py-14 lg:order-1 lg:px-16 lg:py-20">
@@ -253,7 +220,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 11. お問い合わせCTA */}
+      {/* 10. お問い合わせCTA */}
       <CtaBlock photoId="office-interior" />
     </>
   );
