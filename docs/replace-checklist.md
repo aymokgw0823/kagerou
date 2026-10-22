@@ -2,7 +2,7 @@
 
 > `npm run check:dummy -- --md` で自動生成。チェックが終わったら再実行して更新してください。
 
-生成日：2026-10-21　／　残り：565 件
+生成日：2026-10-22　／　残り：532 件
 
 ## 1. 会社情報（src/config/company.ts）
 
@@ -23,15 +23,11 @@
 - [ ] company.invoiceRegistrationNumber を実際の値に
 - [ ] company.history[0].date を実際の値に
 - [ ] company.history[1].date を実際の値に
-- [ ] company.history[2].date を実際の値に
-- [ ] company.history[3].date を実際の値に
 - [ ] company.officers[0] のダミーデータを実データに（isDummy を外す）
 - [ ] company.officers[1] のダミーデータを実データに（isDummy を外す）
 - [ ] company.officers[2] のダミーデータを実データに（isDummy を外す）
 - [ ] company.history[0] のダミーデータを実データに（isDummy を外す）
 - [ ] company.history[1] のダミーデータを実データに（isDummy を外す）
-- [ ] company.history[2] のダミーデータを実データに（isDummy を外す）
-- [ ] company.history[3] のダミーデータを実データに（isDummy を外す）
 
 ## 2. コンテンツ・設定の未確定値
 
@@ -209,8 +205,7 @@
 
 - [ ] `src/content/about.ts`（1 件）
 - [ ] `src/content/business/build.ts`（2 件）
-- [ ] `src/content/business/dining.ts`（7 件）
-- [ ] `src/content/business/types.ts`（2 件）
+- [ ] `src/content/business/types.ts`（1 件）
 - [ ] `src/content/recruit.ts`（4 件）
 - [ ] `content/authors/author-construction.md`（1 件）
 - [ ] `content/authors/author-dining.md`（1 件）
@@ -550,27 +545,6 @@
 
 撮影指示書は `docs/shot-list.md`。撮影後は `public/images/photos/` に置き、マニフェストの `src` を設定する。
 
-- [ ] 代表ポートレート（`ceo-portrait`）
-- [ ] 代表：仕事風景（`ceo-at-work`）
-- [ ] 役員ポートレート 01（`officer-01`）
-- [ ] 役員ポートレート 02（`officer-02`）
-- [ ] 役員ポートレート 03（`officer-03`）
-- [ ] オフィス外観（`office-exterior`）
-- [ ] オフィス内観（`office-interior`）
-- [ ] 執務風景（`office-working`）
-- [ ] キービジュアル：建設（`kv-build`）
-- [ ] キービジュアル：飲食（`kv-dining`）
-- [ ] 建設現場（引き）（`build-site-wide`）
-- [ ] 施工事例：ビフォー（`build-before`）
-- [ ] 施工事例：アフター（`build-after`）
-- [ ] 飲食店舗の内観（`dining-interior`）
-- [ ] 料理 01（看板メニュー）（`dining-food-01`）
-- [ ] 料理 02（`dining-food-02`）
-- [ ] 飲食店舗の外観（`dining-exterior`）
-- [ ] 採用メインビジュアル（`recruit-hero`）
-- [ ] 社員インタビュー 01（`interview-01`）
-- [ ] 社員インタビュー 02（`interview-02`）
-- [ ] 社員インタビュー 03（`interview-03`）
 
 ## 5. その他（手動確認）
 
@@ -578,5 +552,5 @@
 - [ ] ポリシー文書 5 本の専門家確認（`src/content/policies/`）
 - [ ] `.env` の本番値（ANTHROPIC_API_KEY・DATABASE_URL・MAIL_*・ADMIN_*・NEXT_PUBLIC_SITE_URL・GA4/GTM）
 - [ ] `content/blog/` のダミー記事 300 本を削除または実記事に置き換え（`npm run seed:articles` は実運用では使わない）
-- [ ] 店舗の予約サービス URL（`src/content/business/dining.ts` の reservationUrl）
+- [ ] 店舗情報（`src/content/business/dining.ts`）が店舗公式サイト https://teppan-kagero.com/ と一致しているか（営業時間・メニュー・価格）
 - [ ] 代表メッセージ・採用メッセージ・社員インタビューの実文章

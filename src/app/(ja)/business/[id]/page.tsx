@@ -26,6 +26,8 @@ import { DummyBadge } from "@/components/ui/dummy-badge";
 import { Faq } from "@/components/ui/faq";
 import { CtaBlock } from "@/components/ui/cta-block";
 import { BeforeAfter } from "@/components/business/before-after";
+import { StoreCard } from "@/components/business/store-card";
+import { cn } from "@/lib/utils";
 import { LocalBusinessJsonLd } from "@/components/seo/json-ld";
 
 const ids = businesses.map((b) => b.id);
@@ -91,56 +93,26 @@ function ExtraSection({ extra }: { extra: BusinessExtra }) {
           <SectionBar label="店舗・メニュー" color="biz" colorVar="--color-biz-dining" />
           <Section surface="tint">
             <div className="container-max">
-              <SectionHeading title="店舗一覧" align="left" />
-              <ul className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <SectionHeading title="店舗のご案内" align="left" />
+              <ul className={cn("grid grid-cols-1 gap-8", extra.stores.length > 1 && "lg:grid-cols-2")}>
                 {extra.stores.map((s) => (
-                  <li key={s.name} className="card overflow-hidden">
-                    <Photo
-                      id={s.photoId}
-                      fill
-                      className="aspect-[16/9] w-full"
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                    />
-                    <div className="p-6">
-                      <p className="text-ink-3 text-xs font-bold">{s.brand}</p>
-                      <h3 className="mt-1 text-xl font-bold">
-                        {s.name} <DummyBadge show={s.isDummy} />
-                      </h3>
-                      <p className="text-ink-2 mt-2 text-sm">{s.concept}</p>
-                      <dl className="mt-4 grid grid-cols-[5rem_1fr] gap-y-2 text-sm">
-                        <dt className="text-ink-2 font-bold">所在地</dt>
-                        <dd>
-                          <Placeholder value={s.address} />
-                        </dd>
-                        <dt className="text-ink-2 font-bold">営業時間</dt>
-                        <dd>{s.hours}</dd>
-                        <dt className="text-ink-2 font-bold">定休日</dt>
-                        <dd>{s.closed}</dd>
-                        {s.tel && (
-                          <>
-                            <dt className="text-ink-2 font-bold">電話</dt>
-                            <dd>
-                              <Placeholder value={s.tel} />
-                            </dd>
-                          </>
-                        )}
-                      </dl>
-                      <div className="mt-5">
-                        {s.reservationUrl ? (
-                          <LinkButton href={s.reservationUrl} target="_blank" rel="noopener">
-                            予約する（外部サイト）
-                          </LinkButton>
-                        ) : (
-                          <span className="rounded-pill border-line text-ink-3 inline-flex items-center border border-dashed px-4 py-2 text-xs">
-                            予約サービスのリンクは準備中です
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                  <li key={s.name}>
+                    <StoreCard store={s} variant="full" />
                   </li>
                 ))}
               </ul>
-              <SectionHeading title="メニュー" align="left" className="mt-16" />
+              {extra.stores.some((s) => s.galleryIds?.length) && (
+                <ul className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
+                  {extra.stores
+                    .flatMap((s) => s.galleryIds ?? [])
+                    .map((pid) => (
+                      <li key={pid}>
+                        <Photo id={pid} fill className="rounded-brand aspect-[3/2] w-full" sizes="(min-width: 768px) 33vw, 50vw" />
+                      </li>
+                    ))}
+                </ul>
+              )}
+              <SectionHeading title="お品書き（抜粋）" align="left" className="mt-16" />
               <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {extra.menu.map((m) => (
                   <li key={m.name} className="card overflow-hidden">
@@ -153,16 +125,18 @@ function ExtraSection({ extra }: { extra: BusinessExtra }) {
                       />
                     )}
                     <div className="p-5">
-                      <div className="flex items-baseline justify-between gap-3">
+                      {m.category && <p className="text-ink-3 text-xs font-bold">{m.category}</p>}
+                      <div className="mt-1 flex items-baseline justify-between gap-3">
                         <h3 className="font-bold">{m.name}</h3>
-                        <span className="font-display text-sm font-bold">{m.price}</span>
+                        <span className="font-display text-sm font-bold whitespace-nowrap">{m.price}</span>
                       </div>
-                      <p className="text-ink-2 mt-1 text-sm">{m.description}</p>
+                      {m.description && <p className="text-ink-2 mt-1 text-sm">{m.description}</p>}
                       <DummyBadge show={m.isDummy} className="mt-2" />
                     </div>
                   </li>
                 ))}
               </ul>
+              {extra.menuNote && <p className="text-ink-3 mt-6 text-sm">{extra.menuNote}</p>}
             </div>
           </Section>
         </>
@@ -383,7 +357,7 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
         <section className="bg-black text-white">
           <div className="container-max grid grid-cols-1 gap-8 py-14 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-7">
-              <p className="text-accent text-sm font-bold">無料のAIツール</p>
+              <p className="text-accent-light text-sm font-bold">無料のAIツール</p>
               <h2 className="mt-2 text-2xl md:text-3xl">{tools[0].name}</h2>
               <p className="mt-4 max-w-xl text-[0.9375rem] leading-[1.9] text-white/85">
                 {tools[0].description}
@@ -402,20 +376,27 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
         </section>
       )}
 
-      {tools.length === 0 && id === "dining" && (
+      {tools.length === 0 && d.extra.kind === "dining" && d.extra.stores[0] && (
         <section className="bg-black text-white">
           <div className="container-max grid grid-cols-1 gap-8 py-14 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-7">
-              <p className="text-accent text-sm font-bold">ご来店・ご予約</p>
+              <p className="text-accent-light text-sm font-bold">ご来店・ご予約</p>
               <h2 className="mt-2 text-2xl md:text-3xl">店にお越しいただくことが、一番の近道です。</h2>
               <p className="mt-4 max-w-xl text-[0.9375rem] leading-[1.9] text-white/85">
-                営業時間内はご予約なしでもお入りいただけます。貸切やイベントのご相談は、お問い合わせフォームからどうぞ。
+                {d.extra.stores[0].name}（{d.extra.stores[0].hours}・定休日 {d.extra.stores[0].closed}）。営業時間内はご予約なしでもお入りいただけます。個室や団体でのご利用は、お電話または Web でご予約ください。
               </p>
             </div>
-            <div className="flex gap-3 lg:col-span-5 lg:justify-end">
-              <LinkButton href="/contact" size="lg">
-                貸切・イベントを相談する
-              </LinkButton>
+            <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
+              {d.extra.stores[0].tel && (
+                <LinkButton href={`tel:${d.extra.stores[0].tel.replace(/[^\d+]/g, "")}`} size="lg" variant="outline-light">
+                  {d.extra.stores[0].tel}
+                </LinkButton>
+              )}
+              {d.extra.stores[0].reservationUrl && (
+                <LinkButton href={d.extra.stores[0].reservationUrl} size="lg" target="_blank" rel="noopener">
+                  Web 予約
+                </LinkButton>
+              )}
             </div>
           </div>
         </section>

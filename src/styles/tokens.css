@@ -1,9 +1,9 @@
 /*
  * デザイントークン（唯一の正）
- * 参考方向：大手総合ファーム系コーポレートサイト（白地＋黒＋鮮やかな緑のアクセント、黒いヘッダー／フッター、
+ * 参考方向：大手総合ファーム系コーポレートサイト（白地＋黒＋青のアクセント、黒いヘッダー／フッター、
  * 全幅の写真ヒーロー、色帯のセクションラベル、左罫線つきの白カード、青い丸形ボタン）。
  * - ベース：白（paper）＋ ほぼ黒（ink）。
- * - コーポレートのアクセントは緑 1 色（--color-accent）。ボタン・リンクの機能色として青（--color-link）を別に持つ。
+ * - コーポレートのアクセントは青 1 色（--color-accent）。ボタン・リンクの機能色（--color-link）も同じ青（2026-10-22 ユーザー指示で緑を廃止）。
  * - 2 事業のアクセント（建設＝紺、飲食＝ティール）。
  * - テーマはライトのみ（ダークモードは提供しない）。
  */
@@ -15,18 +15,19 @@
   --color-paper: #ffffff;
   --color-paper-2: #f2f2f2; /* カード背景エリア・一段落とした面 */
   --color-paper-3: #e6e6e6;
-  --color-tint: #e3ede9; /* 緑がかった薄い面（コールアウト） */
+  --color-tint: #e8f1f6; /* 青がかった薄い面（コールアウト） */
   --color-ink: #0b0b0b; /* 見出し・本文（真っ黒よりわずかに浮かせる） */
   --color-ink-2: #53565a; /* 補助テキスト */
   --color-ink-3: #65686b; /* キャプション・メタ情報（白地で 5.2:1、AA） */
   --color-line: #d0d0ce;
   --color-line-strong: #0b0b0b;
 
-  /* ── Corporate accent（緑・1色） ── */
-  --color-accent: #86bc25;
-  --color-accent-deep: #046a38; /* 緑の濃色（文字として使う場合） */
-  --color-accent-ink: #0b0b0b; /* アクセント面の上の文字（AA 確保のため黒） */
-  --color-accent-soft: #eef6dc;
+  /* ── Corporate accent（青・1色。機能色 --color-link と同じ） ── */
+  --color-accent: #0076a8;
+  --color-accent-deep: #005a80; /* 濃色（文字として使う場合） */
+  --color-accent-light: #5cb8e3; /* 黒地の上の小さな文字用（黒地で 7.9:1） */
+  --color-accent-ink: #ffffff; /* アクセント面の上の文字（#0076a8 と白で 4.6:1、AA） */
+  --color-accent-soft: #e2eff7;
 
   /* ── Interactive（青）── */
   --color-link: #0076a8;
@@ -41,7 +42,7 @@
   --color-notice: #8a5a00; /* 【要差し替え】・DUMMY の注意色 */
   --color-notice-soft: #fff3d6;
   --color-danger: #b3261e;
-  --color-success: #046a38;
+  --color-success: #005a80;
 
   /* ── Typography ── */
   --font-sans-stack:

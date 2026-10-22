@@ -27,7 +27,8 @@
     "check:dummy:md": "tsx scripts/check-dummy.ts --md",
     "build:fonts": "tsx scripts/build-fonts.ts",
     "photo:prompts": "tsx scripts/photo-prompts.ts",
-    "photo:import": "tsx scripts/import-photos.ts"
+    "photo:import": "tsx scripts/import-photos.ts",
+    "build:icons": "tsx scripts/build-brand-icons.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.137.0",

@@ -217,7 +217,7 @@ export default async function HomePage() {
       <section className="bg-black text-white">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <Reveal className="px-gutter order-2 flex flex-col justify-center py-14 lg:order-1 lg:px-16 lg:py-20">
-            <p className="text-accent text-sm font-bold">採用情報</p>
+            <p className="text-accent-light text-sm font-bold">採用情報</p>
             <h2 className="mt-3 text-2xl md:text-3xl">
               場をつくる人も、場を営む人も。
               <br />

@@ -15,6 +15,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     title: post?.title ?? "ブログ",
     subtitle: post?.category,
     label: "BLOG",
-    accent: post?.business === "dining" ? "#0d8390" : post?.business === "build" ? "#012169" : "#86bc25",
+    accent: post?.business === "dining" ? "#0d8390" : post?.business === "build" ? "#012169" : "#0076a8",
   });
 }

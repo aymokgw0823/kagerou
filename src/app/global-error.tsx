@@ -19,7 +19,7 @@ export default function GlobalError({
           background: "#fff",
         }}
       >
-        <p style={{ fontSize: "3rem", fontWeight: 700, color: "#86bc25" }}>500</p>
+        <p style={{ fontSize: "3rem", fontWeight: 700, color: "#0076a8" }}>500</p>
         <h1 style={{ fontSize: "1.5rem", fontWeight: 400 }}>エラーが発生しました</h1>
         <p style={{ color: "#53565a" }}>
           申し訳ありません。時間をおいて再度お試しください。{error.digest ? `（${error.digest}）` : ""}

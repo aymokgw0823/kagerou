@@ -146,8 +146,7 @@ export const company = {
   history: [
     { date: PLACEHOLDER, event: "会社設立", isDummy: true },
     { date: PLACEHOLDER, event: "建設事業を開始（建設業許可取得）", isDummy: true },
-    { date: PLACEHOLDER, event: "飲食事業を開始（1号店出店）", isDummy: true },
-    { date: PLACEHOLDER, event: "2号店を出店（設計・施工は自社建設部門）", isDummy: true },
+    { date: "2026-02", event: "飲食事業を開始。鉄板居酒屋「陽炎」（松戸市新松戸）を開店（設計・施工は自社建設部門）" },
   ] satisfies HistoryEvent[],
   /** 数値実績。事実が確定するまで null のまま */
   figures: {

@@ -53,19 +53,19 @@ export function BusinessMap({ className }: { className?: string }) {
         aria-hidden
         className="pointer-events-none absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block"
       >
-        <span className="font-display text-accent shadow-card flex h-16 w-16 items-center justify-center rounded-full bg-black text-xs font-bold">
+        <span className="font-display text-accent-light shadow-card flex h-16 w-16 items-center justify-center rounded-full bg-black text-xs font-bold">
           ⇄
         </span>
       </div>
       <dl className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="rounded-brand bg-black p-6 text-white">
-          <dt className="text-accent text-xs font-bold">建設 → 飲食</dt>
+          <dt className="text-accent-light text-xs font-bold">建設 → 飲食</dt>
           <dd className="mt-2 text-[0.9375rem] leading-[1.8]">
             店舗の設計・施工は自社の建設部門が手がける。営業しながら小さな改修を重ね、店を育て続けられる。
           </dd>
         </div>
         <div className="rounded-brand bg-black p-6 text-white">
-          <dt className="text-accent text-xs font-bold">飲食 → 建設</dt>
+          <dt className="text-accent-light text-xs font-bold">飲食 → 建設</dt>
           <dd className="mt-2 text-[0.9375rem] leading-[1.8]">
             毎日店に立っているから、図面の段階で「使いにくさ」に気づける。使う側の視点で、店舗・住宅・オフィスを設計する。
           </dd>

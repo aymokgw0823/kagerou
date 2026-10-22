@@ -28,7 +28,7 @@ import {
 const NAVY = new Color("#012169");
 const WHITE = new Color("#ffffff");
 const TEAL = new Color("#0d8390");
-const GREEN = new Color("#86bc25");
+const BLUE = new Color("#0076a8");
 
 /** 1 周にかける秒数 */
 const SPIN_FRAME = 52;
@@ -112,7 +112,7 @@ function buildCloud(): Cloud {
     base[i * 3] = Math.cos(th) * r;
     base[i * 3 + 1] = y;
     base[i * 3 + 2] = Math.sin(th) * r;
-    c.copy(TEAL).lerp(GREEN, Math.pow(rand(), 1.6));
+    c.copy(TEAL).lerp(BLUE, Math.pow(rand(), 1.6));
     col[i * 3] = c.r;
     col[i * 3 + 1] = c.g;
     col[i * 3 + 2] = c.b;
@@ -271,7 +271,7 @@ function Scene({ animate }: { animate: boolean }) {
           <lineBasicMaterial ref={ringMatA} color={TEAL} transparent opacity={0} depthWrite={false} />
         </lineLoop>
         <lineLoop geometry={ringB} rotation={[0.5, 0, 0.3]}>
-          <lineBasicMaterial ref={ringMatB} color={GREEN} transparent opacity={0} depthWrite={false} />
+          <lineBasicMaterial ref={ringMatB} color={BLUE} transparent opacity={0} depthWrite={false} />
         </lineLoop>
       </group>
     </group>

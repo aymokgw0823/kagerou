@@ -29,7 +29,7 @@ export function Footer({ locale = "ja" }: { locale?: Locale }) {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="group hover:text-accent inline-flex items-center gap-2 text-lg font-bold text-white/90"
+                    className="group hover:text-accent-light inline-flex items-center gap-2 text-lg font-bold text-white/90"
                   >
                     {en ? l.labelEn : l.label}
                     <Arrow className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />

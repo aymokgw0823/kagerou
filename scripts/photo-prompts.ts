@@ -10,7 +10,7 @@ import { photoManifest, type PhotoShot } from "../src/config/photo-manifest";
 const ROOT = join(import.meta.dirname, "..");
 
 const toneEn: Record<string, string> = {
-  corporate: "calm, trustworthy corporate mood, muted warm neutrals with a hint of green",
+  corporate: "calm, trustworthy corporate mood, muted warm neutrals with a hint of blue",
   build: "construction site mood, warm earthy tones, timber and concrete textures",
   dining: "warm Japanese izakaya / cafe mood, amber lighting, charcoal grill glow",
   neutral: "clean, neutral, quietly premium",

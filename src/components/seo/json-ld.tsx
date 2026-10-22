@@ -45,7 +45,7 @@ export function SiteJsonLd() {
   );
 }
 
-type Store = { name: string; concept: string; address: string; hours: string; closed: string; tel?: string };
+import type { Store } from "@/content/business/types";
 
 /** 飲食店舗（Restaurant）／建設（GeneralContractor）の LocalBusiness */
 export function LocalBusinessJsonLd({
@@ -69,11 +69,34 @@ export function LocalBusinessJsonLd({
           ...base,
           "@type": "Restaurant",
           name: s.name,
+          ...(s.nameEn ? { alternateName: s.nameEn } : {}),
           description: s.concept,
-          address: { "@type": "PostalAddress", streetAddress: s.address, addressCountry: "JP" },
-          openingHours: s.hours,
-          servesCuisine: "Japanese",
+          image: s.logoSrc ? new URL(s.logoSrc, site.url).toString() : undefined,
+          url: s.website ?? new URL("/business/dining", site.url).toString(),
+          address: s.addressParts
+            ? {
+                "@type": "PostalAddress",
+                ...(s.addressParts.postalCode ? { postalCode: s.addressParts.postalCode } : {}),
+                addressRegion: s.addressParts.region,
+                streetAddress: s.addressParts.street,
+                addressCountry: "JP",
+              }
+            : { "@type": "PostalAddress", streetAddress: s.address, addressCountry: "JP" },
+          ...(s.openingHoursSpecification
+            ? {
+                openingHoursSpecification: s.openingHoursSpecification.map((o) => ({
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: o.days.map((d) => `https://schema.org/${d}`),
+                  opens: o.opens,
+                  closes: o.closes,
+                })),
+              }
+            : { openingHours: s.hours }),
+          servesCuisine: "Teppanyaki",
+          acceptsReservations: s.reservationUrl ?? true,
           ...(s.tel ? { telephone: s.tel } : {}),
+          ...(s.mapUrl ? { hasMap: s.mapUrl } : {}),
+          sameAs: [s.website, ...(s.social?.map((x) => x.href) ?? [])].filter(Boolean),
         }))
       : [
           {

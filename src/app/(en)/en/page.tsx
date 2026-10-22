@@ -38,8 +38,8 @@ export default function HomePageEn() {
       <Section>
         <div className="container-max">
           <SectionHeading
-            title="Five businesses, one company"
-            lead="Each business works as an independent service brand, and all five work together as one group. We also run our own restaurants, where we test every strategy we propose."
+            title="Two businesses, one company"
+            lead="Construction builds the place; dining runs it. We build shops, homes and offices, and we run our own teppanyaki izakaya in Shin-Matsudo, so we know how a place is used from both sides."
           />
           <ul className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
             {businesses.map((b) => (

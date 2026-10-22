@@ -2,7 +2,8 @@
  * リフォーム相談の結果 PDF（A4・日本語フォント埋め込み）。
  * サーバー（Route Handler）で renderToBuffer する。
  */
-import { Document, Font, Page, StyleSheet, Text, View, renderToBuffer } from "@react-pdf/renderer";
+import { Document, Font, G, Line, Page, Path, StyleSheet, Svg, Text, View, renderToBuffer } from "@react-pdf/renderer";
+import { BRAND_RED, MARK_H, MARK_W, STROKE, flameInner, flameOuter, horizon, rays, sunPath } from "@/lib/brand/mark";
 import { join } from "node:path";
 import { company } from "@/config/company";
 import { site } from "@/config/site";
@@ -19,7 +20,7 @@ function ensureFont() {
   registered = true;
 }
 
-const green = "#86bc25";
+const accent = "#0076a8";
 const ink = "#0b0b0b";
 const gray = "#53565a";
 const line = "#d0d0ce";
@@ -39,9 +40,9 @@ const s = StyleSheet.create({
   coverTitle: { fontSize: 26, marginTop: 8 },
   coverSub: { fontSize: 12, color: "#dddddd", marginTop: 6 },
   coverBody: { paddingHorizontal: 48, paddingTop: 36 },
-  logo: { fontSize: 14, color: "#ffffff" },
-  dot: { color: green },
-  h1: { fontSize: 16, marginBottom: 8, paddingLeft: 8, borderLeftWidth: 4, borderLeftColor: green },
+  logoRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  logo: { fontSize: 14, color: "#ffffff", letterSpacing: 1 },
+  h1: { fontSize: 16, marginBottom: 8, paddingLeft: 8, borderLeftWidth: 4, borderLeftColor: accent },
   h2: { fontSize: 12, marginTop: 14, marginBottom: 6 },
   p: { marginBottom: 6, color: ink },
   small: { fontSize: 8, color: gray },
@@ -109,10 +110,19 @@ export function ReformReport({ result, customerName }: { result: ReformResult; c
       {/* 表紙 */}
       <Page size="A4" style={s.cover}>
         <View style={s.coverBand}>
-          <Text style={s.logo}>
-            {company.brandName}
-            <Text style={s.dot}>●</Text>
-          </Text>
+          <View style={s.logoRow}>
+            <Svg width={44} height={(44 * MARK_H) / MARK_W} viewBox={`0 0 ${MARK_W} ${MARK_H}`}>
+              <G stroke={BRAND_RED} strokeWidth={STROKE} strokeLinecap="round">
+                {[...rays, ...horizon].map((l, i) => (
+                  <Line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} />
+                ))}
+              </G>
+              <Path d={sunPath} fill={BRAND_RED} />
+              <Path d={flameOuter} fill={ink} />
+              <Path d={flameInner} fill={BRAND_RED} />
+            </Svg>
+            <Text style={s.logo}>{company.brandName}</Text>
+          </View>
           <Text style={s.coverTitle}>{who} リフォーム相談レポート</Text>
           <Text style={s.coverSub}>写真でリフォーム相談（AI）　{fmtDate(result.createdAt)}</Text>
         </View>

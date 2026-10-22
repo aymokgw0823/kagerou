@@ -214,7 +214,7 @@ export function formatMarkdown(report: Report): string {
   out.push(
     "- [ ] `content/blog/` のダミー記事 300 本を削除または実記事に置き換え（`npm run seed:articles` は実運用では使わない）",
   );
-  out.push("- [ ] 店舗の予約サービス URL（`src/content/business/dining.ts` の reservationUrl）");
+  out.push("- [ ] 店舗情報（`src/content/business/dining.ts`）が店舗公式サイト https://teppan-kagero.com/ と一致しているか（営業時間・メニュー・価格）");
   out.push("- [ ] 代表メッセージ・採用メッセージ・社員インタビューの実文章");
   out.push("");
   return out.join("\n");

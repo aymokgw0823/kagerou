@@ -41,7 +41,7 @@ export function CtaBlock({
               ご相談を予約する
             </LinkButton>
             {showAi && (
-              <LinkButton href="/ai/reform" variant="text" className="hover:text-accent text-white">
+              <LinkButton href="/ai/reform" variant="text" className="hover:text-accent-light text-white">
                 写真でリフォーム相談（無料）
               </LinkButton>
             )}

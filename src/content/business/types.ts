@@ -24,24 +24,63 @@ export type BuildExtra = {
   gallery: { title: string; description: string; beforeId: string; afterId: string; isDummy: true }[];
 };
 
+export type Store = {
+  /** 店名（会社名とは別ブランド） */
+  name: string;
+  /** 店名（欧文） */
+  nameEn?: string;
+  /** 店舗ブランド名（複数店で共通） */
+  brand: string;
+  concept: string;
+  /** 所在地（1行） */
+  address: string;
+  /** 郵便番号・都道府県＋市区町村・番地（構造化データ用。任意） */
+  addressParts?: { postalCode?: string; region: string; street: string };
+  /** 営業時間（表示用） */
+  hours: string;
+  /** 営業時間（構造化データ用。曜日は schema.org の表記） */
+  openingHoursSpecification?: { days: string[]; opens: string; closes: string }[];
+  closed: string;
+  tel?: string;
+  /** 外部予約サービスへのリンク（未設定なら枠だけ表示） */
+  reservationUrl?: string;
+  /** 予約サービス名（例：食べログ） */
+  reservationLabel?: string;
+  /** 公式サイト */
+  website?: string;
+  /** LINE 公式アカウントなど SNS */
+  social?: { label: string; href: string }[];
+  /** Google マップのリンク */
+  mapUrl?: string;
+  /** 席数・個室・駐車場などの基本情報（表示順のまま） */
+  facts?: { label: string; value: string }[];
+  /** 開店日（YYYY-MM-DD） */
+  openedOn?: string;
+  /** 店舗ロゴ（public 配下のパス。黒地向け） */
+  logoSrc?: string;
+  photoId: string;
+  /** 補助写真（内観など） */
+  galleryIds?: string[];
+  isDummy: boolean;
+};
+
+export type MenuItem = {
+  name: string;
+  price: string;
+  description?: string;
+  /** 分類（例：鉄板料理） */
+  category?: string;
+  photoId?: string;
+  isDummy: boolean;
+};
+
 export type DiningExtra = {
   kind: "dining";
-  stores: {
-    /** 店名（会社名とは別ブランド） */
-    name: string;
-    /** 店舗ブランド名（複数店で共通） */
-    brand: string;
-    concept: string;
-    address: string;
-    hours: string;
-    closed: string;
-    tel?: string;
-    /** 外部予約サービスへのリンク（未設定なら枠だけ表示） */
-    reservationUrl?: string;
-    photoId: string;
-    isDummy: true;
-  }[];
-  menu: { name: string; price: string; description: string; photoId?: string; isDummy: true }[];
+  stores: Store[];
+  /** 看板メニュー（抜粋） */
+  menu: MenuItem[];
+  /** メニュー欄の注記 */
+  menuNote?: string;
 };
 
 export type BusinessExtra = BuildExtra | DiningExtra;

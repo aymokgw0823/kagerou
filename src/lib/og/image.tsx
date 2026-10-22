@@ -1,11 +1,12 @@
 /**
  * OGP 画像の共通テンプレート（next/og の ImageResponse）。
- * 黒地に緑のドット付きロゴ、タイトル、サブタイトル。日本語は Noto Sans JP を埋め込む。
+ * 黒地にシンボルマーク＋ロゴタイプ、タイトル、サブタイトル。日本語は Noto Sans JP を埋め込む。
  */
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { company } from "@/config/company";
+import { LogoMark } from "@/components/layout/logo-mark";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
@@ -28,7 +29,7 @@ type Props = {
   accent?: string;
 };
 
-export async function ogImage({ title, subtitle, label, accent = "#86bc25" }: Props): Promise<ImageResponse> {
+export async function ogImage({ title, subtitle, label, accent = "#0076a8" }: Props): Promise<ImageResponse> {
   const data = await font();
   const t = title.length > 60 ? `${title.slice(0, 59)}…` : title;
   return new ImageResponse(
@@ -46,17 +47,16 @@ export async function ogImage({ title, subtitle, label, accent = "#86bc25" }: Pr
       }}
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "baseline",
-            fontSize: 36,
-            fontWeight: 700,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          {company.brandName}
-          <span style={{ width: 14, height: 14, borderRadius: 999, background: "#86bc25", marginLeft: 4 }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          <LogoMark style={{ width: 96, height: 51 }} flame="#0b0b0b" />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ fontSize: 36, fontWeight: 700, letterSpacing: "0.08em", lineHeight: 1 }}>
+              {company.brandName}
+            </div>
+            <div style={{ fontSize: 14, letterSpacing: "0.28em", color: "#b4b6b8", marginTop: 8 }}>
+              {company.nameEn.toUpperCase()}
+            </div>
+          </div>
         </div>
         {label && <div style={{ fontSize: 22, color: "#b4b6b8", letterSpacing: "0.12em" }}>{label}</div>}
       </div>

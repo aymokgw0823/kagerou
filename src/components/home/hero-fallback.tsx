@@ -6,7 +6,7 @@
 
 const NAVY = "#012169";
 const TEAL = "#0d8390";
-const GREEN = "#86bc25";
+const BLUE = "#0076a8";
 
 type V3 = readonly [number, number, number];
 
@@ -104,7 +104,7 @@ const dots = Array.from({ length: 30 }, () => {
     x: x.toFixed(1),
     y: y.toFixed(1),
     r: (1.6 + rand() * 2.6).toFixed(1),
-    color: rand() < 0.55 ? TEAL : GREEN,
+    color: rand() < 0.55 ? TEAL : BLUE,
     o: (0.35 + rand() * 0.5).toFixed(2),
   };
 });

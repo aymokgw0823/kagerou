@@ -63,10 +63,10 @@ export const businesses: Business[] = [
     shortJa: "飲食",
     nameEn: "Dining",
     descriptionEn:
-      "We run our own restaurants. Having a construction team in-house means we shape the space ourselves, from the first drawing to the last tile.",
+      "We run Teppan Izakaya KAGERO in Shin-Matsudo, Chiba. Having a construction team in-house means we shape the space ourselves, from the first drawing to the last tile.",
     tagline: "自ら現場に立ち、場を営む。",
     description:
-      "自社で飲食店を運営しています。厨房の動線も、客席の居心地も、日々の営業で確かめている。自社に建設部門があるから、空間づくりから自分たちで手がけられます。",
+      "松戸市新松戸で鉄板居酒屋「陽炎」を運営しています。厨房の動線も、客席の居心地も、日々の営業で確かめている。自社に建設部門があるから、空間づくりから自分たちで手がけられます。",
     pillar: "operate",
     href: "/business/dining",
     colorVar: "--color-biz-dining",
