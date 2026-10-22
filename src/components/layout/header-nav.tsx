@@ -144,7 +144,7 @@ export function HeaderNav({ items, ctas, locale = "ja" }: Props) {
 
   const langSwitch =
     locale === "en" ? (
-      <Link href="/" className="text-xs font-bold text-white/70 hover:text-white" lang="ja">
+      <Link href="/" className="text-xs font-bold whitespace-nowrap text-white/70 hover:text-white" lang="ja">
         日本語
       </Link>
     ) : (
@@ -217,7 +217,7 @@ export function HeaderNav({ items, ctas, locale = "ja" }: Props) {
         aria-modal="true"
         aria-label="メニュー"
         hidden={!open}
-        className="top-header bg-paper text-ink fixed inset-x-0 bottom-0 z-40 overflow-y-auto lg:hidden"
+        className="top-header bg-paper text-ink fixed inset-x-0 bottom-0 z-50 overflow-y-auto overscroll-contain pb-[var(--safe-b)] lg:hidden"
       >
         <nav aria-label="モバイルナビゲーション" className="container-max py-4">
           <ul className="divide-line border-line divide-y border-b">
@@ -253,10 +253,10 @@ export function HeaderNav({ items, ctas, locale = "ja" }: Props) {
             ))}
           </ul>
           <div className="mt-6 flex flex-col gap-3">
-            <Link href={ctas.booking.href} className="btn-base bg-link text-link-ink">
+            <Link href={ctas.booking.href} className="btn-base bg-link text-link-ink min-h-12">
               {ctas.booking.label}
             </Link>
-            <Link href={ctas.contact.href} className="btn-base border-ink text-ink">
+            <Link href={ctas.contact.href} className="btn-base border-ink text-ink min-h-12">
               {ctas.contact.label}
             </Link>
           </div>

@@ -94,6 +94,12 @@ function loadIndex(): Promise<SearchDoc[]> {
   return indexPromise;
 }
 
+const sortOptions: { value: Sort; label: string }[] = [
+  { value: "new", label: "新着順" },
+  { value: "popular", label: "人気順" },
+  { value: "reading", label: "読了時間順" },
+];
+
 export function BlogExplorer({ posts, locked, tags }: Props) {
   const sp = useUrlParams();
 
@@ -331,26 +337,45 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
             placeholder="キーワードで探す（例：外壁 ひび割れ）"
             className="rounded-pill border-line bg-paper focus:border-ink min-h-11 flex-1 border px-5 text-sm"
           />
-          <button type="submit" className="btn-base bg-ink text-paper hover:bg-link">
+          <button type="submit" className="btn-base bg-ink text-paper hover:bg-link shrink-0 px-5">
             検索
-          </button>
-          <button
-            type="button"
-            onClick={() => setSheetOpen(true)}
-            className="btn-base border-ink text-ink lg:hidden"
-            aria-haspopup="dialog"
-            aria-expanded={sheetOpen}
-          >
-            絞り込み
-            {activeCount > 0 && (
-              <span className="rounded-pill bg-accent font-display text-accent-ink ml-1 px-1.5 text-xs">
-                {activeCount}
-              </span>
-            )}
           </button>
         </form>
 
-        <div className="border-line mt-5 flex flex-col gap-3 border-b pb-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-line mt-4 flex flex-col gap-3 border-b pb-4 sm:mt-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center justify-between gap-3 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setSheetOpen(true)}
+              className="btn-base border-ink text-ink min-h-10 px-4 text-xs"
+              aria-haspopup="dialog"
+              aria-expanded={sheetOpen}
+            >
+              <svg aria-hidden viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={1.75}>
+                <path d="M2 4h12M4 8h8M6 12h4" />
+              </svg>
+              絞り込み
+              {activeCount > 0 && (
+                <span className="rounded-pill bg-accent font-display text-accent-ink ml-1 px-1.5 text-xs">
+                  {activeCount}
+                </span>
+              )}
+            </button>
+            <label className="text-ink-3 text-xs sm:hidden">
+              <span className="sr-only">並び替え</span>
+              <select
+                value={sort}
+                onChange={(e) => update((p) => p.set("sort", e.target.value))}
+                className="rounded-pill border-line bg-paper text-ink border px-3 py-2 text-xs font-bold"
+              >
+                {sortOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
           <p className="text-ink-2 text-sm" aria-live="polite">
             <span className="font-display text-ink text-lg font-bold">{posts.length}</span> 件中{" "}
             <span className="font-display text-ink text-lg font-bold">{sorted.length}</span> 件を表示
@@ -370,7 +395,8 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
               </button>
             )}
           </p>
-          <div className="flex items-center gap-3">
+          {/* 並び替え・表示切り替え（sm 以上。スマホは上の行に並び替えだけ出し、カードは常にコンパクト表示） */}
+          <div className="hidden items-center gap-3 sm:flex">
             <label className="text-ink-3 text-xs">
               並び替え
               <select
@@ -378,9 +404,11 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
                 onChange={(e) => update((p) => p.set("sort", e.target.value))}
                 className="rounded-pill border-line bg-paper text-ink ml-2 border px-3 py-1.5 text-xs font-bold"
               >
-                <option value="new">新着順</option>
-                <option value="popular">人気順</option>
-                <option value="reading">読了時間順</option>
+                {sortOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
               </select>
             </label>
             <div
@@ -500,7 +528,7 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
           role="dialog"
           aria-modal="true"
           aria-label="絞り込み"
-          className="bg-paper shadow-card absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl p-5 pb-28"
+          className="bg-paper shadow-card absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto overscroll-contain rounded-t-2xl p-5 pb-[calc(6rem+var(--safe-b))]"
         >
           <div className="rounded-pill bg-line mx-auto mb-4 h-1 w-10" aria-hidden />
           <div className="mb-5 flex items-center justify-between">
@@ -510,11 +538,11 @@ export function BlogExplorer({ posts, locked, tags }: Props) {
             </button>
           </div>
           {facetPanel}
-          <div className="border-line bg-paper fixed inset-x-0 bottom-0 border-t p-4">
+          <div className="border-line bg-paper fixed inset-x-0 bottom-0 border-t p-4 pb-[calc(1rem+var(--safe-b))]">
             <button
               type="button"
               onClick={() => setSheetOpen(false)}
-              className="btn-base bg-link text-link-ink w-full"
+              className="btn-base bg-link text-link-ink min-h-12 w-full"
             >
               {sorted.length} 件を表示
             </button>

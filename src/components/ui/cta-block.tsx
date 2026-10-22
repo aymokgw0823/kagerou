@@ -35,7 +35,7 @@ export function CtaBlock({
         <div className="px-gutter flex flex-col justify-center py-14 lg:px-16 lg:py-20">
           <h2 className="text-2xl md:text-3xl">{title}</h2>
           <p className="mt-5 max-w-lg text-[0.9375rem] leading-[1.9] text-white/85">{lead}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap [&>a]:w-full sm:[&>a]:w-auto">
             <LinkButton href="/contact">お問い合わせ</LinkButton>
             <LinkButton href="/booking" variant="outline-light">
               ご相談を予約する

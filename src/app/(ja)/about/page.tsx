@@ -31,10 +31,10 @@ export default function AboutPage() {
 
       {/* ページ内ナビ */}
       <nav aria-label="ページ内ナビゲーション" className="border-line border-b">
-        <ul className="container-max flex gap-x-6 overflow-x-auto py-3 text-sm font-bold whitespace-nowrap">
+        <ul className="container-max scrollbar-none scroll-fade-x flex gap-x-6 overflow-x-auto py-3 text-sm font-bold whitespace-nowrap md:[mask-image:none]">
           {aboutSections.map((s) => (
             <li key={s.id}>
-              <a href={`#${s.id}`} className="text-ink-2 hover:text-link">
+              <a href={`#${s.id}`} className="text-ink-2 hover:text-link inline-block py-1">
                 {s.label}
               </a>
             </li>

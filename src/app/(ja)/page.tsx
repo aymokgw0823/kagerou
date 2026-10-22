@@ -125,7 +125,7 @@ export default async function HomePage() {
               }
             />
           </Reveal>
-          <Stagger as="ul" className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <Stagger as="ul" className="rail md:grid md:grid-cols-3 md:gap-6">
             {works.map((w) => (
               <StaggerItem as="li" key={w.slug}>
                 <Card
@@ -166,7 +166,7 @@ export default async function HomePage() {
               }
             />
           </Reveal>
-          <Stagger as="ul" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Stagger as="ul" className="rail md:grid md:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {posts.map((p) => (
               <StaggerItem as="li" key={p.slug}>
                 <Card
@@ -226,8 +226,10 @@ export default async function HomePage() {
             <p className="mt-5 max-w-lg text-[0.9375rem] leading-[1.9] text-white/85">
               施工管理、職人、設計・積算、店舗のホール・調理スタッフ。仕事は違っても、地域の「場」に関わるという目的は同じです。
             </p>
-            <div className="mt-8 flex items-center gap-3">
-              <LinkButton href="/recruit">採用情報を見る</LinkButton>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <LinkButton href="/recruit" className="max-sm:w-full">
+                採用情報を見る
+              </LinkButton>
               <DummyBadge label="DUMMY COPY" />
             </div>
           </Reveal>

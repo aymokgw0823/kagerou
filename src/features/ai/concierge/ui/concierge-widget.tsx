@@ -73,7 +73,14 @@ export function ConciergeWidget() {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    // スマホでは全画面シートになるので、背面のスクロールを止める
+    const mobile = window.matchMedia("(max-width: 39.9375rem)").matches;
+    const prevOverflow = document.body.style.overflow;
+    if (mobile) document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      if (mobile) document.body.style.overflow = prevOverflow;
+    };
   }, [open]);
 
   async function send(text: string) {
@@ -128,7 +135,10 @@ export function ConciergeWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={panelId}
-        className="rounded-pill shadow-card fixed right-4 bottom-4 z-40 flex h-14 items-center gap-2 bg-black px-5 text-sm font-bold text-white transition-transform hover:scale-[1.03] md:right-6 md:bottom-6"
+        className={cn(
+          "rounded-pill shadow-card fixed right-4 bottom-[calc(1rem+var(--safe-b))] z-30 flex h-13 items-center gap-2 bg-black px-5 text-sm font-bold text-white transition-transform hover:scale-[1.03] md:right-6 md:bottom-6 md:h-14",
+          open && "max-sm:hidden",
+        )}
       >
         <span aria-hidden className="bg-accent h-2.5 w-2.5 rounded-full" />
         {open ? "閉じる" : "質問する"}
@@ -138,13 +148,31 @@ export function ConciergeWidget() {
         role="dialog"
         aria-label="AIコンシェルジュ"
         hidden={!open}
-        className="border-line bg-paper shadow-card fixed right-4 bottom-20 z-40 flex max-h-[min(36rem,calc(100dvh-7rem))] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border sm:w-96 md:right-6 md:bottom-24"
+        className={cn(
+          "bg-paper fixed z-[60] flex flex-col overflow-hidden",
+          // スマホ：全画面シート
+          "inset-0 h-[100dvh]",
+          // sm 以上：右下のパネル
+          "sm:border-line sm:shadow-card sm:inset-auto sm:right-4 sm:bottom-20 sm:h-auto sm:max-h-[min(36rem,calc(100dvh-7rem))] sm:w-96 sm:rounded-2xl sm:border md:right-6 md:bottom-24",
+        )}
       >
-        <div className="border-line border-b bg-black px-4 py-3 text-white">
-          <p className="text-sm font-bold">AIコンシェルジュ</p>
-          <p className="text-[11px] text-white/70">
-            サイト内の情報をもとにお答えします。個人情報は入力しないでください。
-          </p>
+        <div className="border-line flex items-start justify-between gap-3 border-b bg-black px-4 py-3 text-white max-sm:pt-[calc(0.75rem+var(--safe-t))]">
+          <div>
+            <p className="text-sm font-bold">AIコンシェルジュ</p>
+            <p className="text-[11px] text-white/70">
+              サイト内の情報をもとにお答えします。個人情報は入力しないでください。
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="チャットを閉じる"
+            className="-mr-2 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white/80 hover:bg-white/10 hover:text-white"
+          >
+            <svg aria-hidden viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75}>
+              <path d="M3 3l10 10M13 3L3 13" />
+            </svg>
+          </button>
         </div>
         <div
           ref={listRef}
@@ -163,7 +191,7 @@ export function ConciergeWidget() {
                     <button
                       type="button"
                       onClick={() => send(q)}
-                      className="rounded-brand border-line hover:border-ink w-full border px-3 py-2 text-left text-xs"
+                      className="rounded-brand border-line hover:border-ink w-full border px-3 py-2.5 text-left text-[0.8125rem]"
                     >
                       {q}
                     </button>
@@ -224,17 +252,17 @@ export function ConciergeWidget() {
             onChange={(e) => setInput(e.target.value.slice(0, 500))}
             placeholder="質問を入力（500字まで）"
             aria-label="質問"
-            className="rounded-pill border-line focus:border-ink min-h-10 flex-1 border px-4 text-sm focus:outline-none"
+            className="rounded-pill border-line focus:border-ink min-h-11 min-w-0 flex-1 border px-4 text-sm focus:outline-none"
           />
           <button
             type="submit"
             disabled={busy || !input.trim()}
-            className="btn-base bg-link text-link-ink min-h-10 px-4 text-xs disabled:opacity-50"
+            className="btn-base bg-link text-link-ink min-h-11 px-4 text-xs disabled:opacity-50"
           >
             送信
           </button>
         </form>
-        <p className="border-line text-ink-3 border-t px-3 py-1.5 text-[10px]">
+        <p className="border-line text-ink-3 border-t px-3 py-1.5 pb-[calc(0.375rem+var(--safe-b))] text-[10px]">
           AIによる回答は参考情報です。正確な内容は各ページまたはお問い合わせでご確認ください。
         </p>
       </div>

@@ -93,7 +93,7 @@ export default async function WorkPage({ params }: PageProps<"/works/[slug]">) {
         <Section surface="paper-2" spacing="sm" className="mt-16">
           <div className="container-max">
             <h2 className="mb-6 text-2xl">{b.nameJa}事業のほかの事例</h2>
-            <ul className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            <ul className="rail md:grid md:grid-cols-3 md:gap-5">
               {related.map((w) => (
                 <li key={w.slug}>
                   <Card

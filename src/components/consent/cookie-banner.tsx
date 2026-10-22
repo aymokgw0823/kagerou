@@ -31,7 +31,7 @@ export function CookieBanner() {
         <div
           role="region"
           aria-label="Cookieの利用について"
-          className="border-line bg-paper shadow-card fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-2xl border p-4 md:inset-x-6 md:bottom-6 md:p-5"
+          className="border-line bg-paper shadow-card fixed inset-x-3 bottom-[calc(0.75rem+var(--safe-b))] z-50 mx-auto max-w-2xl rounded-2xl border p-4 md:inset-x-6 md:bottom-6 md:p-5"
         >
           <p className="text-xs leading-[1.7] md:text-sm">
             アクセス解析のための Cookie は、ご同意いただいた場合にのみ使用します。

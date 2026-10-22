@@ -86,6 +86,7 @@
     line-height: 1.35;
     font-weight: 400;
     text-wrap: balance;
+    word-break: auto-phrase; /* 日本語を文節で折り返す（Chrome 119+。非対応環境は通常の折り返し） */
   }
   p {
     text-wrap: pretty;
@@ -102,6 +103,23 @@
   textarea {
     font: inherit;
     color: inherit;
+  }
+  /* iOS Safari は 16px 未満の入力欄にフォーカスすると自動ズームするため、スマホでは 16px を下回らせない */
+  @media (width < 40rem) {
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea {
+      font-size: max(1rem, 1em);
+    }
+  }
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* safe-area（ノッチ端末）用の変数 */
+  :root {
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
   }
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -272,5 +290,88 @@
     left: 1rem;
     top: 1rem;
     z-index: 100;
+  }
+}
+
+/* スクロールバーを隠す（横スクロールのレール・ナビ） */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* 横スクロールの端を薄く消して「続きがある」ことを示す */
+@utility scroll-fade-x {
+  mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+}
+
+/*
+ * モバイルでは横スクロールのレール（スナップ付き）、md 以上では通常のグリッド。
+ * 使い方：<ul class="rail md:grid md:grid-cols-3 md:gap-6">（md 以上の表示は Tailwind のクラスで指定する）
+ */
+@utility rail {
+  @media (width < 48rem) {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & > * {
+      flex: 0 0 min(82%, 20rem);
+      scroll-snap-align: start;
+    }
+  }
+}
+
+/*
+ * 表をスマホでは縦積みにする。<td data-label="見出し"> を付けたセルにはラベルを表示する。
+ * sm 未満で thead を隠し、各行をカード状に並べる。
+ */
+@utility table-stack {
+  @media (width < 40rem) {
+    & thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    & tbody,
+    & tfoot,
+    & tr,
+    & td,
+    & th {
+      display: block;
+      width: 100%;
+    }
+    & tr {
+      padding-block: 0.875rem;
+      border-bottom: 1px solid var(--color-line);
+    }
+    & td,
+    & th {
+      padding: 0.125rem 0 !important;
+      text-align: left !important;
+      white-space: normal !important;
+    }
+    & td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      margin-top: 0.375rem;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--color-ink-3);
+    }
   }
 }

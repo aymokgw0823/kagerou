@@ -126,7 +126,7 @@ function ExtraSection({ extra }: { extra: BusinessExtra }) {
                     )}
                     <div className="p-5">
                       {m.category && <p className="text-ink-3 text-xs font-bold">{m.category}</p>}
-                      <div className="mt-1 flex items-baseline justify-between gap-3">
+                      <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                         <h3 className="font-bold">{m.name}</h3>
                         <span className="font-display text-sm font-bold whitespace-nowrap">{m.price}</span>
                       </div>
@@ -170,7 +170,7 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
           </span>
         }
         title={d.hero.headline}
-        tagline={b.tagline}
+        tagline={b.tagline !== d.hero.headline ? b.tagline : undefined}
         lead={d.hero.lead}
         photoId={d.hero.photoId}
         actions={
@@ -293,7 +293,7 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
             title="料金の目安"
             lead="内容・規模により変動します。まずはお気軽にご相談ください。"
           />
-          <table className="w-full border-collapse text-[0.9375rem]">
+          <table className="table-stack w-full border-collapse text-[0.9375rem]">
             <thead>
               <tr className="border-ink border-b-2 text-left text-sm">
                 <th className="py-3 pr-4 font-bold">プラン</th>
@@ -304,11 +304,13 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
             <tbody>
               {d.pricing.map((p) => (
                 <tr key={p.plan} className="border-line border-b align-top">
-                  <td className="py-4 pr-4 font-bold">{p.plan}</td>
-                  <td className="font-display py-4 pr-4 font-bold whitespace-nowrap">
+                  <td className="py-4 pr-4 font-bold max-sm:text-base">{p.plan}</td>
+                  <td className="font-display py-4 pr-4 font-bold whitespace-nowrap" data-label="料金">
                     <Placeholder value={p.price} />
                   </td>
-                  <td className="text-ink-2 py-4">{p.note}</td>
+                  <td className="text-ink-2 py-4 max-sm:text-sm" data-label="含まれる内容・条件">
+                    {p.note}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -333,7 +335,7 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
                 </LinkButton>
               }
             />
-            <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <ul className="rail md:grid md:grid-cols-3 md:gap-6">
               {works.map((w) => (
                 <li key={w.slug}>
                   <Card
@@ -367,7 +369,7 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
                 。結果はAIによる参考情報であり、正式な提案・見積もりではありません。
               </p>
             </div>
-            <div className="flex gap-3 lg:col-span-5 lg:justify-end">
+            <div className="flex gap-3 lg:col-span-5 lg:justify-end [&>a]:w-full sm:[&>a]:w-auto">
               <LinkButton href={tools[0].href} size="lg">
                 無料で試す
               </LinkButton>
@@ -386,7 +388,7 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
                 {d.extra.stores[0].name}（{d.extra.stores[0].hours}・定休日 {d.extra.stores[0].closed}）。営業時間内はご予約なしでもお入りいただけます。個室や団体でのご利用は、お電話または Web でご予約ください。
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-span-5 lg:justify-end">
               {d.extra.stores[0].tel && (
                 <LinkButton href={`tel:${d.extra.stores[0].tel.replace(/[^\d+]/g, "")}`} size="lg" variant="outline-light">
                   {d.extra.stores[0].tel}
@@ -415,7 +417,7 @@ export default async function BusinessPage({ params }: PageProps<"/business/[id]
                 </LinkButton>
               }
             />
-            <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <ul className="rail md:grid md:grid-cols-3 md:gap-6">
               {posts.map((p) => (
                 <li key={p.slug}>
                   <Card

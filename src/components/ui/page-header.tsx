@@ -13,9 +13,9 @@ export function PageHeader({ title, titleEn, lead, crumbs }: Props) {
   return (
     <div className="border-line bg-paper-2 border-b">
       <Breadcrumbs items={crumbs} />
-      <div className="container-max pt-6 pb-12 md:pt-8 md:pb-16">
+      <div className="container-max pt-4 pb-10 md:pt-8 md:pb-16">
         {titleEn && <p className="label-caps font-display mb-3">{titleEn}</p>}
-        <h1 className="text-3xl md:text-[2.5rem]">{title}</h1>
+        <h1 className="text-[1.75rem] leading-[1.3] md:text-[2.5rem]">{title}</h1>
         {lead && <p className="text-ink-2 mt-4 max-w-2xl">{lead}</p>}
       </div>
     </div>

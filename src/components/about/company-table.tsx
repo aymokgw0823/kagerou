@@ -93,14 +93,14 @@ export function CompanyTable({ locale = "ja" }: { locale?: Locale }) {
     { label: t.invoice, value: <Placeholder value={company.invoiceRegistrationNumber} /> },
   ];
   return (
-    <table className="w-full border-collapse text-[0.9375rem]">
+    <table className="w-full border-collapse text-[0.9375rem] max-sm:text-sm">
       <tbody>
         {rows.map((r) => (
           <tr key={r.label} className="border-line border-b">
-            <th scope="row" className="bg-paper-2 w-36 px-4 py-4 text-left align-top font-bold md:w-56">
+            <th scope="row" className="bg-paper-2 w-28 px-3 py-3 text-left align-top font-bold sm:w-36 sm:px-4 sm:py-4 md:w-56">
               {r.label}
             </th>
-            <td className="px-4 py-4 align-top">{r.value}</td>
+            <td className="px-3 py-3 align-top sm:px-4 sm:py-4">{r.value}</td>
           </tr>
         ))}
       </tbody>

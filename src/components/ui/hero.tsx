@@ -61,20 +61,24 @@ export function Hero({
         className={cn(
           "container-max flex flex-col justify-center",
           size === "tall"
-            ? "min-h-[36rem] py-24 md:min-h-[42rem]"
-            : "min-h-[22rem] py-16 md:min-h-[28rem] md:py-20",
+            ? "min-h-[32rem] py-20 md:min-h-[42rem] md:py-24"
+            : "min-h-[20rem] py-14 md:min-h-[28rem] md:py-20",
         )}
       >
         <div className="max-w-2xl">
           {eyebrow && <p className="mb-4 text-sm font-bold tracking-wide text-white/80">{eyebrow}</p>}
-          <h1 className="text-[2rem] leading-[1.3] md:text-[2.75rem]">{title}</h1>
-          {tagline && <p className="mt-5 text-lg font-bold md:text-xl">{tagline}</p>}
+          <h1 className="text-[1.875rem] leading-[1.3] md:text-[2.75rem]">{title}</h1>
+          {tagline && <p className="mt-4 text-base font-bold md:mt-5 md:text-xl">{tagline}</p>}
           {lead && (
             <div className="mt-4 max-w-xl text-[0.9375rem] leading-[1.9] text-white/85 md:text-base">
               {lead}
             </div>
           )}
-          {actions && <div className="mt-8 flex flex-wrap gap-3">{actions}</div>}
+          {actions && (
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap [&>a]:w-full sm:[&>a]:w-auto">
+              {actions}
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -156,7 +156,8 @@ export function BookingForm({ initialBusiness, consultationId }: Props) {
               次の週 →
             </button>
           </div>
-          <div className="divide-line grid grid-cols-5 divide-x">
+          <div className="scrollbar-none overflow-x-auto">
+            <div className="divide-line grid min-w-[19rem] grid-cols-5 divide-x">
             {visible.map((day) => (
               <div key={day.key} className="p-1.5">
                 <p className="mb-1 text-center text-xs font-bold">
@@ -191,6 +192,7 @@ export function BookingForm({ initialBusiness, consultationId }: Props) {
                 </ul>
               </div>
             ))}
+            </div>
           </div>
         </div>
         <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">

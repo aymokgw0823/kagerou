@@ -104,10 +104,24 @@ export function ReformWizard() {
       <h2 id={headingId} className="sr-only">
         写真でリフォーム相談
       </h2>
-      {/* 進捗 */}
-      <ol className="mb-8 flex items-center gap-2 text-xs font-bold" aria-label="手順">
+      {/* 進捗（スマホ：現在のステップ＋バー／sm 以上：全ステップ） */}
+      <div className="mb-6 sm:hidden" aria-hidden>
+        <div className="flex items-baseline justify-between text-xs font-bold">
+          <span className="font-display text-ink-3">
+            STEP {stepIndex + 1} / {steps.length}
+          </span>
+          <span>{steps[stepIndex]?.label}</span>
+        </div>
+        <div className="bg-paper-2 rounded-pill mt-2 h-1.5 overflow-hidden">
+          <div
+            className="bg-link ease-brand h-full rounded-pill transition-[width] duration-500"
+            style={{ width: `${((stepIndex + 1) / steps.length) * 100}%` }}
+          />
+        </div>
+      </div>
+      <ol className="mb-8 hidden items-center gap-2 text-xs font-bold sm:flex" aria-label="手順">
         {steps.map((s, i) => (
-          <li key={s.id} className="flex items-center gap-2">
+          <li key={s.id} className="flex items-center gap-2 whitespace-nowrap">
             <span
               className={cn(
                 "font-display flex h-6 w-6 items-center justify-center rounded-full",
@@ -191,11 +205,12 @@ export function ReformWizard() {
               addFiles(e.dataTransfer.files);
             }}
             className={cn(
-              "rounded-brand mt-5 border-2 border-dashed p-8 text-center transition-colors",
+              "rounded-brand mt-5 border-2 border-dashed p-5 text-center transition-colors sm:p-8",
               dragOver ? "border-link bg-tint" : "border-line",
             )}
           >
-            <p className="text-ink-2 text-sm">ここに写真をドラッグ＆ドロップ</p>
+            <p className="text-ink-2 text-sm max-sm:hidden">ここに写真をドラッグ＆ドロップ</p>
+            <p className="text-ink-2 text-sm sm:hidden">写真を選ぶか、その場で撮影できます</p>
             <div className="mt-4 flex flex-wrap justify-center gap-3">
               <button
                 type="button"
@@ -465,7 +480,7 @@ export function ReformResultView({ result, onRestart }: { result: ReformResult; 
       {!a.notRelevant && a.candidates.length > 0 && (
         <div className="card p-6 md:p-8">
           <h3 className="text-2xl font-bold">考えられる施工内容と概算の費用レンジ</h3>
-          <table className="mt-4 w-full border-collapse text-sm">
+          <table className="table-stack mt-4 w-full border-collapse text-sm">
             <thead>
               <tr className="border-ink border-b-2 text-left text-xs">
                 <th className="py-2 pr-3">施工内容</th>
@@ -481,17 +496,17 @@ export function ReformResultView({ result, onRestart }: { result: ReformResult; 
                     <td className="py-3 pr-3">
                       <span className="font-bold">{l.label}</span>
                       {c && (
-                        <span className="rounded-pill border-line text-ink-3 ml-2 border px-2 py-px text-[10px] font-bold">
+                        <span className="rounded-pill border-line text-ink-3 ml-2 inline-block border px-2 py-px text-[10px] font-bold whitespace-nowrap">
                           {priorityLabel[c.priority]}
                         </span>
                       )}
                       {c && <p className="text-ink-2 mt-1 text-xs">{c.rationale}</p>}
                     </td>
-                    <td className="py-3 pr-3 whitespace-nowrap">
+                    <td className="py-3 pr-3 whitespace-nowrap" data-label="数量（推定）">
                       {l.quantity} {l.unit}
                       {l.quantityEstimated && <span className="text-ink-3 ml-1 text-[10px]">（標準値）</span>}
                     </td>
-                    <td className="font-display py-3 text-right font-bold whitespace-nowrap">
+                    <td className="font-display py-3 text-right font-bold whitespace-nowrap" data-label="概算">
                       {l.min === 0 && l.max === 0 ? "無料" : `${formatYen(l.min)}〜${formatYen(l.max)}`}
                     </td>
                   </tr>
@@ -499,11 +514,11 @@ export function ReformResultView({ result, onRestart }: { result: ReformResult; 
               })}
             </tbody>
             <tfoot>
-              <tr>
-                <td colSpan={2} className="py-3 font-bold">
+              <tr className="max-sm:flex max-sm:items-baseline max-sm:justify-between max-sm:gap-3 max-sm:border-0">
+                <td colSpan={2} className="py-3 font-bold max-sm:w-auto">
                   合計の目安
                 </td>
-                <td className="font-display py-3 text-right text-lg font-bold">
+                <td className="font-display py-3 text-right text-lg font-bold max-sm:w-auto max-sm:text-right!">
                   {formatYen(result.estimate.totalMin)}〜{formatYen(result.estimate.totalMax)}
                 </td>
               </tr>
@@ -520,7 +535,7 @@ export function ReformResultView({ result, onRestart }: { result: ReformResult; 
             <li key={s}>{s}</li>
           ))}
         </ol>
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <LinkButton
             href={`/booking?business=build&consultation=${encodeURIComponent(result.id)}`}
             size="lg"
@@ -543,7 +558,7 @@ export function ReformResultView({ result, onRestart }: { result: ReformResult; 
       {result.similarWorks.length > 0 && (
         <div>
           <h3 className="mb-4 text-xl font-bold">類似の施工事例</h3>
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <ul className="rail md:grid md:grid-cols-3 md:gap-4">
             {result.similarWorks.map((w) => (
               <li key={w.slug}>
                 <Link

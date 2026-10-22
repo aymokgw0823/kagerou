@@ -85,13 +85,13 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "mb-10 flex flex-col gap-5 md:mb-14",
+        "mb-8 flex flex-col gap-4 md:mb-14 md:gap-5",
         align === "center" ? "items-center text-center" : "md:flex-row md:items-end md:justify-between",
         className,
       )}
     >
       <div className={cn("max-w-3xl", align === "center" && "mx-auto")}>
-        <Tag className={cn("text-3xl md:text-[2.5rem]")}>{title}</Tag>
+        <Tag className={cn("text-[1.75rem] leading-[1.3] md:text-[2.5rem]")}>{title}</Tag>
         {lead && <div className="text-ink-2 mt-5 text-base leading-[1.9] md:text-[1.0625rem]">{lead}</div>}
       </div>
       {action && <div className="shrink-0">{action}</div>}

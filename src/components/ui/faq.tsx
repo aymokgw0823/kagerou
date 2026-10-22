@@ -15,7 +15,7 @@ export function Faq({ items, title = "よくあるご質問" }: Props) {
   };
   return (
     <div>
-      <h2 className="mb-8 text-3xl md:text-[2.5rem]">{title}</h2>
+      <h2 className="mb-6 text-[1.75rem] leading-[1.3] md:mb-8 md:text-[2.5rem]">{title}</h2>
       <div className="divide-line border-line divide-y border-y">
         {items.map((f) => (
           <details key={f.q} className="group">

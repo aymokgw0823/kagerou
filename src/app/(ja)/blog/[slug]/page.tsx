@@ -238,7 +238,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         <Section surface="paper-2" spacing="sm" className="mt-16">
           <div className="container-max">
             <h2 className="mb-6 text-2xl">関連する記事</h2>
-            <ul className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            <ul className="rail md:grid md:grid-cols-3 md:gap-5">
               {related.map((p) => (
                 <li key={p.slug}>
                   <PostCard post={p} />

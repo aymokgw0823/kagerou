@@ -44,18 +44,18 @@ export function Card({
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
         />
       )}
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         {(meta || isDummy) && (
           <div className="text-ink-3 mb-3 flex items-center gap-2 text-xs">
             {meta}
             <DummyBadge show={isDummy} />
           </div>
         )}
-        <h3 className="text-xl leading-snug font-bold">{title}</h3>
+        <h3 className="text-lg leading-snug font-bold sm:text-xl">{title}</h3>
         {description && <div className="text-ink-2 mt-3 text-[0.9375rem] leading-[1.8]">{description}</div>}
         {children}
         {href && (
-          <span className="link-arrow text-link mt-auto pt-6">
+          <span className="link-arrow text-link mt-auto pt-5 sm:pt-6">
             {linkLabel}
             <Arrow />
           </span>

@@ -21,10 +21,10 @@ export function Footer({ locale = "ja" }: { locale?: Locale }) {
     <footer>
       {/* 黒い「Let's connect」ブロック */}
       <div className="bg-black text-white">
-        <div className="container-max grid grid-cols-12 gap-x-8 gap-y-12 py-16 md:py-20">
-          <div className="col-span-12 lg:col-span-4">
+        <div className="container-max grid grid-cols-1 gap-y-10 py-14 md:py-20 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-12">
+          <div className="lg:col-span-4">
             <p className="font-display text-3xl font-bold md:text-[2rem]">Let&rsquo;s connect</p>
-            <ul className="mt-8 space-y-4">
+            <ul className="mt-6 space-y-3 md:mt-8 md:space-y-4">
               {quickLinks.map((l) => (
                 <li key={l.href}>
                   <Link
@@ -40,7 +40,7 @@ export function Footer({ locale = "ja" }: { locale?: Locale }) {
           </div>
           <nav
             aria-label="フッターナビゲーション"
-            className="col-span-12 grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 lg:col-span-8"
+            className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 lg:col-span-8 lg:gap-x-8"
           >
             {footerNav.map((group) => (
               <div key={group.heading}>
@@ -60,7 +60,7 @@ export function Footer({ locale = "ja" }: { locale?: Locale }) {
               </div>
             ))}
           </nav>
-          <div className="col-span-12 flex flex-col gap-6 border-t border-white/15 pt-8 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-6 border-t border-white/15 pt-8 md:flex-row md:items-center md:justify-between lg:col-span-12">
             <Logo inverted href={en ? "/en" : "/"} />
             <p className="max-w-xl text-xs leading-relaxed text-white/60">{site.tagline}</p>
           </div>
