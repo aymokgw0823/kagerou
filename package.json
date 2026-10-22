@@ -28,7 +28,8 @@
     "build:fonts": "tsx scripts/build-fonts.ts",
     "photo:prompts": "tsx scripts/photo-prompts.ts",
     "photo:import": "tsx scripts/import-photos.ts",
-    "build:icons": "tsx scripts/build-brand-icons.ts"
+    "build:icons": "tsx scripts/build-brand-icons.ts",
+    "db:postgres-schema": "tsx scripts/build-postgres-schema.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.137.0",

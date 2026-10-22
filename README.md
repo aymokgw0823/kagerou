@@ -84,12 +84,13 @@ frontmatter はビルド時に zod で検証され、不正な値はエラーに
 
 ## 本番デプロイ（Vercel）
 
-1. リポジトリを Vercel にインポート（Framework: Next.js）。
-2. 環境変数を設定（上記）。`DATABASE_URL` は PostgreSQL（Vercel Postgres / Neon など）。`NEXT_PUBLIC_SITE_URL` に本番 URL。
-3. `prisma/schema.prisma` の `provider` を `postgresql` にし、`npx prisma migrate deploy` をデプロイ前（Build Command の先頭）に実行：`npx prisma migrate deploy && npm run build`。
-4. 履歴書アップロードは `src/lib/storage.ts` を Vercel Blob などの実装に差し替える（既定はローカルディスク）。
-5. レート制限は `src/lib/rate-limit.ts` の `RateLimitStore` を KV 実装に差し替えると複数インスタンスでも厳密になる。
-6. 公開前に `npm run check:dummy:md` で `docs/replace-checklist.md` を更新し、すべて消化する。`CHECK_DUMMY_STRICT=1` でビルドを失敗させることもできる。
+1. GitHub のリポジトリを Vercel にインポート（Framework: Next.js）。`vercel.json` の Build Command（`npx prisma migrate deploy && npm run build`）が使われる。
+2. Vercel Marketplace から **Neon（PostgreSQL）** を追加すると `DATABASE_URL`（postgres://…）が自動で設定される。
+   `prisma.config.ts` は `DATABASE_URL` が `postgres://` なら自動で `prisma/postgres/`（PostgreSQL 用スキーマとマイグレーション）を使う。
+   `prisma/schema.prisma` を変更したら `npm run db:postgres-schema` で PostgreSQL 用スキーマを再生成し、
+   `npx prisma migrate diff --from-migrations prisma/postgres/migrations --to-schema prisma/postgres/schema.prisma --script` で差分 SQL を `prisma/postgres/migrations/<timestamp>_<name>/migration.sql` に追加する。
+3. 環境変数を設定（上記）。最低限 `NEXT_PUBLIC_SITE_URL`（本番 URL）、`ADMIN_USER` / `ADMIN_PASSWORD` / `ADMIN_SESSION_SECRET`。AI を実際に動かすなら `ANTHROPIC_API_KEY`、メール送信は `RESEND_API_KEY` と `MAIL_*`。
+4. 履歴書アップロードは Vercel では `/tmp`（デプロイごとに消える）に保存される。確実に保管するには `src/lib/storage.ts` を Vercel Blob などの実装に差し替える。
 
 ## フォント
 

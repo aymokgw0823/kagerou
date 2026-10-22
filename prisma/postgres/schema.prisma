@@ -1,0 +1,118 @@
+// Prisma スキーマ（PostgreSQL・本番用）。このファイルは scripts/build-postgres-schema.ts が prisma/schema.prisma から生成する。直接編集しない。
+// 開発は SQLite。本番は provider を "postgresql" に変更し、DATABASE_URL に postgres:// を設定する（src/lib/db.ts がアダプターを自動選択）。
+// SQLite は Json 型を持たないため、JSON は String（文字列）で保持する。
+
+generator client {
+  provider = "prisma-client"
+  output   = "../../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// お問い合わせ・資料請求・PDFダウンロード時のメール入力などの「リード」
+model Lead {
+  id             String   @id @default(cuid())
+  /// contact | reform-pdf | other
+  kind           String
+  /// build | dining | other
+  business       String?
+  name           String
+  kana           String?
+  email          String
+  tel            String?
+  company        String?
+  subject        String?
+  message        String
+  /// 事業別の追加項目（JSON 文字列）
+  extra          String?
+  /// AIリフォーム相談の結果ID（遷移元）
+  consultationId String?
+  /// 流入元ページ
+  source         String?
+  ip             String?
+  userAgent      String?
+  createdAt      DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([kind])
+}
+
+/// ご相談・現地調査の予約
+model Booking {
+  id             String    @id @default(cuid())
+  name           String
+  kana           String?
+  email          String
+  tel            String?
+  /// build | dining | other
+  business       String
+  topic          String?
+  /// 第1希望・第2希望
+  slot           DateTime
+  altSlot        DateTime?
+  note           String?
+  consultationId String?
+  /// requested | confirmed | cancelled
+  status         String    @default("requested")
+  ip             String?
+  createdAt      DateTime  @default(now())
+
+  @@index([slot])
+  @@index([status])
+}
+
+/// 採用エントリー
+model Entry {
+  id         String   @id @default(cuid())
+  jobSlug    String
+  jobTitle   String
+  name       String
+  kana       String
+  email      String
+  tel        String
+  address    String?
+  message    String?
+  /// 履歴書ファイル（ストレージ上のキー）
+  resumeKey  String?
+  resumeName String?
+  consent    Boolean  @default(false)
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+/// AI機能の相談ログ（Phase 5 で使用）。個人情報はマスキングして保存する
+model Consultation {
+  id           String    @id @default(cuid())
+  /// reform | concierge
+  tool         String
+  /// started | completed | failed | abandoned
+  status       String    @default("started")
+  /// 入力の要約（個人情報はマスク済み）
+  inputSummary String?
+  /// 構造化出力（JSON 文字列）
+  resultJson   String?
+  /// マスク済みメール（例：a***@example.com）
+  emailMasked  String?
+  tokensIn     Int       @default(0)
+  tokensOut    Int       @default(0)
+  /// demo | live
+  mode         String    @default("demo")
+  sessionId    String?
+  ip           String?
+  createdAt    DateTime  @default(now())
+  completedAt  DateTime?
+
+  @@index([tool, createdAt])
+}
+
+/// 日次のトークン使用量（コスト上限の判定に使用）
+model DailyUsage {
+  date      String @id
+  tokensIn  Int    @default(0)
+  tokensOut Int    @default(0)
+  calls     Int    @default(0)
+}
