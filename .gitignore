@@ -59,3 +59,11 @@ next-env.d.ts
 
 # generated fonts
 /public/fonts/
+
+# Vercel / Neon の skills インストーラーが置くファイル
+/.agents/
+/.claude/skills/
+/skills-lock.json
+
+# Finder / 同期の複製ファイル（"xxx 2.ts" など）
+* [0-9].*
